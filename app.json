@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "TEA Kids",
+    "slug": "tea-mvp-childs",
+    "version": "1.0.0",
+    "orientation": "default",
+    "scheme": "tea-kids",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F0F4F8",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "backgroundColor": "#F0F4F8",
+      "resizeMode": "contain",
+      "image": "./assets/splash.png"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.teakids.app",
+      "icon": "./assets/icon.png"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F0F4F8",
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundImage": "./assets/adaptive-icon.png"
+      },
+      "package": "com.teakids.app"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      }
+    },
+    "owner": "valdenortavares"
+  }
+}
