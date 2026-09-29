@@ -2,9 +2,16 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.0.0
+## Versão Atual: 1.1.0
 
 ### Changelog
+
+#### v1.1.0 (2026-09-29)
+- **Tema claro/escuro/automático** em todas as telas
+- **Card SOS estilo carta de baralho** com bordas arredondadas e sombra
+- **Ícone da fita de puzzle** (símbolo do autismo) em todas as densidades Android
+- **Informações do desenvolvedor** na seção Sobre
+- **Estrutura de rotas** corrigida (app/ na raiz para Expo Router)
 
 #### v1.0.0 (2026-09-28)
 - Lançamento inicial do MVP Kids
