@@ -4,17 +4,13 @@ import {
   Text,
   Pressable,
   StyleSheet,
-  ScrollView,
   Animated,
-  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { BREATHING_EXERCISES, BreathingExerciseConfig } from "@/types/coping";
 
 export default function BreathingGuideScreen() {
-  const { width } = useWindowDimensions();
-  const CIRCLE_SIZE = width * 0.6;
 
   const [selectedExercise, setSelectedExercise] = useState<BreathingExerciseConfig>(
     BREATHING_EXERCISES[0]
@@ -283,9 +279,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   circle: {
-    width: CIRCLE_SIZE,
-    height: CIRCLE_SIZE,
-    borderRadius: CIRCLE_SIZE / 2,
+    width: "60%",
+    aspectRatio: 1,
+    borderRadius: 9999,
     backgroundColor: "#63B3ED",
     justifyContent: "center",
     alignItems: "center",

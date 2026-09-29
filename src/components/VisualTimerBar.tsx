@@ -20,7 +20,7 @@ export function VisualTimerBar({
   useEffect(() => {
     const totalDuration = endTime - startTime;
     const remaining = Math.max(0, endTime - Date.now());
-    const progressValue = remaining / totalDuration;
+    const progressValue = totalDuration > 0 ? remaining / totalDuration : 0;
 
     progress.setValue(1);
 

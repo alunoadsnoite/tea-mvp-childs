@@ -58,7 +58,7 @@ export default function HomeScreen() {
             </Pressable>
           </Link>
 
-          <Link href="/crisis-settings" asChild>
+          <Link href="/settings" asChild>
             <Pressable style={styles.secondaryButton}>
               <Text style={styles.secondaryButtonEmoji}>⚙️</Text>
               <Text style={styles.secondaryButtonText}>

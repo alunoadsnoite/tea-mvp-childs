@@ -11,10 +11,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useCrisisStore } from "@/stores/crisisStore";
-import { useFontScale } from "@/hooks/useFontScale";
 
 export default function CrisisSettingsScreen() {
-  const { fontSize } = useFontScale();
   const {
     messages,
     contacts,
@@ -369,7 +367,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: "#2D3748",
-    fontSize: fontSize(20),
+    fontSize: 20,
     fontWeight: "700",
   },
   itemCard: {
@@ -392,12 +390,12 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     color: "#2D3748",
-    fontSize: fontSize(16),
+    fontSize: 16,
     fontWeight: "700",
   },
   itemDescription: {
     color: "#718096",
-    fontSize: fontSize(14),
+    fontSize: 14,
     lineHeight: 20,
     marginTop: 4,
   },
@@ -410,15 +408,15 @@ const styles = StyleSheet.create({
   },
   actionButtonText: {
     color: "#63B3ED",
-    fontSize: fontSize(14),
+    fontSize: 14,
   },
   actionButtonTextDelete: {
     color: "#FC8181",
-    fontSize: fontSize(14),
+    fontSize: 14,
   },
   emptyText: {
     color: "#A0AEC0",
-    fontSize: fontSize(14),
+    fontSize: 14,
     textAlign: "center",
     padding: 16,
   },
@@ -432,7 +430,7 @@ const styles = StyleSheet.create({
   },
   formTitle: {
     color: "#2D3748",
-    fontSize: fontSize(16),
+    fontSize: 16,
     fontWeight: "700",
   },
   input: {
@@ -440,7 +438,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     color: "#2D3748",
-    fontSize: fontSize(16),
+    fontSize: 16,
     borderWidth: 2,
     borderColor: "#E2E8F0",
   },
@@ -481,7 +479,7 @@ const styles = StyleSheet.create({
   },
   cancelButtonText: {
     color: "#A0AEC0",
-    fontSize: fontSize(16),
+    fontSize: 16,
   },
   saveButton: {
     backgroundColor: "#63B3ED",
@@ -491,7 +489,7 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     color: "#FFFFFF",
-    fontSize: fontSize(16),
+    fontSize: 16,
     fontWeight: "700",
   },
   resetButton: {
@@ -504,6 +502,6 @@ const styles = StyleSheet.create({
   },
   resetButtonText: {
     color: "#FC8181",
-    fontSize: fontSize(16),
+    fontSize: 16,
   },
 });

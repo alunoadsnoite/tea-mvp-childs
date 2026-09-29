@@ -45,7 +45,7 @@ export default function RoutinesListScreen() {
             </View>
             
             <View style={styles.stepsPreview}>
-              {routine.steps.slice(0, 3).map((step, index) => (
+              {routine.steps.slice(0, 3).map((step) => (
                 <View key={step.id} style={styles.stepRow}>
                   <Text style={styles.stepEmoji}>{step.emoji}</Text>
                   <Text style={styles.stepText}>{step.title}</Text>

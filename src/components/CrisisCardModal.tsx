@@ -37,7 +37,7 @@ export function CrisisCardModal() {
   const handleScroll = (event: ScrollViewEvent) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(contentOffsetX / width);
-    if (index !== currentIndex && index >= 0 && index < messages.length) {
+    if (index !== currentIndex && index >= 0 && index < messages.length && messages[index]) {
       setCurrentIndex(index);
       setActiveMessage(messages[index].id);
     }

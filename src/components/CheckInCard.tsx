@@ -4,6 +4,11 @@ import { useCheckInStore } from "@/stores/checkInStore";
 
 const EMOJI_LEVELS = ["😞", "😕", "😐", "🙂", "😄"];
 
+const getEmoji = (level: number) => {
+  const index = Math.min(Math.max(level - 1, 0), EMOJI_LEVELS.length - 1);
+  return EMOJI_LEVELS[index];
+};
+
 export function CheckInCard() {
   const lastEntry = useCheckInStore((state) => state.getLastEntry());
 
@@ -30,17 +35,17 @@ export function CheckInCard() {
       
       <View style={styles.metrics}>
         <View style={styles.metric}>
-          <Text style={styles.metricEmoji}>{EMOJI_LEVELS[lastEntry.happiness - 1]}</Text>
+          <Text style={styles.metricEmoji}>{getEmoji(lastEntry.happiness)}</Text>
           <Text style={styles.metricLabel}>Felicidade</Text>
         </View>
         
         <View style={styles.metric}>
-          <Text style={styles.metricEmoji}>{EMOJI_LEVELS[lastEntry.energy - 1]}</Text>
+          <Text style={styles.metricEmoji}>{getEmoji(lastEntry.energy)}</Text>
           <Text style={styles.metricLabel}>Energia</Text>
         </View>
         
         <View style={styles.metric}>
-          <Text style={styles.metricEmoji}>{EMOJI_LEVELS[lastEntry.calm - 1]}</Text>
+          <Text style={styles.metricEmoji}>{getEmoji(lastEntry.calm)}</Text>
           <Text style={styles.metricLabel}>Calma</Text>
         </View>
       </View>

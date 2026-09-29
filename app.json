@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "default",
     "scheme": "tea-kids",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "backgroundColor": "#F0F4F8",
     "icon": "./assets/icon.png",
     "splash": {

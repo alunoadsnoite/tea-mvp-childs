@@ -11,6 +11,11 @@ import { useCheckInStore } from "@/stores/checkInStore";
 
 const EMOJI_LEVELS = ["😞", "😕", "😐", "🙂", "😄"];
 
+const getEmoji = (level: number) => {
+  const index = Math.min(Math.max(level - 1, 0), EMOJI_LEVELS.length - 1);
+  return EMOJI_LEVELS[index];
+};
+
 export default function CheckInHistoryScreen() {
   const getRecentEntries = useCheckInStore((state) => state.getRecentEntries);
   const entries = getRecentEntries(7);
@@ -62,17 +67,17 @@ export default function CheckInHistoryScreen() {
                   
                   <View style={styles.metrics}>
                     <View style={styles.metric}>
-                      <Text style={styles.metricEmoji}>{EMOJI_LEVELS[entry.happiness - 1]}</Text>
+                      <Text style={styles.metricEmoji}>{getEmoji(entry.happiness)}</Text>
                       <Text style={styles.metricLabel}>Felicidade</Text>
                     </View>
                     
                     <View style={styles.metric}>
-                      <Text style={styles.metricEmoji}>{EMOJI_LEVELS[entry.energy - 1]}</Text>
+                      <Text style={styles.metricEmoji}>{getEmoji(entry.energy)}</Text>
                       <Text style={styles.metricLabel}>Energia</Text>
                     </View>
                     
                     <View style={styles.metric}>
-                      <Text style={styles.metricEmoji}>{EMOJI_LEVELS[entry.calm - 1]}</Text>
+                      <Text style={styles.metricEmoji}>{getEmoji(entry.calm)}</Text>
                       <Text style={styles.metricLabel}>Calma</Text>
                     </View>
                   </View>

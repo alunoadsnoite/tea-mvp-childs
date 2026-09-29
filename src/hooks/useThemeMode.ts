@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useColorScheme } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -12,18 +12,28 @@ export function useThemeMode() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+    
     AsyncStorage.getItem(THEME_STORAGE_KEY).then((saved) => {
-      if (saved === "light" || saved === "dark" || saved === "auto") {
-        setMode(saved);
+      if (isMounted) {
+        if (saved === "light" || saved === "dark" || saved === "auto") {
+          setMode(saved);
+        }
+        setIsLoaded(true);
       }
-      setIsLoaded(true);
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const changeMode = (newMode: ThemeMode) => {
+  const changeMode = useCallback((newMode: ThemeMode) => {
     setMode(newMode);
-    AsyncStorage.setItem(THEME_STORAGE_KEY, newMode);
-  };
+    AsyncStorage.setItem(THEME_STORAGE_KEY, newMode).catch(() => {
+      // Silenciosamente falha se não conseguir salvar
+    });
+  }, []);
 
   const isDark = mode === "dark" || (mode === "auto" && systemColorScheme === "dark");
 
