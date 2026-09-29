@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useCrisisStore } from "@/stores/crisisStore";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 interface ScrollViewEvent {
   nativeEvent: {
@@ -22,6 +23,7 @@ interface ScrollViewEvent {
 export function CrisisCardModal() {
   const { messages, contacts, activeMessageId, setActiveMessage, primaryContactId } =
     useCrisisStore();
+  const { colors } = useThemeMode();
   const [currentIndex, setCurrentIndex] = useState(() => {
     if (!activeMessageId || messages.length === 0) return 0;
     const index = messages.findIndex((m) => m.id === activeMessageId);
@@ -63,10 +65,10 @@ export function CrisisCardModal() {
   if (!currentMessage) return null;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       {messages.length > 1 && (
         <View style={styles.pageIndicator}>
-          <Text style={styles.pageIndicatorText}>
+          <Text style={[styles.pageIndicatorText, { color: colors.textSecondary }]}>
             {currentIndex + 1} / {messages.length}
           </Text>
         </View>
@@ -82,11 +84,14 @@ export function CrisisCardModal() {
       >
         {messages.map((message) => (
           <View key={message.id} style={[styles.messageContainer, { width }]}>
-            <View style={styles.messageContentWrapper}>
+            <View style={[styles.messageContentWrapper, { 
+              backgroundColor: colors.surface,
+              borderColor: colors.accent,
+            }]}>
               <Text style={styles.messageEmoji}>{message.emoji}</Text>
-              <Text style={styles.messageTitle}>{message.title}</Text>
-              <View style={styles.divider} />
-              <Text style={styles.messageContent}>{message.content}</Text>
+              <Text style={[styles.messageTitle, { color: colors.text }]}>{message.title}</Text>
+              <View style={[styles.divider, { backgroundColor: colors.accent }]} />
+              <Text style={[styles.messageContent, { color: colors.textSecondary }]}>{message.content}</Text>
             </View>
           </View>
         ))}
@@ -95,21 +100,21 @@ export function CrisisCardModal() {
       {contacts[0] && (
         <View style={styles.emergencyActions}>
           <Pressable
-            style={styles.emergencyButton}
+            style={[styles.emergencyButton, { backgroundColor: colors.accent }]}
             onPress={handleEmergencyCall}
             accessibilityLabel={`Ligar para ${contacts[0].name}`}
           >
-            <Text style={styles.emergencyButtonText}>
+            <Text style={[styles.emergencyButtonText, { color: colors.background }]}>
               📞 Ligar para {contacts[0].name}
             </Text>
           </Pressable>
 
           <Pressable
-            style={styles.emergencyButtonSecondary}
+            style={[styles.emergencyButtonSecondary, { borderColor: colors.accent }]}
             onPress={handleEmergencyMessage}
             accessibilityLabel={`Enviar mensagem para ${contacts[0].name}`}
           >
-            <Text style={styles.emergencyButtonSecondaryText}>
+            <Text style={[styles.emergencyButtonSecondaryText, { color: colors.accent }]}>
               💬 Enviar mensagem
             </Text>
           </Pressable>
@@ -117,7 +122,7 @@ export function CrisisCardModal() {
       )}
 
       {messages.length > 1 && (
-        <Text style={styles.swipeHint}>
+        <Text style={[styles.swipeHint, { color: colors.textSecondary }]}>
           👈 Deslize para ver mais 👉
         </Text>
       )}
@@ -128,7 +133,6 @@ export function CrisisCardModal() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
     paddingHorizontal: 24,
     paddingTop: 60,
     paddingBottom: 32,
@@ -138,7 +142,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   pageIndicatorText: {
-    color: "#718096",
     fontSize: 14,
   },
   messageContainer: {
@@ -151,47 +154,52 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
-    paddingHorizontal: 8,
+    width: "90%",
+    maxWidth: 400,
+    borderRadius: 24,
+    padding: 24,
+    borderWidth: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   messageEmoji: {
-    fontSize: 64,
-    marginBottom: 24,
+    fontSize: 48,
+    marginBottom: 16,
   },
   messageTitle: {
-    color: "#2D3748",
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "800",
-    marginBottom: 24,
+    marginBottom: 16,
     textAlign: "center",
+    flexShrink: 1,
   },
   divider: {
     width: 60,
     height: 4,
-    backgroundColor: "#63B3ED",
     borderRadius: 2,
-    marginBottom: 32,
+    marginBottom: 24,
   },
   messageContent: {
-    color: "#4A5568",
-    fontSize: 22,
-    lineHeight: 32,
+    fontSize: 18,
+    lineHeight: 28,
     textAlign: "center",
     fontWeight: "500",
+    flexShrink: 1,
   },
   emergencyActions: {
     gap: 12,
     marginTop: 32,
   },
   emergencyButton: {
-    backgroundColor: "#FF6B6B",
     paddingVertical: 18,
     paddingHorizontal: 24,
     borderRadius: 12,
     alignItems: "center",
   },
   emergencyButtonText: {
-    color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "700",
   },
@@ -202,15 +210,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#FF6B6B",
   },
   emergencyButtonSecondaryText: {
-    color: "#FF6B6B",
     fontSize: 16,
     fontWeight: "600",
   },
   swipeHint: {
-    color: "#A0AEC0",
     fontSize: 14,
     textAlign: "center",
     marginTop: 16,

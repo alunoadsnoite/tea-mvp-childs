@@ -9,11 +9,13 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 import { useRoutineStore } from "@/stores/routineStore";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function RoutinesListScreen() {
   const router = useRouter();
   const routines = useRoutineStore((state) => state.routines);
   const startExecution = useRoutineStore((state) => state.startExecution);
+  const { colors } = useThemeMode();
 
   const handleStartRoutine = (routineId: string) => {
     startExecution(routineId);
@@ -21,13 +23,13 @@ export default function RoutinesListScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "Minhas Rotinas",
-          headerStyle: { backgroundColor: "#F0F4F8" },
-          headerTintColor: "#2D3748",
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
         }}
       />
       
@@ -74,7 +76,6 @@ export default function RoutinesListScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   scrollView: {
     flex: 1,
@@ -84,11 +85,9 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   routineCard: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 20,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     gap: 16,
   },
   routineHeader: {
@@ -103,12 +102,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   routineName: {
-    color: "#2D3748",
     fontSize: 20,
     fontWeight: "700",
   },
   routineDescription: {
-    color: "#718096",
     fontSize: 14,
     marginTop: 2,
   },
@@ -124,11 +121,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   stepText: {
-    color: "#4A5568",
     fontSize: 14,
   },
   moreSteps: {
-    color: "#A0AEC0",
     fontSize: 12,
     fontStyle: "italic",
     marginLeft: 28,

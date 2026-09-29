@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 import { useRoutineStore } from "@/stores/routineStore";
 import { VisualTimerBar } from "@/components/VisualTimerBar";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function RoutineExecutionScreen() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function RoutineExecutionScreen() {
   const resumeExecution = useRoutineStore((state) => state.resumeExecution);
   const extendTime = useRoutineStore((state) => state.extendTime);
   const stopExecution = useRoutineStore((state) => state.stopExecution);
+  const { colors } = useThemeMode();
 
   const [, setTick] = useState(0);
 
@@ -32,14 +34,14 @@ export default function RoutineExecutionScreen() {
 
   if (!execution) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>Nenhuma rotina em andamento</Text>
+          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>Nenhuma rotina em andamento</Text>
           <Pressable
-            style={styles.backButton}
+            style={[styles.backButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
             onPress={() => router.back()}
           >
-            <Text style={styles.backButtonText}>Voltar</Text>
+            <Text style={[styles.backButtonText, { color: colors.text }]}>Voltar</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -69,7 +71,7 @@ export default function RoutineExecutionScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: false,

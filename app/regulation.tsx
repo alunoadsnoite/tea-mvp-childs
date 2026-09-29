@@ -10,11 +10,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter } from "expo-router";
 import { useCopingCardsStore } from "@/stores/copingCardsStore";
 import { CopingCardCategory } from "@/types/coping";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function CopingCardsScreen() {
   const router = useRouter();
   const cards = useCopingCardsStore((state) => state.cards);
   const toggleFavorite = useCopingCardsStore((state) => state.toggleFavorite);
+  const { colors } = useThemeMode();
   
   const [selectedCategory, setSelectedCategory] = useState<CopingCardCategory | "all">("all");
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
@@ -44,13 +46,13 @@ export default function CopingCardsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "Hora de Acalmar",
-          headerStyle: { backgroundColor: "#F0F4F8" },
-          headerTintColor: "#2D3748",
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
         }}
       />
       
@@ -152,25 +154,21 @@ export default function CopingCardsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   filters: {
     padding: 16,
     gap: 12,
     borderBottomWidth: 2,
-    borderBottomColor: "#E2E8F0",
   },
   categoryFilters: {
     flexDirection: "row",
     gap: 8,
   },
   categoryButton: {
-    backgroundColor: "#FFFFFF",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
@@ -183,7 +181,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   categoryButtonText: {
-    color: "#4A5568",
     fontSize: 14,
   },
   categoryButtonTextActive: {
@@ -192,19 +189,16 @@ const styles = StyleSheet.create({
   },
   favoriteFilter: {
     alignSelf: "flex-start",
-    backgroundColor: "#FFFFFF",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   favoriteFilterActive: {
     backgroundColor: "#FEFCBF",
     borderColor: "#D69E2E",
   },
   favoriteFilterText: {
-    color: "#4A5568",
     fontSize: 14,
   },
   favoriteFilterTextActive: {
@@ -219,7 +213,6 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   emptyText: {
-    color: "#A0AEC0",
     fontSize: 16,
     textAlign: "center",
     marginTop: 32,
@@ -228,11 +221,9 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   card: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 16,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   cardHeader: {
     flexDirection: "row",
@@ -246,12 +237,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardTitle: {
-    color: "#2D3748",
     fontSize: 18,
     fontWeight: "700",
   },
   cardDescription: {
-    color: "#718096",
     fontSize: 14,
     marginTop: 2,
   },
@@ -280,7 +269,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   breathingShortcutDescription: {
-    color: "#718096",
     fontSize: 14,
   },
 });

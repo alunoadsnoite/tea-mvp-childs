@@ -10,11 +10,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useCheckInStore } from "@/stores/checkInStore";
 import { COMMON_TRIGGERS, REGULATION_SUGGESTIONS } from "@/types/checkin";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 const EMOJI_LEVELS = ["😞", "😕", "😐", "🙂", "😄"];
 
 export default function EmotionCheckInScreen() {
   const addEntry = useCheckInStore((state) => state.addEntry);
+  const { colors } = useThemeMode();
   
   const [happiness, setHappiness] = useState(3);
   const [energy, setEnergy] = useState(3);
@@ -51,13 +53,13 @@ export default function EmotionCheckInScreen() {
   const suggestions = getSuggestions();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "Como estou me sentindo",
-          headerStyle: { backgroundColor: "#F0F4F8" },
-          headerTintColor: "#2D3748",
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
         }}
       />
       
@@ -196,7 +198,6 @@ export default function EmotionCheckInScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   scrollView: {
     flex: 1,
@@ -209,12 +210,10 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   sectionTitle: {
-    color: "#2D3748",
     fontSize: 20,
     fontWeight: "700",
   },
   sectionDescription: {
-    color: "#718096",
     fontSize: 14,
   },
   emojiSelector: {
@@ -224,12 +223,10 @@ const styles = StyleSheet.create({
   },
   emojiButton: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   emojiButtonActive: {
     borderColor: "#63B3ED",
@@ -244,12 +241,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   chip: {
-    backgroundColor: "#FFFFFF",
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     alignItems: "center",
     gap: 4,
   },
@@ -261,7 +256,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   chipText: {
-    color: "#4A5568",
     fontSize: 14,
   },
   chipTextSelected: {
@@ -272,12 +266,10 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   suggestionsTitle: {
-    color: "#2D3748",
     fontSize: 16,
     fontWeight: "700",
   },
   suggestionCard: {
-    backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 12,
     borderLeftWidth: 4,
@@ -290,7 +282,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   suggestionText: {
-    color: "#4A5568",
     fontSize: 14,
     lineHeight: 20,
     flex: 1,

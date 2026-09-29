@@ -1,13 +1,15 @@
 import React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import { useRouter } from "expo-router";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export function EmergencyFab() {
   const router = useRouter();
+  const { colors } = useThemeMode();
 
   return (
     <Pressable
-      style={styles.fab}
+      style={[styles.fab, { backgroundColor: colors.accent }]}
       onPress={() => router.push("/crisis-card")}
       accessibilityLabel="Preciso de ajuda"
       accessibilityHint="Toque para abrir o cartão de ajuda"
@@ -25,7 +27,6 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: "#FF6B6B",
     justifyContent: "center",
     alignItems: "center",
     elevation: 4,

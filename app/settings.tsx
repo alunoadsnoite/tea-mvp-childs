@@ -34,7 +34,7 @@ export default function SettingsScreen() {
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {/* Tema */}
-        <View style={[styles.section, { backgroundColor: colors.surface }]}>
+        <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>
             🎨 Tema
           </Text>
@@ -76,13 +76,26 @@ export default function SettingsScreen() {
         </View>
 
         {/* Sobre */}
-        <View style={[styles.section, { backgroundColor: colors.surface }]}>
+        <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>
             ℹ️ Sobre
           </Text>
           <Text style={[styles.aboutText, { color: colors.textSecondary }]}>
             TEA Kids v1.0.0{'\n'}
             App para crianças e adolescentes no Espectro Autista.
+          </Text>
+        </View>
+
+        {/* Desenvolvedor */}
+        <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>
+            👨‍💻 Desenvolvedor
+          </Text>
+          <Text style={[styles.developerName, { color: colors.text }]}>
+            Valdenor Tavares
+          </Text>
+          <Text style={[styles.developerEmail, { color: colors.textSecondary }]}>
+            valdenorsa@proton.me
           </Text>
         </View>
       </ScrollView>
@@ -105,7 +118,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     gap: 12,
   },
   sectionTitle: {
@@ -149,5 +161,12 @@ const styles = StyleSheet.create({
   aboutText: {
     fontSize: 14,
     lineHeight: 20,
+  },
+  developerName: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  developerEmail: {
+    fontSize: 14,
   },
 });

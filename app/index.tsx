@@ -3,24 +3,26 @@ import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckInCard } from "@/components/CheckInCard";
 import { useFontScale } from "@/hooks/useFontScale";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function HomeScreen() {
   const { fontSize } = useFontScale();
+  const { colors } = useThemeMode();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.content}>
-        <Text style={styles.welcomeText}>Olá! 👋</Text>
+        <Text style={[styles.welcomeText, { color: colors.text }]}>Olá! 👋</Text>
         
         {/* Ação principal — Cartão de Ajuda */}
         <Link href="/crisis-card" asChild>
           <Pressable
-            style={styles.crisisButton}
+            style={[styles.crisisButton, { backgroundColor: colors.accent }]}
             accessibilityLabel="Preciso de ajuda"
             accessibilityHint="Toque para abrir o cartão de ajuda"
           >
             <Text style={styles.crisisButtonEmoji}>🆘</Text>
-            <Text style={[styles.crisisButtonText, { fontSize: fontSize(20) }]}>
+            <Text style={[styles.crisisButtonText, { fontSize: fontSize(20), color: colors.background }]}>
               Preciso de ajuda
             </Text>
           </Pressable>
@@ -32,36 +34,36 @@ export default function HomeScreen() {
         {/* Navegação secundária */}
         <View style={styles.secondaryActions}>
           <Link href="/interception" asChild>
-            <Pressable style={styles.secondaryButton}>
+            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
               <Text style={styles.secondaryButtonEmoji}>💭</Text>
-              <Text style={[styles.secondaryButtonText, { fontSize: fontSize(15) }]}>
+              <Text style={[styles.secondaryButtonText, { fontSize: fontSize(15), color: colors.text }]}>
                 Como estou me sentindo
               </Text>
             </Pressable>
           </Link>
 
           <Link href="/routines" asChild>
-            <Pressable style={styles.secondaryButton}>
+            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
               <Text style={styles.secondaryButtonEmoji}>📋</Text>
-              <Text style={styles.secondaryButtonText}>
+              <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Minhas rotinas
               </Text>
             </Pressable>
           </Link>
 
           <Link href="/regulation" asChild>
-            <Pressable style={styles.secondaryButton}>
+            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
               <Text style={styles.secondaryButtonEmoji}>🧘</Text>
-              <Text style={styles.secondaryButtonText}>
+              <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Hora de acalmar
               </Text>
             </Pressable>
           </Link>
 
           <Link href="/settings" asChild>
-            <Pressable style={styles.secondaryButton}>
+            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
               <Text style={styles.secondaryButtonEmoji}>⚙️</Text>
-              <Text style={styles.secondaryButtonText}>
+              <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Configurar
               </Text>
             </Pressable>
@@ -75,7 +77,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   content: {
     flex: 1,
@@ -86,13 +87,11 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   welcomeText: {
-    color: "#2D3748",
     fontSize: 28,
     fontWeight: "700",
     marginBottom: 8,
   },
   crisisButton: {
-    backgroundColor: "#FF6B6B",
     paddingVertical: 24,
     paddingHorizontal: 32,
     borderRadius: 16,
@@ -106,7 +105,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   crisisButtonText: {
-    color: "#FFFFFF",
     fontWeight: "700",
     textAlign: "center",
   },
@@ -115,13 +113,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   secondaryButton: {
-    backgroundColor: "#FFFFFF",
     paddingVertical: 16,
     paddingHorizontal: 24,
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     flexDirection: "row",
     justifyContent: "center",
     gap: 12,
@@ -130,7 +126,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   secondaryButtonText: {
-    color: "#4A5568",
     fontSize: 15,
     fontWeight: "600",
     textAlign: "center",

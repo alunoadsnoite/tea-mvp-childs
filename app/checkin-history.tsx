@@ -8,6 +8,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useCheckInStore } from "@/stores/checkInStore";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 const EMOJI_LEVELS = ["😞", "😕", "😐", "🙂", "😄"];
 
@@ -19,6 +20,7 @@ const getEmoji = (level: number) => {
 export default function CheckInHistoryScreen() {
   const getRecentEntries = useCheckInStore((state) => state.getRecentEntries);
   const entries = getRecentEntries(7);
+  const { colors } = useThemeMode();
 
   const groupedByDay = entries.reduce((acc, entry) => {
     const date = new Date(entry.timestamp).toLocaleDateString("pt-BR", {
@@ -41,13 +43,13 @@ export default function CheckInHistoryScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "Meu Diário",
-          headerStyle: { backgroundColor: "#F0F4F8" },
-          headerTintColor: "#2D3748",
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
         }}
       />
       
@@ -104,7 +106,6 @@ export default function CheckInHistoryScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   scrollView: {
     flex: 1,
@@ -114,7 +115,6 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   emptyText: {
-    color: "#A0AEC0",
     fontSize: 16,
     textAlign: "center",
     marginTop: 32,
@@ -123,21 +123,17 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   dayTitle: {
-    color: "#4A5568",
     fontSize: 16,
     fontWeight: "700",
     textTransform: "capitalize",
   },
   entryCard: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 16,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     gap: 12,
   },
   entryTime: {
-    color: "#A0AEC0",
     fontSize: 14,
   },
   metrics: {
@@ -152,7 +148,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   metricLabel: {
-    color: "#718096",
     fontSize: 12,
   },
   triggers: {

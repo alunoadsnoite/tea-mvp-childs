@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { useCrisisStore } from "@/stores/crisisStore";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function CrisisSettingsScreen() {
   const {
@@ -26,6 +27,7 @@ export default function CrisisSettingsScreen() {
     setPrimaryContact,
     resetToDefaults,
   } = useCrisisStore();
+  const { colors } = useThemeMode();
 
   const [editingMessage, setEditingMessage] = useState<string | null>(null);
   const [messageTitle, setMessageTitle] = useState("");
@@ -120,13 +122,13 @@ export default function CrisisSettingsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "Configurar Cartão",
-          headerStyle: { backgroundColor: "#F0F4F8" },
-          headerTintColor: "#2D3748",
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
         }}
       />
       
@@ -353,7 +355,6 @@ export default function CrisisSettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   scrollView: {
     flex: 1,
@@ -366,16 +367,13 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   sectionTitle: {
-    color: "#2D3748",
     fontSize: 20,
     fontWeight: "700",
   },
   itemCard: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 16,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   itemHeader: {
     flexDirection: "row",
@@ -389,12 +387,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemTitle: {
-    color: "#2D3748",
     fontSize: 16,
     fontWeight: "700",
   },
   itemDescription: {
-    color: "#718096",
     fontSize: 14,
     lineHeight: 20,
     marginTop: 4,
@@ -415,32 +411,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   emptyText: {
-    color: "#A0AEC0",
     fontSize: 14,
     textAlign: "center",
     padding: 16,
   },
   form: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 16,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     gap: 12,
   },
   formTitle: {
-    color: "#2D3748",
     fontSize: 16,
     fontWeight: "700",
   },
   input: {
-    backgroundColor: "#F7FAFC",
     borderRadius: 12,
     padding: 12,
-    color: "#2D3748",
     fontSize: 16,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   textArea: {
     minHeight: 100,
@@ -455,11 +444,9 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: "#F7FAFC",
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   emojiOptionActive: {
     borderColor: "#63B3ED",
@@ -478,7 +465,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   cancelButtonText: {
-    color: "#A0AEC0",
     fontSize: 16,
   },
   saveButton: {

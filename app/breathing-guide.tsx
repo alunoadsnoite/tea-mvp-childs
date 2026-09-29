@@ -9,8 +9,10 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { BREATHING_EXERCISES, BreathingExerciseConfig } from "@/types/coping";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function BreathingGuideScreen() {
+  const { colors } = useThemeMode();
 
   const [selectedExercise, setSelectedExercise] = useState<BreathingExerciseConfig>(
     BREATHING_EXERCISES[0]
@@ -101,13 +103,13 @@ export default function BreathingGuideScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: "Respiração Guiada",
-          headerStyle: { backgroundColor: "#F0F4F8" },
-          headerTintColor: "#2D3748",
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
         }}
       />
 
@@ -230,7 +232,6 @@ export default function BreathingGuideScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   content: {
     flex: 1,
@@ -241,11 +242,9 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   exerciseButton: {
-    backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
@@ -261,7 +260,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   exerciseButtonText: {
-    color: "#2D3748",
     fontSize: 16,
     fontWeight: "700",
   },
@@ -269,7 +267,6 @@ const styles = StyleSheet.create({
     color: "#2B6CB0",
   },
   exerciseDescription: {
-    color: "#718096",
     fontSize: 14,
     marginTop: 2,
   },
@@ -306,7 +303,6 @@ const styles = StyleSheet.create({
   },
   progressTrack: {
     height: 12,
-    backgroundColor: "#E2E8F0",
     borderRadius: 6,
     overflow: "hidden",
   },
@@ -319,7 +315,6 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   patternLabel: {
-    color: "#718096",
     fontSize: 14,
     textAlign: "center",
   },
@@ -329,13 +324,11 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   patternStep: {
-    backgroundColor: "#FFFFFF",
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     minWidth: 70,
   },
   patternStepActive: {
@@ -343,14 +336,12 @@ const styles = StyleSheet.create({
     borderColor: "#63B3ED",
   },
   patternStepText: {
-    color: "#4A5568",
     fontSize: 12,
   },
   patternStepTextActive: {
     color: "#FFFFFF",
   },
   patternSeconds: {
-    color: "#718096",
     fontSize: 18,
     fontWeight: "700",
     marginTop: 4,

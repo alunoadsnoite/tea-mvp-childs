@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { View, StyleSheet, Animated } from "react-native";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 interface VisualTimerBarProps {
   startTime: number;
@@ -12,8 +13,10 @@ export function VisualTimerBar({
   startTime,
   endTime,
   isPaused,
-  color = "#63B3ED",
+  color,
 }: VisualTimerBarProps) {
+  const { colors } = useThemeMode();
+  const fillColor = color || colors.accent;
   const progress = useRef(new Animated.Value(1)).current;
   const animationRef = useRef<Animated.CompositeAnimation | null>(null);
 
@@ -44,12 +47,12 @@ export function VisualTimerBar({
 
   return (
     <View style={styles.container}>
-      <View style={styles.track}>
+      <View style={[styles.track, { backgroundColor: colors.surface }]}>
         <Animated.View
           style={[
             styles.fill,
             {
-              backgroundColor: color,
+              backgroundColor: fillColor,
               width: progress.interpolate({
                 inputRange: [0, 1],
                 outputRange: ["0%", "100%"],
@@ -69,7 +72,6 @@ const styles = StyleSheet.create({
   },
   track: {
     height: 12,
-    backgroundColor: "#E2E8F0",
     borderRadius: 6,
     overflow: "hidden",
   },

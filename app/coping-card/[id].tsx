@@ -9,12 +9,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useCopingCardsStore } from "@/stores/copingCardsStore";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function CopingCardDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const getCardById = useCopingCardsStore((state) => state.getCardById);
   const toggleFavorite = useCopingCardsStore((state) => state.toggleFavorite);
+  const { colors } = useThemeMode();
   
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -23,14 +25,14 @@ export default function CopingCardDetailScreen() {
 
   if (!card) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>Cartão não encontrado</Text>
+          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>Cartão não encontrado</Text>
           <Pressable
-            style={styles.backButton}
+            style={[styles.backButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
             onPress={() => router.back()}
           >
-            <Text style={styles.backButtonText}>Voltar</Text>
+            <Text style={[styles.backButtonText, { color: colors.text }]}>Voltar</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -53,13 +55,13 @@ export default function CopingCardDetailScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
           headerTitle: card.title,
-          headerStyle: { backgroundColor: "#F0F4F8" },
-          headerTintColor: "#2D3748",
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
           headerRight: () => (
             <Pressable
               onPress={() => toggleFavorite(card.id)}
@@ -159,7 +161,6 @@ export default function CopingCardDetailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
   },
   emptyContainer: {
     flex: 1,
@@ -168,20 +169,16 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   emptyText: {
-    color: "#718096",
     fontSize: 16,
     marginBottom: 24,
   },
   backButton: {
-    backgroundColor: "#FFFFFF",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   backButtonText: {
-    color: "#4A5568",
     fontSize: 16,
   },
   headerFavorite: {
@@ -207,7 +204,6 @@ const styles = StyleSheet.create({
     fontSize: 64,
   },
   description: {
-    color: "#4A5568",
     fontSize: 16,
     lineHeight: 24,
     textAlign: "center",
@@ -216,13 +212,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   progressText: {
-    color: "#718096",
     fontSize: 14,
     textAlign: "center",
   },
   progressBar: {
     height: 8,
-    backgroundColor: "#E2E8F0",
     borderRadius: 4,
     overflow: "hidden",
   },
@@ -232,21 +226,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   stepCard: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 32,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     alignItems: "center",
     gap: 16,
   },
   stepNumber: {
-    color: "#718096",
     fontSize: 14,
     textAlign: "center",
   },
   stepText: {
-    color: "#2D3748",
     fontSize: 24,
     lineHeight: 34,
     textAlign: "center",
@@ -283,15 +273,12 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   secondaryButton: {
-    backgroundColor: "#FFFFFF",
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#E2E8F0",
   },
   secondaryButtonText: {
-    color: "#4A5568",
     fontSize: 16,
   },
 });

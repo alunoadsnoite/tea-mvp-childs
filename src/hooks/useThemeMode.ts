@@ -35,6 +35,7 @@ export function useThemeMode() {
     });
   }, []);
 
+  // Quando systemColorScheme é null (indisponível), usa light como padrão
   const isDark = mode === "dark" || (mode === "auto" && systemColorScheme === "dark");
 
   return {

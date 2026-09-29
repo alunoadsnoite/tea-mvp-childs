@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useCheckInStore } from "@/stores/checkInStore";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 const EMOJI_LEVELS = ["😞", "😕", "😐", "🙂", "😄"];
 
@@ -11,11 +12,12 @@ const getEmoji = (level: number) => {
 
 export function CheckInCard() {
   const lastEntry = useCheckInStore((state) => state.getLastEntry());
+  const { colors } = useThemeMode();
 
   if (!lastEntry) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.emptyText}>
+      <View style={[styles.container, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+        <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
           Como você está se sentindo hoje? 🤔
         </Text>
       </View>
@@ -30,27 +32,27 @@ export function CheckInCard() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Como você está?</Text>
+    <View style={[styles.container, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+      <Text style={[styles.title, { color: colors.text }]}>Como você está?</Text>
       
       <View style={styles.metrics}>
         <View style={styles.metric}>
           <Text style={styles.metricEmoji}>{getEmoji(lastEntry.happiness)}</Text>
-          <Text style={styles.metricLabel}>Felicidade</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>Felicidade</Text>
         </View>
         
         <View style={styles.metric}>
           <Text style={styles.metricEmoji}>{getEmoji(lastEntry.energy)}</Text>
-          <Text style={styles.metricLabel}>Energia</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>Energia</Text>
         </View>
         
         <View style={styles.metric}>
           <Text style={styles.metricEmoji}>{getEmoji(lastEntry.calm)}</Text>
-          <Text style={styles.metricLabel}>Calma</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>Calma</Text>
         </View>
       </View>
 
-      <Text style={styles.timestamp}>
+      <Text style={[styles.timestamp, { color: colors.textSecondary }]}>
         às {formatTime(lastEntry.timestamp)}
       </Text>
     </View>
@@ -59,15 +61,12 @@ export function CheckInCard() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 20,
     borderWidth: 2,
-    borderColor: "#E2E8F0",
     width: "100%",
   },
   title: {
-    color: "#2D3748",
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 16,
@@ -86,16 +85,13 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   metricLabel: {
-    color: "#718096",
     fontSize: 12,
   },
   timestamp: {
-    color: "#A0AEC0",
     fontSize: 12,
     textAlign: "center",
   },
   emptyText: {
-    color: "#718096",
     fontSize: 14,
     textAlign: "center",
   },
