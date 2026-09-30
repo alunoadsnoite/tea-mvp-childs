@@ -81,7 +81,7 @@ export default function BreathingGuideScreen() {
         clearTimeout(intervalRef.current);
       }
     };
-  }, [isActive, currentPhase, selectedExercise]);
+  }, [isActive, currentPhase, selectedExercise, cycleCount]);
 
   const handleStart = () => {
     setIsActive(true);

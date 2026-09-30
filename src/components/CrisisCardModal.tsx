@@ -36,6 +36,9 @@ export function CrisisCardModal() {
 
   const currentMessage = messages[currentIndex];
 
+  const primaryContact =
+    contacts.find((c) => c.id === primaryContactId) ?? contacts[0];
+
   const handleScroll = (event: ScrollViewEvent) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(contentOffsetX / width);
@@ -47,18 +50,16 @@ export function CrisisCardModal() {
 
   const handleEmergencyCall = () => {
     trigger("success");
-    const contact = contacts.find((c) => c.id === primaryContactId) ?? contacts[0];
-    if (contact?.phone) {
-      Linking.openURL(`tel:${contact.phone}`);
+    if (primaryContact?.phone) {
+      Linking.openURL(`tel:${primaryContact.phone}`);
     }
   };
 
   const handleEmergencyMessage = () => {
     trigger("light");
-    const contact = contacts.find((c) => c.id === primaryContactId) ?? contacts[0];
-    if (contact?.phone) {
+    if (primaryContact?.phone) {
       const message = encodeURIComponent(currentMessage?.content || "");
-      Linking.openURL(`sms:${contact.phone}?body=${message}`);
+      Linking.openURL(`sms:${primaryContact.phone}?body=${message}`);
     }
   };
 
@@ -97,22 +98,22 @@ export function CrisisCardModal() {
         ))}
       </ScrollView>
 
-      {contacts[0] && (
+      {primaryContact && (
         <View style={styles.emergencyActions}>
           <Pressable
             style={[styles.emergencyButton, { backgroundColor: colors.accent }]}
             onPress={handleEmergencyCall}
-            accessibilityLabel={`Ligar para ${contacts[0].name}`}
+            accessibilityLabel={`Ligar para ${primaryContact.name}`}
           >
             <Text style={[styles.emergencyButtonText, { color: colors.background }]}>
-              📞 Ligar para {contacts[0].name}
+              📞 Ligar para {primaryContact.name}
             </Text>
           </Pressable>
 
           <Pressable
             style={[styles.emergencyButtonSecondary, { borderColor: colors.accent }]}
             onPress={handleEmergencyMessage}
-            accessibilityLabel={`Enviar mensagem para ${contacts[0].name}`}
+            accessibilityLabel={`Enviar mensagem para ${primaryContact.name}`}
           >
             <Text style={[styles.emergencyButtonSecondaryText, { color: colors.accent }]}>
               💬 Enviar mensagem

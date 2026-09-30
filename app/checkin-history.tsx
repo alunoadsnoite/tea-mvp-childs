@@ -6,6 +6,7 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { COMMON_TRIGGERS } from "@/types/checkin";
 import { Stack } from "expo-router";
 import { useCheckInStore } from "@/stores/checkInStore";
 import { useThemeMode } from "@/hooks/useThemeMode";
@@ -86,11 +87,18 @@ export default function CheckInHistoryScreen() {
 
                   {entry.triggers.length > 0 && (
                     <View style={styles.triggers}>
-                      {entry.triggers.map((trigger, index) => (
-                        <View key={index} style={styles.triggerChip}>
-                          <Text style={styles.triggerText}>{trigger}</Text>
-                        </View>
-                      ))}
+                      {entry.triggers.map((trigger) => {
+                        const triggerDef = COMMON_TRIGGERS.find((t) => t.id === trigger);
+                        const label = triggerDef?.label ?? trigger;
+                        const emoji = triggerDef?.emoji ?? "";
+                        return (
+                          <View key={trigger} style={styles.triggerChip}>
+                            <Text style={styles.triggerText}>
+                              {emoji} {label}
+                            </Text>
+                          </View>
+                        );
+                      })}
                     </View>
                   )}
                 </View>

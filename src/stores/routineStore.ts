@@ -99,7 +99,10 @@ export const useRoutineStore = create<RoutineStore>()(
           if (!routine) return state;
 
           const remainingTime = state.execution.stepEndsAt! - now;
-          const newEndTime = now + Math.max(remainingTime, 0);
+          // Se o tempo restante for muito curto (passo "expirado" durante pausa),
+          // concede um tempo mínimo para o usuário ver o timer funcionar
+          const effectiveRemaining = Math.max(remainingTime, 2000);
+          const newEndTime = now + effectiveRemaining;
 
           return {
             execution: {

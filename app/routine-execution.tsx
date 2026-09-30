@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -22,15 +22,6 @@ export default function RoutineExecutionScreen() {
   const extendTime = useRoutineStore((state) => state.extendTime);
   const stopExecution = useRoutineStore((state) => state.stopExecution);
   const { colors } = useThemeMode();
-
-  const [, setTick] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTick((t) => t + 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   if (!execution) {
     return (
