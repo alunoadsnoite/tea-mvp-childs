@@ -2,7 +2,7 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.0
+## Versão Atual: 1.1.1
 
 ### Changelog
 
@@ -12,6 +12,15 @@ Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado
 - **Ícone da fita de puzzle** (símbolo do autismo) em todas as densidades Android
 - **Informações do desenvolvedor** na seção Sobre
 - **Estrutura de rotas** corrigida (app/ na raiz para Expo Router)
+
+#### v1.1.1 (2026-09-30)
+- **Correção: Check-in histórico** — gatilhos agora exibem emoji + label (ex: "🏫 Escola") em vez de ID cru
+- **Correção: Cartão de crise** — botões de emergência respeitam `primaryContactId` em vez de usar sempre o primeiro contato
+- **Correção: Cartão de crise** — header usa cores do tema dinâmico em vez de hard-coded
+- **Correção: Execução de rotina** — remove `setInterval` desnecessário (re-render a cada 1s sem efeito)
+- **Correção: Respiração guiada** — `cycleCount` adicionado à dependência do `useEffect`
+- **Correção: Execução de rotina** — `resumeExecution` concede tempo mínimo de 2s para o timer não zerar ao retomar
+- **Correção: ESLint** — `metro.config.js` agora tem `eslint-disable` para CommonJS
 
 #### v1.0.0 (2026-09-28)
 - Lançamento inicial do MVP Kids
