@@ -32,6 +32,7 @@ export function CrisisCardModal() {
 
   const scrollViewRef = useRef<ScrollView>(null);
   const { width } = useWindowDimensions();
+  const [viewportWidth, setViewportWidth] = useState(width);
   const { trigger } = useHapticFeedback();
 
   const currentMessage = messages[currentIndex];
@@ -41,7 +42,7 @@ export function CrisisCardModal() {
 
   const handleScroll = (event: ScrollViewEvent) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(contentOffsetX / width);
+    const index = Math.round(contentOffsetX / viewportWidth);
     if (index !== currentIndex && index >= 0 && index < messages.length && messages[index]) {
       setCurrentIndex(index);
       setActiveMessage(messages[index].id);
@@ -75,16 +76,24 @@ export function CrisisCardModal() {
         </View>
       )}
 
+      {messages.length > 1 && (
+        <Text style={[styles.swipeHint, { color: colors.textSecondary }]}>
+          👈 Deslize para ver mais 👉
+        </Text>
+      )}
+
       <ScrollView
         ref={scrollViewRef}
+        style={styles.scrollView}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handleScroll}
+        onLayout={(event) => setViewportWidth(event.nativeEvent.layout.width)}
         scrollEventThrottle={16}
       >
         {messages.map((message) => (
-          <View key={message.id} style={[styles.messageContainer, { width }]}>
+          <View key={message.id} style={[styles.messageContainer, { width: viewportWidth }]}>
             <View style={[styles.messageContentWrapper, { 
               backgroundColor: colors.surface,
               borderColor: colors.accent,
@@ -121,12 +130,6 @@ export function CrisisCardModal() {
           </Pressable>
         </View>
       )}
-
-      {messages.length > 1 && (
-        <Text style={[styles.swipeHint, { color: colors.textSecondary }]}>
-          👈 Deslize para ver mais 👉
-        </Text>
-      )}
     </View>
   );
 }
@@ -135,8 +138,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 24,
-    paddingTop: 60,
+    paddingTop: 24,
     paddingBottom: 32,
+  },
+  scrollView: {
+    flex: 1,
   },
   pageIndicator: {
     alignItems: "center",
@@ -149,13 +155,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 32,
   },
   messageContentWrapper: {
-    flex: 1,
+    flexShrink: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: "90%",
+    width: "88%",
     maxWidth: 400,
     borderRadius: 24,
     padding: 24,
@@ -219,6 +224,6 @@ const styles = StyleSheet.create({
   swipeHint: {
     fontSize: 14,
     textAlign: "center",
-    marginTop: 16,
+    marginBottom: 16,
   },
 });

@@ -29,6 +29,8 @@ export interface CrisisCardState {
   primaryContactId: string | null;
 }
 
+export const REMOVED_DEFAULT_MESSAGE_IDS = ["default-3"];
+
 // Mensagens pré-configuradas para crianças/adolescentes
 export const DEFAULT_MESSAGES: CrisisMessage[] = [
   {
@@ -45,14 +47,6 @@ export const DEFAULT_MESSAGES: CrisisMessage[] = [
     content:
       "Os sons estão muito altos para mim. Por favor, vamos para um lugar mais silencioso?",
     emoji: "🔇",
-    isDefault: true,
-  },
-  {
-    id: "default-3",
-    title: "Estou confuso(a)",
-    content:
-      "Estou me sentindo confuso(a) e preciso de um tempo para pensar. Pode me dar um minuto?",
-    emoji: "🤔",
     isDefault: true,
   },
   {

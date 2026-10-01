@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CrisisCardState, CrisisMessage, EmergencyContact } from "@/types/crisis";
-import { DEFAULT_MESSAGES } from "@/types/crisis";
+import { DEFAULT_MESSAGES, REMOVED_DEFAULT_MESSAGE_IDS } from "@/types/crisis";
 
 interface CrisisStore extends CrisisCardState {
   addMessage: (message: Omit<CrisisMessage, "id" | "isDefault">) => void;
@@ -105,6 +105,26 @@ export const useCrisisStore = create<CrisisStore>()(
     {
       name: "crisis-card-storage-kids",
       storage: createJSONStorage(() => AsyncStorage),
+      version: 2,
+      migrate: (persistedState) => {
+        const state = persistedState as Partial<CrisisCardState> | undefined;
+        if (!state || !Array.isArray(state.messages)) return state;
+
+        const messages = state.messages.filter(
+          (message) => !REMOVED_DEFAULT_MESSAGE_IDS.includes(message.id)
+        );
+        if (messages.length === state.messages.length) return state;
+
+        return {
+          ...state,
+          messages,
+          activeMessageId: REMOVED_DEFAULT_MESSAGE_IDS.includes(
+            state.activeMessageId ?? ""
+          )
+            ? messages[0]?.id ?? null
+            : state.activeMessageId,
+        };
+      },
     }
   )
 );
