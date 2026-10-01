@@ -2,7 +2,7 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.1
+## Versão Atual: 1.1.2
 
 ### Changelog
 
@@ -21,6 +21,14 @@ Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado
 - **Correção: Respiração guiada** — `cycleCount` adicionado à dependência do `useEffect`
 - **Correção: Execução de rotina** — `resumeExecution` concede tempo mínimo de 2s para o timer não zerar ao retomar
 - **Correção: ESLint** — `metro.config.js` agora tem `eslint-disable` para CommonJS
+
+#### v1.1.2 (2026-10-01)
+- **Acessibilidade: botão SOS centralizado** — o botão flutuante 🆘 sai do canto direito e passa ao centro da tela, facilitando o alcance para destros e canhotos
+- **Cartão de crise: dica de deslize acima dos cards** — "👈 Deslize para ver mais 👉" aparece antes dos cards, e não depois
+- **Correção: Cartão de crise** — cards eram exibidos deslocados para a direita e cortados na borda. As páginas do carrossel usavam a largura total da tela em vez da área visível (o container tem `paddingHorizontal: 24`); agora a largura real da viewport é medida via `onLayout` e usada tanto nas páginas quanto no cálculo da paginação, que também estava dessincronizada
+- **Cartão de crise: cards centralizados verticalmente** — o espaço vertical é distribuído entre a dica de deslize e os botões de emergência, com o grupo posicionado mais alto na tela
+- **Cartão de crise: card "Estou confuso(a)" removido** das mensagens padrão
+- **Migração de dados (`crisis-card-storage-kids` v2)** — como mensagens padrão não podem ser excluídas pela tela de configuração, a migração remove o card "Estou confuso(a)" já salvo no dispositivo. Mensagens criadas pela criança/adolescente são preservadas
 
 #### v1.0.0 (2026-09-28)
 - Lançamento inicial do MVP Kids
