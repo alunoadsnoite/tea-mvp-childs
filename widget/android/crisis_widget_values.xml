@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+      Espelha os tokens de `src/hooks/useThemeMode.ts`. O fundo usa `accent`
+      (#63B3ED), a mesma cor do botão 🆘 dentro do app, para que o widget e o
+      botão flutuante sejam reconhecidos como a mesma ação.
+
+      Contraste sobre #63B3ED: #1A1D23 = 7.4:1 e #2D3748 = 5.25:1, ambos acima
+      de WCAG AA (4.5:1). O `textSecondary` do tema (#718096) foi descartado de
+      propósito: sobre o fundo do widget ele fica em 1.76:1.
+
+      O widget é sempre claro, independente do tema do app, porque o launcher
+      pode renderizá-lo sobre qualquer papel de parede e a leitura precisa ser
+      imediata. Se a paleta mudar, atualizar este arquivo.
+    -->
+    <color name="crisis_widget_background">#63B3ED</color>
+    <color name="crisis_widget_stroke">#4299E1</color>
+    <color name="crisis_widget_text">#1A1D23</color>
+    <color name="crisis_widget_text_secondary">#2D3748</color>
+
+    <string name="crisis_widget_emoji">🆘</string>
+    <string name="crisis_widget_title">Preciso de ajuda</string>
+    <string name="crisis_widget_subtitle">Toque aqui 💙</string>
+    <string name="crisis_widget_description">Preciso de ajuda. Toque para abrir o cartão de ajuda.</string>
+
+</resources>

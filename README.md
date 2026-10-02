@@ -2,9 +2,16 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.2
+## Versão Atual: 1.1.3
 
 ### Changelog
+
+#### v1.1.3 (2026-10-02)
+- **Widget "Preciso de ajuda" no Android** — novo widget de tela inicial (2x1) que abre o app direto em `/crisis-card` pelo deep link `tea-kids://crisis-card`, sem passar pela Home. Emoji 🆘 e a mesma cor de destaque do botão flutuante, para que o widget e o botão dentro do app sejam reconhecidos como a mesma ação. Conteúdo estático, sem lista e sem rolagem: em momento de sobrecarga o alvo precisa ser previsível
+- **Acessibilidade do widget** — `contentDescription` descrevendo a ação, contraste de 7.4:1 no título e 5.25:1 na legenda (ambos acima de WCAG AA), e o emoji marcado como decorativo para o TalkBack não lê-lo duas vezes
+- **Correção de build** — `.gitignore` ignorava `android/` em qualquer nível, o que também esconderia a pasta versionada `widget/android/` dos fontes do widget. As regras agora são ancoradas na raiz (`/android/`, `/ios/`)
+- **Correção de lint** — `nativewind.config.js` recebia `no-undef` em `require`/`module` e quebrava `npm run lint`; `plugins/` foi adicionado ao ignore do ESLint, já que config plugins do Expo rodam em Node/CommonJS
+- **Correção de versão** — `app.json` estava em `1.0.0` enquanto o changelog documentava `1.1.2`. Alinhado em `1.1.3` com `versionCode` 3, que antes não existia
 
 #### v1.1.0 (2026-09-29)
 - **Tema claro/escuro/automático** em todas as telas
@@ -92,8 +99,23 @@ npx expo start
 npx eas build -p android --profile preview
 
 # Build local
-cd android && ./gradlew assembleDebug
+npx expo prebuild -p android          # gera android/ (managed workflow)
+JAVA_HOME=/caminho/para/jdk17 ./android/gradlew assembleRelease
 ```
+
+O projeto usa **managed workflow**: a pasta `android/` não é versionada. Rode
+`npx expo prebuild -p android` antes de qualquer comando Gradle.
+
+Para instalar no aparelho use `assembleRelease`. O APK **debug** não embute o
+bundle JS e depende do Metro rodando em `localhost:8081` — instalado sozinho,
+abre uma tela de erro.
+
+> **Atenção: JDK 17 é obrigatório.** O AGP 8.1.1 do SDK 50 falha com JDK 21.
+
+O widget "Preciso de ajuda" está **implementado no Android** (um toque abre
+`/crisis-card`) e **não implementado no iOS** — ver
+[WIDGET_SETUP.md](WIDGET_SETUP.md). Sem o widget, o cartão de ajuda continua
+acessível pelo botão flutuante 🆘 e pelo card da Home.
 
 ## Estrutura do Projeto
 

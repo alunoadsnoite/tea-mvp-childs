@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const { defineConfig } = require("nativewind/config");
 
 module.exports = defineConfig({

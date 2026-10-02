@@ -5,7 +5,15 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ["node_modules/", "android/", "ios/", ".expo/", "build/"],
+    // Config plugins do Expo rodam em Node/CommonJS, fora do escopo do app
+    ignores: [
+      "node_modules/",
+      "android/",
+      "ios/",
+      ".expo/",
+      "build/",
+      "plugins/",
+    ],
   },
   {
     rules: {
