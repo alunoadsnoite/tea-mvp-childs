@@ -80,7 +80,7 @@ export default function RoutineExecutionScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {/* Progresso */}
         <View style={styles.progressContainer}>
-          <Text style={styles.progressText}>
+          <Text style={[styles.progressText, { color: colors.textSecondary }]}>
             Passo {execution.currentStepIndex + 1} de {routine.steps.length}
           </Text>
           <View style={styles.progressBar}>
@@ -98,15 +98,15 @@ export default function RoutineExecutionScreen() {
         {/* Título da rotina */}
         <View style={styles.routineHeader}>
           <Text style={styles.routineEmoji}>{routine.emoji}</Text>
-          <Text style={styles.routineTitle}>{routine.name}</Text>
+          <Text style={[styles.routineTitle, { color: colors.text }]}>{routine.name}</Text>
         </View>
 
         {/* Passo atual */}
-        <View style={styles.stepCard}>
+        <View style={[styles.stepCard, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
           <Text style={styles.stepEmoji}>{currentStep.emoji}</Text>
-          <Text style={styles.stepTitle}>{currentStep.title}</Text>
+          <Text style={[styles.stepTitle, { color: colors.text }]}>{currentStep.title}</Text>
           {currentStep.description && (
-            <Text style={styles.stepDescription}>{currentStep.description}</Text>
+            <Text style={[styles.stepDescription, { color: colors.textSecondary }]}>{currentStep.description}</Text>
           )}
         </View>
 
@@ -158,34 +158,34 @@ export default function RoutineExecutionScreen() {
             <View style={styles.secondaryActions}>
               {execution.isPaused ? (
                 <Pressable
-                  style={styles.secondaryButton}
+                  style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
                   onPress={resumeExecution}
                   accessibilityRole="button"
                   accessibilityLabel="Continuar rotina"
                   accessibilityHint="Retoma o tempo do passo"
                 >
-                  <Text style={styles.secondaryButtonText}>▶️ Continuar</Text>
+                  <Text style={[styles.secondaryButtonText, { color: colors.text }]}>▶️ Continuar</Text>
                 </Pressable>
               ) : (
                 <Pressable
-                  style={styles.secondaryButton}
+                  style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
                   onPress={pauseExecution}
                   accessibilityRole="button"
                   accessibilityLabel="Pausar rotina"
                   accessibilityHint="Mantém o tempo restante enquanto você descansa"
                 >
-                  <Text style={styles.secondaryButtonText}>⏸️ Pausar</Text>
+                  <Text style={[styles.secondaryButtonText, { color: colors.text }]}>⏸️ Pausar</Text>
                 </Pressable>
               )}
 
               <Pressable
-                style={styles.secondaryButton}
+                style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
                 onPress={() => extendTime(5)}
                 accessibilityRole="button"
                 accessibilityLabel="Mais cinco minutos"
                 accessibilityHint="Acrescenta cinco minutos ao passo atual"
               >
-                <Text style={styles.secondaryButtonText}>+5 min ⏰</Text>
+                <Text style={[styles.secondaryButtonText, { color: colors.text }]}>+5 min ⏰</Text>
               </Pressable>
 
               <Pressable
@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 24,
+    paddingBottom: 112,
     gap: 24,
   },
   emptyContainer: {

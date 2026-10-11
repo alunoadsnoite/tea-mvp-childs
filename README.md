@@ -10,6 +10,8 @@ Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado
 - Timer visual esvazia suavemente e atualiza ao voltar do segundo plano.
 - Pausar uma rotina preserva o tempo restante, inclusive após reabrir o app; +5 min funciona também após o prazo terminar.
 - Conclusão permanece na tela até tocar em “Voltar às rotinas”, sem saída automática.
+- Histórico e cartões de calma reagem à leitura dos dados salvos e às alterações de favoritos.
+- Texto e cartões da execução de rotina respeitam o tema escuro.
 - Tema compartilhado entre telas, com leitura tolerante a falhas do armazenamento.
 - Controles de rotina e tema com semântica de acessibilidade; ações cabem em telas estreitas.
 - Versão exibida em Configurações acompanha a configuração do app.

@@ -19,8 +19,10 @@ const getEmoji = (level: number) => {
 };
 
 export default function CheckInHistoryScreen() {
-  const getRecentEntries = useCheckInStore((state) => state.getRecentEntries);
-  const entries = getRecentEntries(7);
+  const storedEntries = useCheckInStore((state) => state.entries);
+  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const entries = storedEntries.filter((entry) => entry.timestamp >= cutoff)
+    .sort((a, b) => b.timestamp - a.timestamp);
   const { colors } = useThemeMode();
 
   const groupedByDay = entries.reduce((acc, entry) => {
