@@ -2,7 +2,7 @@
 
 Aplicativo: TEA Kids (`com.teakids.app`). Licença do projeto: MIT; dependências mantêm suas próprias licenças.
 
-A inclusão no catálogo oficial depende da revisão dos mantenedores do F-Droid e de uma receita de compilação aprovada. Os arquivos em `fastlane/metadata/android/` fornecem as descrições e o ícone, em inglês e português do Brasil. Capturas reais de tela ainda precisam ser adicionadas.
+A inclusão no catálogo oficial depende da revisão dos mantenedores do F-Droid e de uma receita de compilação aprovada. Os arquivos em `fastlane/metadata/android/` fornecem as descrições e o ícone, em inglês e português do Brasil. As cinco capturas reais fornecidas pelo mantenedor ficam em `images/phoneScreenshots/`, na ordem: início, ajuda, rotinas, atividades para acalmar e contagem calma. A interface capturada está em português, inclusive nos metadados de fallback em inglês.
 
 ## Compilação a partir do código
 
@@ -25,6 +25,5 @@ O APK local usa a chave de desenvolvimento criada pelo template. A distribuiçã
 
 - Preparar e validar a receita de build no ambiente isolado do F-Droid, incluindo preparação das dependências npm e verificação de binários.
 - Revisar as licenças de todas as dependências transitivas e recursos.
-- Acrescentar capturas reais do aplicativo.
 
 A compilação local com OpenJDK 17 foi validada na versão 1.1.4 (versionCode 4). Isso não substitui o scanner, a compilação isolada nem a aprovação do F-Droid.
