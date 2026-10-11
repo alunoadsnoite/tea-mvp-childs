@@ -176,6 +176,10 @@ src/
 | Cartões | Ancoragem 5-4-3-2-1 | Jogo dos 5 Sentidos |
 | Cores | Pastel suave | Vibrantes mas suaves |
 
+## F-Droid
+
+Preparação e instruções de compilação: [FDROID.md](FDROID.md). A inclusão no catálogo oficial depende da revisão do F-Droid.
+
 ## Licença
 
-MIT
+[MIT](LICENSE)

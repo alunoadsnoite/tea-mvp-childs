@@ -1,0 +1,11 @@
+TEA Kids apoia a autonomia, a previsibilidade e a regulação emocional de crianças e adolescentes autistas, com linguagem simples e emojis.
+
+Recursos:
+• Rotinas visuais com um passo por vez, tempo visual suave, pausa e tempo extra.
+• Registro de emoções e diário dos registros recentes.
+• Cartões de ajuda para mostrar mensagens a alguém e ações opcionais de ligação e SMS.
+• Cartões de atividades para acalmar, favoritos e respiração guiada.
+• Temas claro, escuro e automático.
+• Widget Android que abre o cartão de ajuda.
+
+Os registros e preferências ficam armazenados no aparelho. As atividades principais funcionam sem internet; ligações e SMS usam os serviços do telefone. A interface está em português do Brasil.
