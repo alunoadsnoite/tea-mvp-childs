@@ -49,13 +49,13 @@ export const useCrisisStore = create<CrisisStore>()(
         const message = state.messages.find((m) => m.id === id);
         if (message?.isDefault) return;
 
-        set((state) => ({
-          messages: state.messages.filter((msg) => msg.id !== id),
-          activeMessageId:
-            state.activeMessageId === id
-              ? state.messages[0]?.id ?? null
-              : state.activeMessageId,
-        }));
+        set((state) => {
+          const messages = state.messages.filter((msg) => msg.id !== id);
+          return {
+            messages,
+            activeMessageId: state.activeMessageId === id ? messages[0]?.id ?? null : state.activeMessageId,
+          };
+        });
       },
 
       setActiveMessage: (id) => {

@@ -51,6 +51,7 @@ export const useRoutineStore = create<RoutineStore>()(
 
         set((state) => ({
           routines: state.routines.filter((r) => r.id !== id),
+          execution: state.execution?.routineId === id ? null : state.execution,
         }));
       },
 
@@ -67,6 +68,7 @@ export const useRoutineStore = create<RoutineStore>()(
             currentStepIndex: 0,
             isRunning: true,
             isPaused: false,
+            pausedAt: null,
             startedAt: now,
             completedAt: null,
             stepStartedAt: now,
@@ -78,11 +80,12 @@ export const useRoutineStore = create<RoutineStore>()(
 
       pauseExecution: () => {
         set((state) => {
-          if (!state.execution) return state;
+          if (!state.execution || !state.execution.isRunning || state.execution.isPaused) return state;
           return {
             execution: {
               ...state.execution,
               isPaused: true,
+              pausedAt: Date.now(),
             },
           };
         });
@@ -92,24 +95,14 @@ export const useRoutineStore = create<RoutineStore>()(
         set((state) => {
           if (!state.execution || !state.execution.isPaused) return state;
           
-          const now = Date.now();
-          const routine = get().routines.find(
-            (r) => r.id === state.execution!.routineId
-          );
-          if (!routine) return state;
-
-          const remainingTime = state.execution.stepEndsAt! - now;
-          // Se o tempo restante for muito curto (passo "expirado" durante pausa),
-          // concede um tempo mínimo para o usuário ver o timer funcionar
-          const effectiveRemaining = Math.max(remainingTime, 2000);
-          const newEndTime = now + effectiveRemaining;
-
+          const pausedDuration = Math.max(0, Date.now() - (state.execution.pausedAt ?? Date.now()));
           return {
             execution: {
               ...state.execution,
               isPaused: false,
-              stepStartedAt: now,
-              stepEndsAt: newEndTime,
+              pausedAt: null,
+              stepStartedAt: (state.execution.stepStartedAt ?? Date.now()) + pausedDuration,
+              stepEndsAt: (state.execution.stepEndsAt ?? Date.now()) + pausedDuration,
             },
           };
         });
@@ -117,7 +110,7 @@ export const useRoutineStore = create<RoutineStore>()(
 
       completeStep: () => {
         set((state) => {
-          if (!state.execution) return state;
+          if (!state.execution || !state.execution.isRunning) return state;
 
           const routine = get().routines.find(
             (r) => r.id === state.execution!.routineId
@@ -131,6 +124,8 @@ export const useRoutineStore = create<RoutineStore>()(
               execution: {
                 ...state.execution,
                 isRunning: false,
+                isPaused: false,
+                pausedAt: null,
                 completedAt: Date.now(),
               },
             };
@@ -143,6 +138,8 @@ export const useRoutineStore = create<RoutineStore>()(
             execution: {
               ...state.execution,
               currentStepIndex: nextIndex,
+              isPaused: false,
+              pausedAt: null,
               stepStartedAt: now,
               stepEndsAt: now + nextStep.estimatedMinutes * 60 * 1000,
               extendedMinutes: 0,
@@ -152,11 +149,12 @@ export const useRoutineStore = create<RoutineStore>()(
       },
 
       extendTime: (minutes) => {
+        if (!Number.isFinite(minutes) || minutes <= 0) return;
         set((state) => {
-          if (!state.execution) return state;
+          if (!state.execution || !state.execution.isRunning) return state;
           
-          const now = Date.now();
-          const newEndTime = (state.execution.stepEndsAt ?? now) + minutes * 60 * 1000;
+          const now = state.execution.isPaused ? state.execution.pausedAt ?? Date.now() : Date.now();
+          const newEndTime = Math.max(state.execution.stepEndsAt ?? now, now) + minutes * 60 * 1000;
           
           return {
             execution: {
