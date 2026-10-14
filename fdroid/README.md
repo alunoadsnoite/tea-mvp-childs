@@ -21,11 +21,13 @@ Não há `subdir`: a pasta `android/` ainda não existe quando o F-Droid verific
 - Os arquivos Gradle listados individualmente em `scanignore` contêm repositórios de publicação `mavenLocal()` ou referências legadas ao Maven local do React Native. Foram inspecionados: não há dependência proprietária nessas declarações. As dependências Android usadas são obtidas dos repositórios permitidos. A exceção evita que o scanner apague scripts de compilação necessários.
 - `scandelete: node_modules` remove os outros binários identificados (incluindo ferramentas de outras plataformas, arquivos de testes e bibliotecas Sharp usadas somente na geração prévia das imagens). Não se ignora a árvore inteira de dependências.
 
-O scanner pode emitir aviso sobre `Fontisto.ttf` em `@expo/vector-icons`: é uma fonte distribuída com o pacote, não código executável do aplicativo. O aviso deve permanecer visível no relatório.
+O scanner pode emitir aviso sobre `Fontisto.ttf` em `@expo/vector-icons`: é uma fonte distribuída com o pacote, não código executável do aplicativo. O aviso permanece visível no relatório; o APK conferido não contém arquivos de fonte.
 
 ## Licenças e recursos
 
 `python3 fdroid/audit-licenses.py` gera `reports/npm-licenses.json` a partir do lockfile e registra hashes dos arquivos LICENSE presentes. Quatro declarações ausentes/incompletas no lockfile foram conferidas nos respectivos arquivos LICENSE: loosely-validate-event, qrcode-terminal, requireg e valid-url. O relatório inclui ferramentas de build e dependências opcionais de outros sistemas; nem todas entram no APK. A declaração da licença não substitui a conferência de suas condições e do conteúdo efetivamente distribuído.
+
+O inventário Android em `reports/maven-runtime-licenses.json` registra as licenças declaradas nos POMs dos 110 componentes externos de `releaseRuntimeClasspath`, incluindo herança por POM pai e hashes das evidências. Todos tiveram licença identificada (Apache 2.0, MIT ou BSD). Componentes compilados dos projetos npm já são cobertos pelo inventário npm. A tarefa de inspeção está em `runtime-audit.gradle`; o gerador do relatório é `audit-maven.py`.
 
 A origem dos ícones e splash está documentada em `assets/README.md`, com autorização do mantenedor. O aplicativo usa os emojis do sistema e não distribui uma fonte própria de emojis.
 

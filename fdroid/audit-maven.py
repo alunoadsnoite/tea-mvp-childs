@@ -10,7 +10,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('resolved_artifacts', type=Path)
 parser.add_argument('gradle_cache', type=Path)
 args = parser.parse_args()
-ns = {'m': 'http://maven.apache.org/POM/4.0.0'}
 cache = args.gradle_cache / 'caches/modules-2/files-2.1'
 
 def licenses(group, name, version, seen=None):
@@ -24,15 +23,17 @@ def licenses(group, name, version, seen=None):
         return [], None
     pom = files[0]
     tree = ET.parse(pom)
-    declared = [{'name': e.findtext('m:name', namespaces=ns),
-                 'url': e.findtext('m:url', namespaces=ns)}
-                for e in tree.findall('m:licenses/m:license', ns)]
+    for element in tree.iter():
+        element.tag = element.tag.rsplit("}", 1)[-1]
+    declared = [{'name': e.findtext('name'),
+                 'url': e.findtext('url')}
+                for e in tree.findall('licenses/license')]
     evidence = {'coordinate': coordinate, 'pomSha256': hashlib.sha256(pom.read_bytes()).hexdigest()}
     if declared:
         return declared, evidence
-    parent = tree.find('m:parent', ns)
+    parent = tree.find('parent')
     if parent is not None:
-        values = [parent.findtext('m:'+field, namespaces=ns) for field in ['groupId','artifactId','version']]
+        values = [parent.findtext(field) for field in ['groupId','artifactId','version']]
         if all(values) and not any('${' in v for v in values):
             return licenses(*values, seen=seen)
     return [], evidence

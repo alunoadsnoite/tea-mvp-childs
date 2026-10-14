@@ -1,0 +1,25 @@
+{
+  "applicationId": "com.teakids.app",
+  "versionName": "1.1.5",
+  "versionCode": 5,
+  "sizeBytes": 61716893,
+  "embeddedJsBundle": true,
+  "zipIntegrity": true,
+  "removedPermissions": [
+    "android.permission.READ_EXTERNAL_STORAGE",
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.SYSTEM_ALERT_WINDOW"
+  ],
+  "remainingPermissions": [
+    "android.permission.INTERNET",
+    "android.permission.VIBRATE",
+    "com.teakids.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+  ],
+  "fdroidBinaryScannerFatalProblems": 0,
+  "unsignedApk": true,
+  "bundledFonts": [],
+  "manualBuildSha256": "863e8a25eceaea2ed06e78e10da781659543b84744c0251f37fd331e9f7103be",
+  "fdroidBuildSha256": "e69f0ebdb079658fe53dd011f4cf016a7e27ae9eb764a68118cb142c65ab9e8c",
+  "validatedSourceCommit": "0a7524ebbaf680cec8bc8fc6e3f809fc92b3a04d",
+  "fdroidBuildSucceeded": true
+}
