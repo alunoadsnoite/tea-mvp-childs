@@ -19,11 +19,18 @@ JAVA_HOME=/caminho/para/openjdk17 ./gradlew assembleRelease --no-daemon --max-wo
 
 Saída: `android/app/build/outputs/apk/release/app-release.apk`. O release inclui o bundle JavaScript e funciona sem Metro. A pasta `android/` é gerada pelo prebuild; os fontes do widget ficam em `widget/android/` e são injetados por `plugins/withCrisisWidget.js`.
 
-O APK local usa a chave de desenvolvimento criada pelo template. A distribuição oficial deve usar a assinatura administrada pelo F-Droid, ou uma estratégia própria de assinatura e builds reproduzíveis previamente acordada com os mantenedores. As assinaturas podem ser diferentes: a atualização sobre um APK instalado fora do F-Droid não é garantida.
+O APK local normal usa a chave de desenvolvimento criada pelo template. Com `FDROID_BUILD=1`, o config plugin remove as referências à assinatura e a saída é `app-release-unsigned.apk`. A distribuição oficial deve usar a assinatura administrada pelo F-Droid, ou uma estratégia própria de assinatura e builds reproduzíveis previamente acordada com os mantenedores. As assinaturas podem ser diferentes: a atualização sobre um APK instalado fora do F-Droid não é garantida.
 
-## Revisões pendentes do empacotamento
+## Receita e auditoria
 
-- Preparar e validar a receita de build no ambiente isolado do F-Droid, incluindo preparação das dependências npm e verificação de binários.
-- Revisar as licenças de todas as dependências transitivas e recursos.
+A receita está em [`fdroid/metadata/com.teakids.app.yml`](fdroid/metadata/com.teakids.app.yml), com preparação de dependências, variante sem assinatura e detecção de novas versões pelo `app.json`. Procedimento e justificativas das exceções: [`fdroid/README.md`](fdroid/README.md). Inventário de licenças: [`fdroid/reports/npm-licenses.json`](fdroid/reports/npm-licenses.json). Origem dos recursos: [`assets/README.md`](assets/README.md).
 
-A compilação local com OpenJDK 17 foi validada na versão 1.1.4 (versionCode 4). Isso não substitui o scanner, a compilação isolada nem a aprovação do F-Droid.
+Resultados da validação: [`fdroid/reports/validation.md`](fdroid/reports/validation.md). A revisão e a publicação no catálogo continuam sob responsabilidade dos mantenedores do F-Droid.
+
+## Otimização de release
+
+O plugin `plugins/withReleaseOptimization.js` ativa R8 e a remoção de recursos
+não utilizados em cada `expo prebuild`. As propriedades geradas são
+`android.enableProguardInReleaseBuilds=true` e
+`android.enableShrinkResourcesInReleaseBuilds=true`. O APK universal ainda inclui
+bibliotecas nativas de várias arquiteturas, que não são reduzidas pelo R8.
