@@ -38,3 +38,5 @@ O inventário registra evidências das declarações de licença e não substitu
 Pipeline no fork do fdroiddata: https://gitlab.com/alunoadsnoite/fdroiddata/-/pipelines/2947544670 . A execução foi iniciada após a validação local; o resultado externo é independente da aprovação de inclusão no catálogo.
 
 Cópia instalável para conferência do mantenedor: `TEA-Kids-v1.1.5.apk`, assinada com a chave de desenvolvimento do projeto. O APK do fluxo F-Droid permanece separado e sem assinatura.
+
+Proposta oficial de inclusão: https://gitlab.com/fdroid/fdroiddata/-/merge_requests/52554 . Vinculada ao pedido https://gitlab.com/fdroid/rfp/-/work_items/4552 . O CI externo e a decisão de inclusão permanecem sob revisão, sem alegação de aprovação.
