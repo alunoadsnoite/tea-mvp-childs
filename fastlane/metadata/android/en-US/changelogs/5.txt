@@ -1,0 +1,1 @@
+Remove unused storage and overlay permissions. Enable release optimization and prepare source builds and signing by F-Droid.

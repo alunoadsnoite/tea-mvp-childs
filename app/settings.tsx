@@ -1,4 +1,5 @@
 import React from "react";
+import Constants from "expo-constants";
 import {
   View,
   Text,
@@ -54,6 +55,8 @@ export default function SettingsScreen() {
                 trigger("light");
                 changeMode(option.key);
               }}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: mode === option.key }}
               accessibilityLabel={option.label}
               accessibilityHint={option.description}
             >
@@ -81,7 +84,7 @@ export default function SettingsScreen() {
             ℹ️ Sobre
           </Text>
           <Text style={[styles.aboutText, { color: colors.textSecondary }]}>
-            TEA Kids v1.0.0{'\n'}
+            TEA Kids v{Constants.expoConfig?.version ?? "1.1.4"}{'\n'}
             App para crianças e adolescentes no Espectro Autista.
           </Text>
         </View>
