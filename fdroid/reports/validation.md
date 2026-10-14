@@ -8,6 +8,7 @@ Data: 2026-10-14. Aplicativo: `com.teakids.app`, versão 1.1.5, versionCode 5.
 - `npx tsc --noEmit`: passou.
 - `fdroid lint com.teakids.app` (fdroidserver 2.4.5): passou.
 - `fdroid rewritemeta com.teakids.app`: receita normalizada.
+- `fdroid checkupdates --verbose --allow-dirty com.teakids.app`: identificou v1.1.5 (5), reconheceu v1.1.4 (4) e excluiu v1.1.4-fdroid.1 do filtro de releases; versão atual confirmada.
 - Scanner de fontes, com assinaturas atualizadas: zero problemas fatais; um aviso em `Fontisto.ttf`, uma fonte de uma dependência de ferramentas. O APK não contém arquivos TTF/OTF. Resultado completo em `source-scan.json`.
 - Scanner de classes do APK: zero detecções de classes não livres e blocos extras de assinatura.
 - Compilação Gradle release no contêiner oficial: passou com a árvore submetida ao scanner.
@@ -30,3 +31,9 @@ Debian trixie, Node 20.19.2, OpenJDK Temurin 17.0.20.1+1, Gradle 8.3, SDK 34 e N
 Para contornar a falha de primeira execução do fdroidserver 2.4.5 ao definir SOURCE_DATE_EPOCH sem checkout, o repositório foi clonado e posicionado no commit público `0a7524ebbaf680cec8bc8fc6e3f809fc92b3a04d` antes do comando. A receita de teste usou esse SHA em vez da tag ainda não publicada. As alterações seguintes são relatórios e ferramentas de auditoria; não alteram o código do app, as permissões nem os passos de compilação.
 
 O inventário registra evidências das declarações de licença e não substitui uma avaliação jurídica. A reprodução bit a bit não foi verificada. Testes funcionais em aparelho físico e a aprovação pelos mantenedores do F-Droid permanecem pendentes.
+
+## Verificação externa
+
+Pipeline no fork do fdroiddata: https://gitlab.com/alunoadsnoite/fdroiddata/-/pipelines/2947544670 . A execução foi iniciada após a validação local; o resultado externo é independente da aprovação de inclusão no catálogo.
+
+Cópia instalável para conferência do mantenedor: `TEA-Kids-v1.1.5.apk`, assinada com a chave de desenvolvimento do projeto. O APK do fluxo F-Droid permanece separado e sem assinatura.
