@@ -7,6 +7,7 @@ Data: 2026-10-14. Aplicativo: `com.teakids.app`, versão 1.1.5, versionCode 5.
 - `npm run lint`: passou.
 - `npx tsc --noEmit`: passou.
 - `fdroid lint com.teakids.app` (fdroidserver 2.4.5): passou.
+- Receita validada contra o JSON Schema atual do fdroiddata; SHA completo confere com a tag pública v1.1.5.
 - `fdroid rewritemeta com.teakids.app`: receita normalizada.
 - `fdroid checkupdates --verbose --allow-dirty com.teakids.app`: identificou v1.1.5 (5), reconheceu v1.1.4 (4) e excluiu v1.1.4-fdroid.1 do filtro de releases; versão atual confirmada.
 - Scanner de fontes, com assinaturas atualizadas: zero problemas fatais; um aviso em `Fontisto.ttf`, uma fonte de uma dependência de ferramentas. O APK não contém arquivos TTF/OTF. Resultado completo em `source-scan.json`.

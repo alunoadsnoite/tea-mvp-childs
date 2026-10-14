@@ -15,7 +15,7 @@ Repo: https://github.com/alunoadsnoite/tea-mvp-childs.git
 Builds:
   - versionName: 1.1.5
     versionCode: 5
-    commit: v1.1.5
+    commit: 3393e31d00c2bbb33bae408cfc092d4baddd3cd4
     sudo:
       - apt-get update
       - apt-get install -y nodejs npm curl ca-certificates
