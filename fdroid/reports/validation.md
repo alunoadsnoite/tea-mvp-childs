@@ -40,3 +40,9 @@ Pipeline no fork do fdroiddata: https://gitlab.com/alunoadsnoite/fdroiddata/-/pi
 Cópia instalável para conferência do mantenedor: `TEA-Kids-v1.1.5.apk`, assinada com a chave de desenvolvimento do projeto. O APK do fluxo F-Droid permanece separado e sem assinatura.
 
 Proposta oficial de inclusão: https://gitlab.com/fdroid/fdroiddata/-/merge_requests/52554 . Vinculada ao pedido https://gitlab.com/fdroid/rfp/-/work_items/4552 . O CI externo e a decisão de inclusão permanecem sob revisão, sem alegação de aprovação.
+
+## Correção da proposta oficial em 14/10/2026
+
+A MR !52554 incluía indevidamente `metadata/com.teamvp.app.yml`, uma receita antiga de outro aplicativo. Esse arquivo causava falhas de schema, lint, checkupdates e build antes de testar o TEA Kids. Ele foi removido da branch da proposta. A receita do TEA Kids foi reformatada conforme a saída exigida pelo fdroidserver atual; os comandos e o conteúdo YAML permanecem equivalentes.
+
+Nova execução: https://gitlab.com/alunoadsnoite/fdroiddata/-/pipelines/2948604664 . As verificações de schema, scripts, rewritemeta, lint e atualização de versão passaram; o build e a análise do APK ainda estavam em andamento no momento deste registro. O resultado final será atualizado após a execução.

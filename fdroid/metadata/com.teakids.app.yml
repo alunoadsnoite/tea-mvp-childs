@@ -19,7 +19,8 @@ Builds:
     sudo:
       - apt-get update
       - apt-get install -y nodejs npm curl ca-certificates
-      - curl -L --fail -o /tmp/temurin17.tar.gz https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20.1_1.tar.gz
+      - curl -L --fail -o /tmp/temurin17.tar.gz 
+        https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20.1_1.tar.gz
       - echo "3808d1d15e3ec6bd5b84057fb5d84c33d8a1536a258146bcea2e603fc726e08e  /tmp/temurin17.tar.gz"
         | sha256sum -c -
       - mkdir -p /opt/java17
