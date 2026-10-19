@@ -32,6 +32,7 @@ Builds:
         node_modules/@react-native/gradle-plugin/src/main/kotlin/com/facebook/react/utils/JdkConfiguratorUtils.kt
       - sed -i -e 's/agp = "8.1.1"/agp = "8.2.2"/' -e 's/kotlin = "1.8.0"/kotlin =
         "1.9.22"/' node_modules/@react-native/gradle-plugin/gradle/libs.versions.toml
+      - sed -i 's/apiVersion = "1.5"/apiVersion = "1.6"/' node_modules/@react-native/gradle-plugin/build.gradle.kts
       - FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p android
         --no-install
       - sed -i -e '/signingConfig /d' android/app/build.gradle
