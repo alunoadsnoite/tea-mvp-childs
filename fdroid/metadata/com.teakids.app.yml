@@ -38,6 +38,7 @@ Builds:
       - sed -i -e '/signingConfig /d' android/app/build.gradle
       - echo >> android/gradle.properties
       - echo android.kotlinVersion=1.9.22 >> android/gradle.properties
+      - sed -i s/android.enableJetifier=true/android.enableJetifier=false/ android/gradle.properties
       - sed -i s/gradle-8.3-all/gradle-8.5-all/ android/gradle/wrapper/gradle-wrapper.properties
     scanignore:
       - node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
@@ -67,6 +68,8 @@ MaintainerNotes: |-
   builds its native modules from source. Gradle 8.5 supports the Java 21 runtime;
   AGP 8.2.2 fixes the older jlink issue and Kotlin 1.9.22 supports JVM 21 targets.
   No separate JDK download or Java 17 override is used.
+  Jetifier is disabled: audited dependencies already use AndroidX, and the older
+  Jetifier cannot transform Java 21 classes. AndroidX remains enabled.
   No Firebase or install-referrer patches are needed by this dependency set.
   FDROID_BUILD enables unsigned APK output and removes unused npm-local Maven repositories.
   Hermes is selected; unused JSC AARs and non-Linux Hermes compilers are removed before scanning.
