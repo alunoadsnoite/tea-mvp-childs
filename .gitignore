@@ -9,7 +9,10 @@ web-build/
 # Native
 # Ancorado na raiz: sem a barra inicial, `android/` também ignoraria
 # `widget/android/`, que é a pasta versionada dos fontes do widget.
-/android/
+/android/*
+!/android/app/
+/android/app/*
+!/android/app/.gitkeep
 /ios/
 
 # Build

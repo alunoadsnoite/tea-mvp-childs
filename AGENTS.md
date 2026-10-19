@@ -23,7 +23,7 @@ npx expo prebuild -p android   # gera android/ antes de qualquer comando Gradle
 
 Não há runner de testes configurado atualmente. Para qualquer alteração, execute pelo menos `npm run lint` e `npx tsc --noEmit`.
 
-O projeto é **managed workflow**: não existe pasta `ios/` versionada e `android/` está no `.gitignore`. Portanto `npm run android`, `npm run ios` e qualquer comando Gradle exigem `npx expo prebuild -p android` antes. Para instalar no aparelho use `assembleRelease` — o APK `debug` não embute o bundle JS e depende do Metro em `localhost:8081`.
+O projeto é **managed workflow**: não existe pasta `ios/` versionada e `android/` está no `.gitignore`, exceto `android/app/.gitkeep`, que permite ao F-Droid entrar no subdiretório antes do prebuild. Portanto `npm run android`, `npm run ios` e qualquer comando Gradle exigem `npx expo prebuild -p android` antes. Para instalar no aparelho use `assembleRelease` — o APK `debug` não embute o bundle JS e depende do Metro em `localhost:8081`.
 
 **JDK 17 é obrigatório**: o AGP 8.1.1 do SDK 50 falha com JDK 21 (jlink).
 

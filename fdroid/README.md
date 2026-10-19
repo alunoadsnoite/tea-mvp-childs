@@ -10,10 +10,10 @@ O ID é `com.teakids.app`. A versão 1.1.5 usa `versionCode` 5.
 3. Executar `python3 fdroid/prepare.py` para remover os AARs JSC não utilizados, compiladores Hermes de outros sistemas e wrappers de exemplos.
 4. Gerar o projeto com `FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p android --no-install`.
 5. Aplicar o scanner do F-Droid e suas regras `scandelete`/`scanignore`.
-6. Compilar com o Gradle fornecido pelo F-Droid e JDK 17. Saída: `android/app/build/outputs/apk/release/app-release-unsigned.apk`.
+6. Compilar com o Gradle fornecido pelo F-Droid e JDK 17, selecionado por `gradleprops: org.gradle.java.home=/opt/java17`. Saída: `android/app/build/outputs/apk/release/app-release-unsigned.apk`.
 7. Verificar o APK com o scanner de binários e conferir pacote, versão, permissões e ausência de assinatura. O F-Droid é responsável pela assinatura final.
 
-Não há `subdir`: a pasta `android/` ainda não existe quando o F-Droid verifica o checkout. O projeto permanece managed workflow; os ajustes do Android vivem em config plugins.
+A receita segue `templates/build-react-native.yml`, com `subdir: android/app`, `init` e `prebuild` voltando à raiz e `gradle: yes`. O arquivo vazio `android/app/.gitkeep` mantém o subdiretório disponível quando o F-Droid verifica o checkout; os demais arquivos nativos continuam gerados e ignorados pelo Git. O projeto permanece managed workflow; os ajustes do Android vivem em config plugins.
 
 ## Exceções de scanner
 
@@ -47,3 +47,7 @@ fdroid build --verbose --test com.teakids.app:5
 ```
 
 O build completo requer que a tag de release esteja publicada. A aprovação continua dependendo da revisão do F-Droid; os resultados locais são registrados em `reports/validation.md`.
+
+## Modelo React Native
+
+A receita usa as fases e o build Gradle do template oficial. As adaptações para Expo 50 são o JDK 17 verificado por SHA-256 e as exceções estreitas já auditadas para scripts Gradle. Esta versão do Expo já compila os módulos nativos a partir dos fontes; não depende do mecanismo `buildFromSource` das versões novas. Não há expo-notifications, expo-application nem react-native-device-info nas dependências; os patches correspondentes do modelo não se aplicam.
