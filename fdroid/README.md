@@ -10,7 +10,7 @@ O ID é `com.teakids.app`. A versão 1.1.5 usa `versionCode` 5.
 3. Executar `python3 fdroid/prepare.py` para remover os AARs JSC não utilizados, compiladores Hermes de outros sistemas e wrappers de exemplos.
 4. Gerar o projeto com `FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p android --no-install`.
 5. Aplicar o scanner do F-Droid e suas regras `scandelete`/`scanignore`.
-6. Compilar com o Gradle fornecido pelo F-Droid e JDK 17, selecionado por `gradleprops: org.gradle.java.home=/opt/java17`. Saída: `android/app/build/outputs/apk/release/app-release-unsigned.apk`.
+6. Compilar com o Gradle fornecido pelo F-Droid e JDK 17, selecionado por `org.gradle.java.home` e `org.gradle.java.installations.paths` no arquivo gerado `android/gradle.properties`. Saída: `android/app/build/outputs/apk/release/app-release-unsigned.apk`.
 7. Verificar o APK com o scanner de binários e conferir pacote, versão, permissões e ausência de assinatura. O F-Droid é responsável pela assinatura final.
 
 A receita segue `templates/build-react-native.yml`, com `subdir: android/app`, `init` e `prebuild` voltando à raiz e `gradle: yes`. O arquivo vazio `android/app/.gitkeep` mantém o subdiretório disponível quando o F-Droid verifica o checkout; os demais arquivos nativos continuam gerados e ignorados pelo Git. O projeto permanece managed workflow; os ajustes do Android vivem em config plugins.
