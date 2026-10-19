@@ -15,22 +15,32 @@ Repo: https://github.com/alunoadsnoite/tea-mvp-childs.git
 Builds:
   - versionName: 1.1.5
     versionCode: 5
-    commit: 3393e31d00c2bbb33bae408cfc092d4baddd3cd4
+    commit: b89f6b7612c03a1291bfedf5a7cfb3edeec3e690
+    subdir: android/app
     sudo:
       - apt-get update
       - apt-get install -y nodejs npm curl ca-certificates
-      - curl -L --fail -o /tmp/temurin17.tar.gz https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20.1_1.tar.gz
+      - curl -L --fail -o /tmp/temurin17.tar.gz 
+        https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20.1_1.tar.gz
       - echo "3808d1d15e3ec6bd5b84057fb5d84c33d8a1536a258146bcea2e603fc726e08e  /tmp/temurin17.tar.gz"
         | sha256sum -c -
       - mkdir -p /opt/java17
       - tar -xzf /tmp/temurin17.tar.gz -C /opt/java17 --strip-components=1
       - rm /tmp/temurin17.tar.gz
     init:
+      - cd ../..
       - EXPO_NO_TELEMETRY=1 npm ci --no-audit --no-fund
       - python3 fdroid/prepare.py
-    output: android/app/build/outputs/apk/release/app-release-unsigned.apk
-    prebuild: FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p
-      android --no-install
+    gradle:
+      - yes
+    prebuild:
+      - cd ../..
+      - FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p android
+        --no-install
+      - sed -i -e '/signingConfig /d' android/app/build.gradle
+      - echo >> android/gradle.properties
+      - echo org.gradle.java.home=/opt/java17 >> android/gradle.properties
+      - echo org.gradle.java.installations.paths=/opt/java17 >> android/gradle.properties
     scanignore:
       - node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
       - node_modules/expo-haptics/android/build.gradle
@@ -50,14 +60,14 @@ Builds:
       - node_modules/expo-system-ui/android/build.gradle
     scandelete:
       - node_modules
-    build:
-      - cd android
-      - export JAVA_HOME=/opt/java17
-      - EXPO_NO_TELEMETRY=1 gradle assembleRelease --no-daemon --max-workers=2
     ndk: 25.1.8937393
 
 MaintainerNotes: |-
-  Expo managed workflow; android/ is generated, so no subdir is set.
+  Follows templates/build-react-native.yml. android/app/.gitkeep keeps the subdir
+  available before init; Expo generates native sources during prebuild.
+  Expo SDK 50 builds its modules from source by default. JDK 17 is required by
+  AGP 8.1.1 (JDK 21 fails jlink); Gradle uses org.gradle.java.home and java.installations.paths in gradle.properties.
+  No Firebase or install-referrer patches are needed by this dependency set.
   FDROID_BUILD enables unsigned APK output and removes unused npm-local Maven repositories.
   Hermes is selected; unused JSC AARs and non-Linux Hermes compilers are removed before scanning.
   The official Linux Hermes compiler follows the explicit inclusion-policy exception.
