@@ -5,12 +5,12 @@ O ID é `com.teakids.app`. A versão 1.1.5 usa `versionCode` 5.
 
 ## Sequência
 
-1. Instalar Node/npm do Debian e o OpenJDK Temurin 17 fixado e verificado por SHA-256. O AGP 8.1.1 deste projeto requer JDK 17; o buildserver atual fornece JDK 21 por padrão.
+1. Instalar Node/npm do Debian e usar o JDK 21 fornecido pelo buildserver. Não baixar um JDK separado. A receita adapta a toolchain React Native conforme o template oficial e usa Gradle 8.5, AGP 8.2.2 e Kotlin 1.9.22 para suportar Java 21.
 2. Executar `npm ci` com o lockfile e a telemetria da ferramenta Expo desativada.
 3. Executar `python3 fdroid/prepare.py` para remover os AARs JSC não utilizados, compiladores Hermes de outros sistemas e wrappers de exemplos.
 4. Gerar o projeto com `FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p android --no-install`.
 5. Aplicar o scanner do F-Droid e suas regras `scandelete`/`scanignore`.
-6. Compilar com o Gradle fornecido pelo F-Droid e JDK 17, selecionado por `org.gradle.java.home` e `org.gradle.java.installations.paths` no arquivo gerado `android/gradle.properties`. Saída: `android/app/build/outputs/apk/release/app-release-unsigned.apk`.
+6. Compilar com o Gradle 8.5 fornecido pelo F-Droid e o JDK 21 do buildserver. A receita remove a necessidade das propriedades que fixavam um JDK 17 externo. Saída: `android/app/build/outputs/apk/release/app-release-unsigned.apk`.
 7. Verificar o APK com o scanner de binários e conferir pacote, versão, permissões e ausência de assinatura. O F-Droid é responsável pela assinatura final.
 
 A receita segue `templates/build-react-native.yml`, com `subdir: android/app`, `init` e `prebuild` voltando à raiz e `gradle: yes`. O arquivo vazio `android/app/.gitkeep` mantém o subdiretório disponível quando o F-Droid verifica o checkout; os demais arquivos nativos continuam gerados e ignorados pelo Git. O projeto permanece managed workflow; os ajustes do Android vivem em config plugins.
@@ -50,4 +50,4 @@ O build completo requer que a tag de release esteja publicada. A aprovação con
 
 ## Modelo React Native
 
-A receita usa as fases e o build Gradle do template oficial. As adaptações para Expo 50 são o JDK 17 verificado por SHA-256 e as exceções estreitas já auditadas para scripts Gradle. Esta versão do Expo já compila os módulos nativos a partir dos fontes; não depende do mecanismo `buildFromSource` das versões novas. Não há expo-notifications, expo-application nem react-native-device-info nas dependências; os patches correspondentes do modelo não se aplicam.
+A receita usa as fases e o build Gradle do template oficial. As adaptações para Expo 50 incluem a toolchain Java 21, Gradle 8.5, AGP 8.2.2 (corrige o problema jlink do AGP antigo), Kotlin 1.9.22 (suporta o alvo JVM 21) e as exceções estreitas já auditadas para scripts Gradle. Esta versão do Expo já compila os módulos nativos a partir dos fontes; não depende do mecanismo `buildFromSource` das versões novas. Não há expo-notifications, expo-application nem react-native-device-info nas dependências; os patches correspondentes do modelo não se aplicam.

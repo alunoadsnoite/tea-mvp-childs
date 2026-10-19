@@ -19,14 +19,7 @@ Builds:
     subdir: android/app
     sudo:
       - apt-get update
-      - apt-get install -y nodejs npm curl ca-certificates
-      - curl -L --fail -o /tmp/temurin17.tar.gz 
-        https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20.1_1.tar.gz
-      - echo "3808d1d15e3ec6bd5b84057fb5d84c33d8a1536a258146bcea2e603fc726e08e  /tmp/temurin17.tar.gz"
-        | sha256sum -c -
-      - mkdir -p /opt/java17
-      - tar -xzf /tmp/temurin17.tar.gz -C /opt/java17 --strip-components=1
-      - rm /tmp/temurin17.tar.gz
+      - apt-get install -y nodejs npm
     init:
       - cd ../..
       - EXPO_NO_TELEMETRY=1 npm ci --no-audit --no-fund
@@ -35,12 +28,18 @@ Builds:
       - yes
     prebuild:
       - cd ../..
+      - sed -i '/jvmToolchain\|JavaVersion/s/17/21/' node_modules/@react-native/gradle-plugin/build.gradle.kts
+        node_modules/@react-native/gradle-plugin/src/main/kotlin/com/facebook/react/utils/JdkConfiguratorUtils.kt
+      - sed -i -e 's/agp = "8.1.1"/agp = "8.2.2"/' -e 's/kotlin = "1.8.0"/kotlin =
+        "1.9.22"/' node_modules/@react-native/gradle-plugin/gradle/libs.versions.toml
+      - sed -i 's/apiVersion = "1.5"/apiVersion = "1.6"/' node_modules/@react-native/gradle-plugin/build.gradle.kts
       - FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p android
         --no-install
       - sed -i -e '/signingConfig /d' android/app/build.gradle
       - echo >> android/gradle.properties
-      - echo org.gradle.java.home=/opt/java17 >> android/gradle.properties
-      - echo org.gradle.java.installations.paths=/opt/java17 >> android/gradle.properties
+      - echo android.kotlinVersion=1.9.22 >> android/gradle.properties
+      - sed -i s/android.enableJetifier=true/android.enableJetifier=false/ android/gradle.properties
+      - sed -i s/gradle-8.3-all/gradle-8.5-all/ android/gradle/wrapper/gradle-wrapper.properties
     scanignore:
       - node_modules/react-native/sdks/hermesc/linux64-bin/hermesc
       - node_modules/expo-haptics/android/build.gradle
@@ -65,8 +64,12 @@ Builds:
 MaintainerNotes: |-
   Follows templates/build-react-native.yml. android/app/.gitkeep keeps the subdir
   available before init; Expo generates native sources during prebuild.
-  Expo SDK 50 builds its modules from source by default. JDK 17 is required by
-  AGP 8.1.1 (JDK 21 fails jlink); Gradle uses org.gradle.java.home and java.installations.paths in gradle.properties.
+  Uses the buildserver JDK 21 with the template toolchain patch. Expo SDK 50
+  builds its native modules from source. Gradle 8.5 supports the Java 21 runtime;
+  AGP 8.2.2 fixes the older jlink issue and Kotlin 1.9.22 supports JVM 21 targets.
+  No separate JDK download or Java 17 override is used.
+  Jetifier is disabled: audited dependencies already use AndroidX, and the older
+  Jetifier cannot transform Java 21 classes. AndroidX remains enabled.
   No Firebase or install-referrer patches are needed by this dependency set.
   FDROID_BUILD enables unsigned APK output and removes unused npm-local Maven repositories.
   Hermes is selected; unused JSC AARs and non-Linux Hermes compilers are removed before scanning.

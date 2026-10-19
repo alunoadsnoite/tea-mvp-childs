@@ -21,6 +21,8 @@ Saída: `android/app/build/outputs/apk/release/app-release.apk`. O release inclu
 
 O APK local normal usa a chave de desenvolvimento criada pelo template. Com `FDROID_BUILD=1`, o config plugin remove as referências à assinatura e a saída é `app-release-unsigned.apk`. A distribuição oficial deve usar a assinatura administrada pelo F-Droid, ou uma estratégia própria de assinatura e builds reproduzíveis previamente acordada com os mantenedores. As assinaturas podem ser diferentes: a atualização sobre um APK instalado fora do F-Droid não é garantida.
 
+Para o buildserver F-Droid, a receita adapta as toolchains para JDK 21 com Gradle 8.5, AGP 8.2.2 e Kotlin 1.9.22. O procedimento acima descreve o template local sem esses patches; os passos exatos do F-Droid estão no arquivo de metadados.
+
 ## Receita e auditoria
 
 A receita está em [`fdroid/metadata/com.teakids.app.yml`](fdroid/metadata/com.teakids.app.yml), com preparação de dependências, variante sem assinatura e detecção de novas versões pelo `app.json`. Procedimento e justificativas das exceções: [`fdroid/README.md`](fdroid/README.md). Inventário de licenças: [`fdroid/reports/npm-licenses.json`](fdroid/reports/npm-licenses.json). Origem dos recursos: [`assets/README.md`](assets/README.md).
