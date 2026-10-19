@@ -21,5 +21,7 @@
   "manualBuildSha256": "863e8a25eceaea2ed06e78e10da781659543b84744c0251f37fd331e9f7103be",
   "fdroidBuildSha256": "e69f0ebdb079658fe53dd011f4cf016a7e27ae9eb764a68118cb142c65ab9e8c",
   "validatedSourceCommit": "0a7524ebbaf680cec8bc8fc6e3f809fc92b3a04d",
-  "fdroidBuildSucceeded": true
+  "fdroidBuildSucceeded": true,
+  "installableDevelopmentSignedCopy": "TEA-Kids-v1.1.5.apk",
+  "developmentSignedCopySha256": "115dc97b3455cf0c64bcd877565171cf1c4f18f8c132ae3469347ada56859e37"
 }
