@@ -38,6 +38,7 @@ Builds:
       - FDROID_BUILD=1 EXPO_NO_TELEMETRY=1 npx --no-install expo prebuild -p android
         --no-install
       - sed -i -e '/signingConfig /d' android/app/build.gradle
+      - echo >> android/gradle.properties
       - echo org.gradle.java.home=/opt/java17 >> android/gradle.properties
       - echo org.gradle.java.installations.paths=/opt/java17 >> android/gradle.properties
     scanignore:
