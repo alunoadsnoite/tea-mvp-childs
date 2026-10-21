@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -24,11 +24,9 @@ export function CrisisCardModal() {
   const { messages, contacts, activeMessageId, setActiveMessage, primaryContactId } =
     useCrisisStore();
   const { colors } = useThemeMode();
-  const [currentIndex, setCurrentIndex] = useState(() => {
-    if (!activeMessageId || messages.length === 0) return 0;
-    const index = messages.findIndex((m) => m.id === activeMessageId);
-    return index >= 0 ? index : 0;
-  });
+  // The persisted active ID is the single source of truth, including after deletion.
+  const selectedIndex = messages.findIndex((message) => message.id === activeMessageId);
+  const currentIndex = Math.max(0, selectedIndex);
 
   const scrollViewRef = useRef<ScrollView>(null);
   const { width } = useWindowDimensions();
@@ -36,6 +34,10 @@ export function CrisisCardModal() {
   const { trigger } = useHapticFeedback();
 
   const currentMessage = messages[currentIndex];
+  const syncPage = () => scrollViewRef.current?.scrollTo({ x: currentIndex * viewportWidth, animated: false });
+  useEffect(() => {
+    scrollViewRef.current?.scrollTo({ x: currentIndex * viewportWidth, animated: false });
+  }, [currentIndex, viewportWidth, messages.length]);
 
   const primaryContact =
     contacts.find((c) => c.id === primaryContactId) ?? contacts[0];
@@ -44,7 +46,6 @@ export function CrisisCardModal() {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(contentOffsetX / viewportWidth);
     if (index !== currentIndex && index >= 0 && index < messages.length && messages[index]) {
-      setCurrentIndex(index);
       setActiveMessage(messages[index].id);
     }
   };
@@ -86,6 +87,8 @@ export function CrisisCardModal() {
         ref={scrollViewRef}
         style={styles.scrollView}
         horizontal
+        contentOffset={{ x: currentIndex * viewportWidth, y: 0 }}
+        onContentSizeChange={syncPage}
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handleScroll}
@@ -93,7 +96,9 @@ export function CrisisCardModal() {
         scrollEventThrottle={16}
       >
         {messages.map((message) => (
-          <View key={message.id} style={[styles.messageContainer, { width: viewportWidth }]}>
+          <ScrollView key={message.id} style={{ width: viewportWidth }}
+            contentContainerStyle={styles.messageContainer} nestedScrollEnabled
+            showsVerticalScrollIndicator accessibilityLabel={`Cartão ${message.title}`}>
             <View style={[styles.messageContentWrapper, { 
               backgroundColor: colors.surface,
               borderColor: colors.accent,
@@ -103,7 +108,7 @@ export function CrisisCardModal() {
               <View style={[styles.divider, { backgroundColor: colors.accent }]} />
               <Text style={[styles.messageContent, { color: colors.textSecondary }]}>{message.content}</Text>
             </View>
-          </View>
+          </ScrollView>
         ))}
       </ScrollView>
 
@@ -152,12 +157,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   messageContainer: {
-    flex: 1,
+    flexGrow: 1,
+    paddingVertical: 12,
     justifyContent: "center",
     alignItems: "center",
   },
   messageContentWrapper: {
-    flexShrink: 1,
     justifyContent: "center",
     alignItems: "center",
     width: "88%",
@@ -180,7 +185,6 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     marginBottom: 16,
     textAlign: "center",
-    flexShrink: 1,
   },
   divider: {
     width: 60,
@@ -193,7 +197,6 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     textAlign: "center",
     fontWeight: "500",
-    flexShrink: 1,
   },
   emergencyActions: {
     gap: 12,

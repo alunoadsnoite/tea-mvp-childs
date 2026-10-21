@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, Link } from "expo-router";
 import { useThemeMode } from "@/hooks/useThemeMode";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 
@@ -34,6 +34,12 @@ export default function SettingsScreen() {
       />
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
+        <Link href="/crisis-settings" asChild>
+          <Pressable accessibilityRole="button" accessibilityLabel="Configurar cartões de ajuda"
+            style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>💬 Cartões de ajuda</Text>
+          </Pressable>
+        </Link>
         {/* Tema */}
         <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>

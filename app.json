@@ -2,7 +2,7 @@
   "expo": {
     "name": "TEA Kids",
     "slug": "tea-mvp-childs",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "orientation": "default",
     "scheme": "tea-kids",
     "userInterfaceStyle": "automatic",
@@ -28,7 +28,7 @@
         "backgroundImage": "./assets/adaptive-icon.png"
       },
       "package": "com.teakids.app",
-      "versionCode": 5,
+      "versionCode": 6,
       "blockedPermissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",

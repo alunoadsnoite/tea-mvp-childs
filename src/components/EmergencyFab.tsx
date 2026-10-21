@@ -9,6 +9,7 @@ export function EmergencyFab() {
 
   return (
     <Pressable
+      accessibilityRole="button"
       style={[styles.fab, { backgroundColor: colors.accent }]}
       onPress={() => router.push("/crisis-card")}
       accessibilityLabel="Preciso de ajuda"
@@ -21,8 +22,6 @@ export function EmergencyFab() {
 
 const styles = StyleSheet.create({
   fab: {
-    position: "absolute",
-    bottom: 32,
     alignSelf: "center",
     width: 64,
     height: 64,
