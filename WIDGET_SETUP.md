@@ -59,6 +59,10 @@ obrigatório o release.
 
 - **Deep link** `tea-kids://crisis-card`, com o scheme vindo de `app.json`. O
   Expo Router resolve para a rota `/crisis-card`.
+- **Abertura fria:** o PendingIntent aponta para MainActivity e recria a tarefa
+  com NEW_TASK/CLEAR_TASK, conservando ACTION_VIEW e o URI do cartão. A rota
+  inicial só é reaplicada depois de o navegador montar. O atalho de ajuda
+  abre uma nova tarefa de navegação; os dados locais persistidos permanecem.
 - **Conteúdo estático.** Sem lista, sem rolagem e sem atualização automática
   (`updatePeriodMillis=0`): em momento de sobrecarga, o alvo precisa ser
   previsível.
