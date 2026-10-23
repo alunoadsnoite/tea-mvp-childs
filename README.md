@@ -2,9 +2,18 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.5
+## Versão Atual: 1.1.7
 
 ### Changelog
+
+#### v1.1.7 (2026-10-23)
+- Tela inicial com rolagem vertical e rótulos secundários que quebram linha.
+- Melhor contraste no texto do botão principal de ajuda nos temas claro e escuro.
+- Guia de reteste do tablet em `TABLET_RETEST.md`; validação no aparelho permanece pendente.
+
+#### v1.1.6 (2026-10-21)
+- Corrige abertura pelo widget, seleção de cartões, recuperação de rotinas pausadas e textos ampliados.
+- Mantém o SOS separado dos controles de rotina.
 
 #### v1.1.5 (2026-10-14)
 - Remove permissões Android de armazenamento e sobreposição que o app não utiliza.

@@ -1,0 +1,1 @@
+Tela inicial com rolagem, rótulos que quebram linha e melhor contraste em Ajuda. Reteste no tablet pendente.

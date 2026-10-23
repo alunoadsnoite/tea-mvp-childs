@@ -1,7 +1,7 @@
 # Empacotamento para o F-Droid
 
 `metadata/com.teakids.app.yml` é a receita destinada a `fdroiddata/metadata/`.
-O ID é `com.teakids.app`. A versão 1.1.5 usa `versionCode` 5.
+O ID é `com.teakids.app`. A versão 1.1.7 usa `versionCode` base 7 no app. A receita gera APKs separados: 71 (armeabi-v7a), 72 (arm64-v8a), 73 (x86) e 74 (x86_64).
 
 ## Sequência
 
@@ -43,7 +43,7 @@ Copiar a receita para `metadata/com.teakids.app.yml`, então executar:
 fdroid lint com.teakids.app
 fdroid rewritemeta com.teakids.app
 fdroid checkupdates com.teakids.app
-fdroid build --verbose --test com.teakids.app:5
+fdroid build --verbose --test com.teakids.app:74
 ```
 
 O build completo requer que a tag de release esteja publicada. A aprovação continua dependendo da revisão do F-Droid; os resultados locais são registrados em `reports/validation.md`.
