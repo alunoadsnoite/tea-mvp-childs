@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckInCard } from "@/components/CheckInCard";
@@ -11,18 +11,19 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.content}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <Text style={[styles.welcomeText, { color: colors.text }]}>Olá! 👋</Text>
         
         {/* Ação principal — Cartão de Ajuda */}
         <Link href="/crisis-card" asChild>
           <Pressable
             style={[styles.crisisButton, { backgroundColor: colors.accent }]}
+            accessibilityRole="button"
             accessibilityLabel="Preciso de ajuda"
             accessibilityHint="Toque para abrir o cartão de ajuda"
           >
             <Text style={styles.crisisButtonEmoji}>🆘</Text>
-            <Text style={[styles.crisisButtonText, { fontSize: fontSize(20), color: colors.background }]}>
+            <Text style={[styles.crisisButtonText, { fontSize: fontSize(20), color: "#1A1D23" }]}>
               Preciso de ajuda
             </Text>
           </Pressable>
@@ -69,7 +70,7 @@ export default function HomeScreen() {
             </Pressable>
           </Link>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -78,12 +79,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  content: {
+  scrollView: {
     flex: 1,
+  },
+  content: {
+    flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 24,
-    paddingBottom: 80,
+    paddingTop: 24,
+    paddingBottom: 24,
     gap: 20,
   },
   welcomeText: {
@@ -126,6 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   secondaryButtonText: {
+    flexShrink: 1,
     fontSize: 15,
     fontWeight: "600",
     textAlign: "center",
