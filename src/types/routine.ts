@@ -27,6 +27,7 @@ export interface RoutineExecutionState {
   currentStepIndex: number;
   isRunning: boolean;
   isPaused: boolean;
+  pausedAt?: number | null;
   startedAt: number | null;
   completedAt: number | null;
   stepStartedAt: number | null;

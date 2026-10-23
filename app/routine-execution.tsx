@@ -39,8 +39,22 @@ export default function RoutineExecutionScreen() {
     );
   }
 
+  const handleUnavailable = () => {
+    stopExecution();
+    router.replace("/routines");
+  };
+
   const routine = routines.find((r) => r.id === execution.routineId);
-  if (!routine) return null;
+  if (!routine || !routine.steps[execution.currentStepIndex]) {
+    return (
+      <SafeAreaView style={[styles.emptyContainer, { backgroundColor: colors.background }]}>
+        <Text style={{ color: colors.text }}>🌱 Esta rotina não está disponível</Text>
+        <Pressable onPress={handleUnavailable} accessibilityRole="button" accessibilityLabel="Voltar às rotinas" accessibilityHint="Encerra a rotina indisponível e abre sua lista">
+          <Text style={{ color: colors.text }}>⬅️ Voltar às rotinas</Text>
+        </Pressable>
+      </SafeAreaView>
+    );
+  }
 
   const currentStep = routine.steps[execution.currentStepIndex];
   const isLastStep = execution.currentStepIndex === routine.steps.length - 1;
@@ -48,12 +62,6 @@ export default function RoutineExecutionScreen() {
 
   const handleCompleteStep = () => {
     completeStep();
-    if (isLastStep) {
-      setTimeout(() => {
-        stopExecution();
-        router.replace("/routines");
-      }, 1500);
-    }
   };
 
   const handleStop = () => {
@@ -72,7 +80,7 @@ export default function RoutineExecutionScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {/* Progresso */}
         <View style={styles.progressContainer}>
-          <Text style={styles.progressText}>
+          <Text style={[styles.progressText, { color: colors.textSecondary }]}>
             Passo {execution.currentStepIndex + 1} de {routine.steps.length}
           </Text>
           <View style={styles.progressBar}>
@@ -90,15 +98,15 @@ export default function RoutineExecutionScreen() {
         {/* Título da rotina */}
         <View style={styles.routineHeader}>
           <Text style={styles.routineEmoji}>{routine.emoji}</Text>
-          <Text style={styles.routineTitle}>{routine.name}</Text>
+          <Text style={[styles.routineTitle, { color: colors.text }]}>{routine.name}</Text>
         </View>
 
         {/* Passo atual */}
-        <View style={styles.stepCard}>
+        <View style={[styles.stepCard, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
           <Text style={styles.stepEmoji}>{currentStep.emoji}</Text>
-          <Text style={styles.stepTitle}>{currentStep.title}</Text>
+          <Text style={[styles.stepTitle, { color: colors.text }]}>{currentStep.title}</Text>
           {currentStep.description && (
-            <Text style={styles.stepDescription}>{currentStep.description}</Text>
+            <Text style={[styles.stepDescription, { color: colors.textSecondary }]}>{currentStep.description}</Text>
           )}
         </View>
 
@@ -109,6 +117,7 @@ export default function RoutineExecutionScreen() {
               startTime={execution.stepStartedAt}
               endTime={execution.stepEndsAt}
               isPaused={execution.isPaused}
+              pausedAt={execution.pausedAt}
             />
             {execution.isPaused && (
               <Text style={styles.pausedText}>⏸️ Pausado</Text>
@@ -123,6 +132,11 @@ export default function RoutineExecutionScreen() {
             <Text style={styles.completedText}>
               Parabéns! Você conseguiu!
             </Text>
+            <Pressable style={styles.backButton} onPress={handleUnavailable}
+            accessibilityRole="button" accessibilityLabel="Voltar às rotinas"
+            accessibilityHint="Fecha a rotina concluída e abre sua lista">
+            <Text style={styles.backButtonText}>⬅️ Voltar às rotinas</Text>
+            </Pressable>
           </View>
         )}
 
@@ -132,6 +146,9 @@ export default function RoutineExecutionScreen() {
             <Pressable
               style={styles.primaryButton}
               onPress={handleCompleteStep}
+              accessibilityRole="button"
+              accessibilityLabel="Concluir este passo"
+              accessibilityHint="Avança para o próximo passo ou termina a rotina"
             >
               <Text style={styles.primaryButtonText}>
                 {isLastStep ? "Terminar 🏁" : "Próximo ➡️"}
@@ -141,30 +158,42 @@ export default function RoutineExecutionScreen() {
             <View style={styles.secondaryActions}>
               {execution.isPaused ? (
                 <Pressable
-                  style={styles.secondaryButton}
+                  style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
                   onPress={resumeExecution}
+                  accessibilityRole="button"
+                  accessibilityLabel="Continuar rotina"
+                  accessibilityHint="Retoma o tempo do passo"
                 >
-                  <Text style={styles.secondaryButtonText}>▶️ Continuar</Text>
+                  <Text style={[styles.secondaryButtonText, { color: colors.text }]}>▶️ Continuar</Text>
                 </Pressable>
               ) : (
                 <Pressable
-                  style={styles.secondaryButton}
+                  style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
                   onPress={pauseExecution}
+                  accessibilityRole="button"
+                  accessibilityLabel="Pausar rotina"
+                  accessibilityHint="Mantém o tempo restante enquanto você descansa"
                 >
-                  <Text style={styles.secondaryButtonText}>⏸️ Pausar</Text>
+                  <Text style={[styles.secondaryButtonText, { color: colors.text }]}>⏸️ Pausar</Text>
                 </Pressable>
               )}
 
               <Pressable
-                style={styles.secondaryButton}
+                style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
                 onPress={() => extendTime(5)}
+                accessibilityRole="button"
+                accessibilityLabel="Mais cinco minutos"
+                accessibilityHint="Acrescenta cinco minutos ao passo atual"
               >
-                <Text style={styles.secondaryButtonText}>+5 min ⏰</Text>
+                <Text style={[styles.secondaryButtonText, { color: colors.text }]}>+5 min ⏰</Text>
               </Pressable>
 
               <Pressable
                 style={styles.stopButton}
                 onPress={handleStop}
+                accessibilityRole="button"
+                accessibilityLabel="Encerrar rotina"
+                accessibilityHint="Encerra a rotina e volta à tela anterior"
               >
                 <Text style={styles.stopButtonText}>Encerrar</Text>
               </Pressable>
@@ -186,6 +215,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 24,
+    paddingBottom: 112,
     gap: 24,
   },
   emptyContainer: {
@@ -307,6 +337,7 @@ const styles = StyleSheet.create({
   },
   secondaryActions: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
     gap: 12,
   },

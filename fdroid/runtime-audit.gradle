@@ -1,0 +1,17 @@
+import groovy.json.JsonOutput
+allprojects { project ->
+    afterEvaluate {
+        if (project.path == ':app') {
+            tasks.register('writeFdroidRuntimeDependencies') {
+                doLast {
+                    def rows = configurations.releaseRuntimeClasspath.incoming.resolutionResult.allComponents.findAll {
+                        it.id instanceof org.gradle.api.artifacts.component.ModuleComponentIdentifier
+                    }.collect {
+                        [group: it.id.group, name: it.id.module, version: it.id.version]
+                    }.unique().sort { a, b -> (a.group + ':' + a.name) <=> (b.group + ':' + b.name) }
+                    new File(System.getenv('FDROID_RUNTIME_REPORT') ?: '/build/maven-runtime.json').text = JsonOutput.prettyPrint(JsonOutput.toJson(rows))
+                }
+            }
+        }
+    }
+}

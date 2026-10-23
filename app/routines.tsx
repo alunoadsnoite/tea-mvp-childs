@@ -14,11 +14,13 @@ import { useThemeMode } from "@/hooks/useThemeMode";
 export default function RoutinesListScreen() {
   const router = useRouter();
   const routines = useRoutineStore((state) => state.routines);
+  const execution = useRoutineStore((state) => state.execution);
   const startExecution = useRoutineStore((state) => state.startExecution);
   const { colors } = useThemeMode();
 
   const handleStartRoutine = (routineId: string) => {
-    startExecution(routineId);
+    // Opening the saved execution must not replace its pause/timer state.
+    if (execution?.routineId !== routineId) startExecution(routineId);
     router.push("/routine-execution");
   };
 
@@ -63,8 +65,13 @@ export default function RoutinesListScreen() {
             <Pressable
               style={styles.startButton}
               onPress={() => handleStartRoutine(routine.id)}
+              accessibilityRole="button"
+              accessibilityLabel={execution?.routineId === routine.id ? `Voltar à rotina ${routine.name}` : `Começar ${routine.name}`}
+              accessibilityHint="Abre os passos e os controles da rotina"
             >
-              <Text style={styles.startButtonText}>Começar 🚀</Text>
+              <Text style={styles.startButtonText}>
+                {execution?.routineId === routine.id ? "Voltar à rotina ▶️" : "Começar 🚀"}
+              </Text>
             </Pressable>
           </View>
         ))}

@@ -14,14 +14,13 @@ import { useThemeMode } from "@/hooks/useThemeMode";
 export default function CopingCardDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const getCardById = useCopingCardsStore((state) => state.getCardById);
+  const card = useCopingCardsStore((state) => state.cards.find((item) => item.id === id));
   const toggleFavorite = useCopingCardsStore((state) => state.toggleFavorite);
   const { colors } = useThemeMode();
   
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
-  const card = getCardById(id as string);
 
   if (!card) {
     return (

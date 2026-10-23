@@ -1,4 +1,5 @@
 import React from "react";
+import Constants from "expo-constants";
 import {
   View,
   Text,
@@ -7,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { Stack, Link } from "expo-router";
 import { useThemeMode } from "@/hooks/useThemeMode";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 
@@ -33,6 +34,12 @@ export default function SettingsScreen() {
       />
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
+        <Link href="/crisis-settings" asChild>
+          <Pressable accessibilityRole="button" accessibilityLabel="Configurar cartões de ajuda"
+            style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>💬 Cartões de ajuda</Text>
+          </Pressable>
+        </Link>
         {/* Tema */}
         <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>
@@ -54,6 +61,8 @@ export default function SettingsScreen() {
                 trigger("light");
                 changeMode(option.key);
               }}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: mode === option.key }}
               accessibilityLabel={option.label}
               accessibilityHint={option.description}
             >
@@ -81,7 +90,7 @@ export default function SettingsScreen() {
             ℹ️ Sobre
           </Text>
           <Text style={[styles.aboutText, { color: colors.textSecondary }]}>
-            TEA Kids v1.0.0{'\n'}
+            TEA Kids v{Constants.expoConfig?.version ?? "1.1.4"}{'\n'}
             App para crianças e adolescentes no Espectro Autista.
           </Text>
         </View>
