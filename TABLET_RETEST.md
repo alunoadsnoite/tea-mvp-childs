@@ -1,6 +1,8 @@
 # Reteste da tela inicial (TAB01 / TAB02)
 
-As correções usam a versão 1.1.6 como base. A tela inicial agora pode rolar
+A rolagem da 1.1.7 passou no reteste do Jyri nas oito combinações. O texto
+de ajuda ainda desapareceu no tema escuro; a correção adicional está na 1.1.8.
+A tela inicial agora pode rolar
 verticalmente, inclusive até Configurar. Os rótulos secundários podem quebrar
 linha. O texto principal de ajuda usa uma cor escura com contraste mínimo
 4,5:1 sobre o azul dos temas claro e escuro.
@@ -14,8 +16,12 @@ Para repetir no Samsung SM-X210:
    também o SOS separado no rodapé.
 4. Toque em Configurar e confirme a navegação. Preserve os dados existentes.
 
-Os testes automatizados verificam o contraste e a presença de Configurar no
-conteúdo rolável. Eles não comprovam a renderização nem a rolagem física no
+Na 1.1.8, os estilos dos cinco botões são achatados antes do Link asChild,
+pois o Slot da dependência atual transforma arrays em objetos com chaves
+numéricas e perde fundo e layout. Os testes exercitam esse Slot real,
+alternam efetivamente os temas e verificam contraste, layout, navegação e
+a presença de Configurar no conteúdo rolável. Eles não comprovam a
+renderização nem a rolagem física no
 Samsung; esse reteste permanece pendente.
 
 ## Caminhos das rotinas existentes
