@@ -1,0 +1,1 @@
+Keep footer SOS graphic within its touch target at enlarged system font. Make help-card editor text, fields and actions readable in both themes.

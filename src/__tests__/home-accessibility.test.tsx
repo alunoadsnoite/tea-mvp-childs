@@ -5,6 +5,9 @@ import { ThemeMode, useThemeMode } from "../hooks/useThemeMode";
 import HomeScreen from "../../app/index";
 import SettingsScreen from "../../app/settings";
 
+// Cold React Native initialization can exceed Jest's 5 s default on a busy host.
+jest.setTimeout(15000);
+
 const mockPush = jest.fn();
 // Exercise the real locked Slot style merge used by Link asChild. Only the
 // navigation hook is replaced; replacing Link with a host string hid TAB02.
