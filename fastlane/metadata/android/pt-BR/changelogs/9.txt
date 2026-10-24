@@ -1,0 +1,1 @@
+Mantém o ícone SOS dentro do botão com fonte ampliada. Melhora a leitura de textos, campos e ações do editor de cartões nos dois temas.

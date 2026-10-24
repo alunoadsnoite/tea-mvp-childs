@@ -15,7 +15,8 @@ export function EmergencyFab() {
       accessibilityLabel="Preciso de ajuda"
       accessibilityHint="Toque para abrir o cartão de ajuda"
     >
-      <Text style={styles.fabText}>🆘</Text>
+      {/* Decorative icon: keep its glyph inside the fixed 64 dp touch target. */}
+      <Text style={styles.fabText} allowFontScaling={false} accessible={false}>🆘</Text>
     </Pressable>
   );
 }

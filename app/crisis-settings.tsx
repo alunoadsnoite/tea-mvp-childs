@@ -27,7 +27,12 @@ export default function CrisisSettingsScreen() {
     setPrimaryContact,
     resetToDefaults,
   } = useCrisisStore();
-  const { colors } = useThemeMode();
+  const { colors, isDark } = useThemeMode();
+  const textColor = { color: colors.text };
+  const surfaceStyle = { backgroundColor: colors.surface, borderColor: colors.textSecondary };
+  const inputStyle = { color: colors.text, backgroundColor: colors.background, borderColor: colors.textSecondary };
+  const actionColor = { color: isDark ? "#A8C5D1" : "#2B6CB0" };
+  const dangerColor = isDark ? "#FC8181" : "#9B2C2C";
 
   const [editingMessage, setEditingMessage] = useState<string | null>(null);
   const [messageTitle, setMessageTitle] = useState("");
@@ -135,29 +140,29 @@ export default function CrisisSettingsScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {/* Mensagens */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>💬 Mensagens</Text>
+          <Text style={[styles.sectionTitle, textColor]}>💬 Mensagens</Text>
           
           {messages.map((message) => (
-            <View key={message.id} style={styles.itemCard}>
+            <View key={message.id} style={[styles.itemCard, surfaceStyle]}>
               <View style={styles.itemHeader}>
                 <Text style={styles.itemEmoji}>{message.emoji}</Text>
                 <View style={styles.itemInfo}>
-                  <Text style={styles.itemTitle}>{message.title}</Text>
-                  <Text style={styles.itemDescription}>{message.content}</Text>
+                  <Text style={[styles.itemTitle, textColor]}>{message.title}</Text>
+                  <Text style={[styles.itemDescription, textColor]}>{message.content}</Text>
                 </View>
                 <View style={styles.itemActions}>
                   <Pressable
                     onPress={() => handleEditMessage(message.id)}
                     style={styles.actionButton}
                   >
-                    <Text style={styles.actionButtonText}>Editar</Text>
+                    <Text style={[styles.actionButtonText, actionColor]}>Editar</Text>
                   </Pressable>
                   {!message.isDefault && (
                     <Pressable
                       onPress={() => deleteMessage(message.id)}
                       style={styles.actionButton}
                     >
-                      <Text style={styles.actionButtonTextDelete}>Excluir</Text>
+                      <Text style={[styles.actionButtonTextDelete, { color: dangerColor }]}>Excluir</Text>
                     </Pressable>
                   )}
                 </View>
@@ -166,23 +171,25 @@ export default function CrisisSettingsScreen() {
           ))}
 
           {/* Formulário de mensagem */}
-          <View style={styles.form}>
-            <Text style={styles.formTitle}>
+          <View style={[styles.form, surfaceStyle]}>
+            <Text style={[styles.formTitle, textColor]}>
               {editingMessage ? "Editar mensagem" : "Nova mensagem"}
             </Text>
             
             <TextInput
-              style={styles.input}
+              style={[styles.input, inputStyle]}
               placeholder="Título"
-              placeholderTextColor="#A0AEC0"
+              accessibilityLabel="Título da mensagem"
+              placeholderTextColor={colors.text}
               value={messageTitle}
               onChangeText={setMessageTitle}
             />
             
             <TextInput
-              style={[styles.input, styles.textArea]}
+              style={[styles.input, styles.textArea, inputStyle]}
               placeholder="Conteúdo da mensagem"
-              placeholderTextColor="#A0AEC0"
+              accessibilityLabel="Conteúdo da mensagem"
+              placeholderTextColor={colors.text}
               value={messageContent}
               onChangeText={setMessageContent}
               multiline
@@ -215,14 +222,14 @@ export default function CrisisSettingsScreen() {
                     setMessageEmoji("💬");
                   }}
                 >
-                  <Text style={styles.cancelButtonText}>Cancelar</Text>
+                  <Text style={[styles.cancelButtonText, textColor]}>Cancelar</Text>
                 </Pressable>
               )}
               <Pressable
-                style={styles.saveButton}
+                style={[styles.saveButton, { backgroundColor: colors.accent }]}
                 onPress={handleSaveMessage}
               >
-                <Text style={styles.saveButtonText}>Salvar</Text>
+                <Text style={[styles.saveButtonText, { color: "#1A1D23" }]}>Salvar</Text>
               </Pressable>
             </View>
           </View>
@@ -230,18 +237,18 @@ export default function CrisisSettingsScreen() {
 
         {/* Contatos */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>👥 Contatos de Emergência</Text>
+          <Text style={[styles.sectionTitle, textColor]}>👥 Contatos de Emergência</Text>
 
           {contacts.length === 0 ? (
-            <Text style={styles.emptyText}>Nenhum contato cadastrado</Text>
+            <Text style={[styles.emptyText, textColor]}>Nenhum contato cadastrado</Text>
           ) : (
             contacts.map((contact) => (
-              <View key={contact.id} style={styles.itemCard}>
+              <View key={contact.id} style={[styles.itemCard, surfaceStyle]}>
                 <View style={styles.itemHeader}>
                   <Text style={styles.itemEmoji}>{contact.emoji}</Text>
                   <View style={styles.itemInfo}>
-                    <Text style={styles.itemTitle}>{contact.name}</Text>
-                    <Text style={styles.itemDescription}>
+                    <Text style={[styles.itemTitle, textColor]}>{contact.name}</Text>
+                    <Text style={[styles.itemDescription, textColor]}>
                       {contact.phone} {contact.relationship && `• ${contact.relationship}`}
                     </Text>
                   </View>
@@ -250,7 +257,7 @@ export default function CrisisSettingsScreen() {
                       onPress={() => setPrimaryContact(contact.id)}
                       style={styles.actionButton}
                     >
-                      <Text style={primaryContactId === contact.id ? styles.actionButtonTextDelete : styles.actionButtonText}>
+                      <Text style={[styles.actionButtonText, primaryContactId === contact.id ? { color: dangerColor } : actionColor]}>
                         {primaryContactId === contact.id ? "Desmarcar" : "Primário"}
                       </Text>
                     </Pressable>
@@ -258,13 +265,13 @@ export default function CrisisSettingsScreen() {
                       onPress={() => handleEditContact(contact.id)}
                       style={styles.actionButton}
                     >
-                      <Text style={styles.actionButtonText}>Editar</Text>
+                      <Text style={[styles.actionButtonText, actionColor]}>Editar</Text>
                     </Pressable>
                     <Pressable
                       onPress={() => deleteContact(contact.id)}
                       style={styles.actionButton}
                     >
-                      <Text style={styles.actionButtonTextDelete}>Excluir</Text>
+                      <Text style={[styles.actionButtonTextDelete, { color: dangerColor }]}>Excluir</Text>
                     </Pressable>
                   </View>
                 </View>
@@ -273,32 +280,35 @@ export default function CrisisSettingsScreen() {
           )}
 
           {/* Formulário de contato */}
-          <View style={styles.form}>
-            <Text style={styles.formTitle}>
+          <View style={[styles.form, surfaceStyle]}>
+            <Text style={[styles.formTitle, textColor]}>
               {editingContact ? "Editar contato" : "Novo contato"}
             </Text>
             
             <TextInput
-              style={styles.input}
+              style={[styles.input, inputStyle]}
               placeholder="Nome"
-              placeholderTextColor="#A0AEC0"
+              accessibilityLabel="Nome do contato"
+              placeholderTextColor={colors.text}
               value={contactName}
               onChangeText={setContactName}
             />
             
             <TextInput
-              style={styles.input}
+              style={[styles.input, inputStyle]}
               placeholder="Telefone"
-              placeholderTextColor="#A0AEC0"
+              accessibilityLabel="Telefone do contato"
+              placeholderTextColor={colors.text}
               value={contactPhone}
               onChangeText={setContactPhone}
               keyboardType="phone-pad"
             />
             
             <TextInput
-              style={styles.input}
+              style={[styles.input, inputStyle]}
               placeholder="Parentesco (opcional)"
-              placeholderTextColor="#A0AEC0"
+              accessibilityLabel="Parentesco do contato (opcional)"
+              placeholderTextColor={colors.text}
               value={contactRelationship}
               onChangeText={setContactRelationship}
             />
@@ -330,22 +340,22 @@ export default function CrisisSettingsScreen() {
                     setContactEmoji("👤");
                   }}
                 >
-                  <Text style={styles.cancelButtonText}>Cancelar</Text>
+                  <Text style={[styles.cancelButtonText, textColor]}>Cancelar</Text>
                 </Pressable>
               )}
               <Pressable
-                style={styles.saveButton}
+                style={[styles.saveButton, { backgroundColor: colors.accent }]}
                 onPress={handleSaveContact}
               >
-                <Text style={styles.saveButtonText}>Salvar</Text>
+                <Text style={[styles.saveButtonText, { color: "#1A1D23" }]}>Salvar</Text>
               </Pressable>
             </View>
           </View>
         </View>
 
         {/* Reset */}
-        <Pressable style={styles.resetButton} onPress={handleReset}>
-          <Text style={styles.resetButtonText}>Restaurar padrões</Text>
+        <Pressable style={[styles.resetButton, { borderColor: dangerColor }]} onPress={handleReset}>
+          <Text style={[styles.resetButtonText, { color: dangerColor }]}>Restaurar padrões</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>
