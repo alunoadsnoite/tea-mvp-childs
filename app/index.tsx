@@ -14,10 +14,11 @@ export default function HomeScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <Text style={[styles.welcomeText, { color: colors.text }]}>Olá! 👋</Text>
         
+        {/* Link asChild merges styles as objects: flatten before its Slot boundary. */}
         {/* Ação principal — Cartão de Ajuda */}
         <Link href="/crisis-card" asChild>
           <Pressable
-            style={[styles.crisisButton, { backgroundColor: colors.accent }]}
+            style={StyleSheet.flatten([styles.crisisButton, { backgroundColor: colors.accent }])}
             accessibilityRole="button"
             accessibilityLabel="Preciso de ajuda"
             accessibilityHint="Toque para abrir o cartão de ajuda"
@@ -35,7 +36,7 @@ export default function HomeScreen() {
         {/* Navegação secundária */}
         <View style={styles.secondaryActions}>
           <Link href="/interception" asChild>
-            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+            <Pressable style={StyleSheet.flatten([styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }])}>
               <Text style={styles.secondaryButtonEmoji}>💭</Text>
               <Text style={[styles.secondaryButtonText, { fontSize: fontSize(15), color: colors.text }]}>
                 Como estou me sentindo
@@ -44,7 +45,7 @@ export default function HomeScreen() {
           </Link>
 
           <Link href="/routines" asChild>
-            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+            <Pressable style={StyleSheet.flatten([styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }])}>
               <Text style={styles.secondaryButtonEmoji}>📋</Text>
               <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Minhas rotinas
@@ -53,7 +54,7 @@ export default function HomeScreen() {
           </Link>
 
           <Link href="/regulation" asChild>
-            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+            <Pressable style={StyleSheet.flatten([styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }])}>
               <Text style={styles.secondaryButtonEmoji}>🧘</Text>
               <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Hora de acalmar
@@ -62,7 +63,7 @@ export default function HomeScreen() {
           </Link>
 
           <Link href="/settings" asChild>
-            <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+            <Pressable style={StyleSheet.flatten([styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }])}>
               <Text style={styles.secondaryButtonEmoji}>⚙️</Text>
               <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Configurar

@@ -2,9 +2,14 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.7
+## Versão Atual: 1.1.8
 
 ### Changelog
+
+#### v1.1.8 (2026-10-23)
+- Preserva o fundo e o layout dos botões da tela inicial ao passar pelo `Link asChild`.
+- Corrige o teste de contraste para exercitar o Slot real e alternar efetivamente os dois temas.
+- O reteste da nova versão no tablet continua pendente com Jyri.
 
 #### v1.1.7 (2026-10-23)
 - Tela inicial com rolagem vertical e rótulos secundários que quebram linha.

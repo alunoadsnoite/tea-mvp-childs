@@ -1,0 +1,1 @@
+Preserva fundo e layout dos botões iniciais no Link asChild. Testes exercitam o Slot real nos dois temas. Reteste no tablet pendente.

@@ -36,7 +36,7 @@ export default function SettingsScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <Link href="/crisis-settings" asChild>
           <Pressable accessibilityRole="button" accessibilityLabel="Configurar cartões de ajuda"
-            style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+            style={StyleSheet.flatten([styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }])}>
             <Text style={[styles.sectionTitle, { color: colors.text }]}>💬 Cartões de ajuda</Text>
           </Pressable>
         </Link>
