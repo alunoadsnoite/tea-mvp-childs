@@ -1,0 +1,1 @@
+Corrige a versão exibida na tela Sobre para acompanhar a configuração incluída no aplicativo.
