@@ -1,5 +1,5 @@
 import React from "react";
-import Constants from "expo-constants";
+import appConfig from "../app.json";
 import {
   View,
   Text,
@@ -90,7 +90,7 @@ export default function SettingsScreen() {
             ℹ️ Sobre
           </Text>
           <Text style={[styles.aboutText, { color: colors.textSecondary }]}>
-            TEA Kids v{Constants.expoConfig?.version ?? "1.1.4"}{'\n'}
+            TEA Kids v{appConfig.expo.version}{'\n'}
             App para crianças e adolescentes no Espectro Autista.
           </Text>
         </View>
