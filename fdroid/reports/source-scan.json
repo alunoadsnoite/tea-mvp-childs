@@ -1,0 +1,256 @@
+{
+  "fatalProblems": 0,
+  "errors": [],
+  "warnings": [
+    [
+      "executable binary, possibly code",
+      "node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Fontisto.ttf"
+    ]
+  ],
+  "infos": [
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-haptics/android/build.gradle",
+      "node_modules/expo-haptics/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo '${project.ext.resolveModulePath(' at node_modules/@react-native-async-storage/async-storage/android/build.gradle",
+      "node_modules/@react-native-async-storage/async-storage/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-splash-screen/android/build.gradle",
+      "node_modules/expo-splash-screen/android/build.gradle"
+    ],
+    [
+      "Removing gradlew at node_modules/@react-native/gradle-plugin/gradlew",
+      "node_modules/@react-native/gradle-plugin/gradlew"
+    ],
+    [
+      "Removing gradlew.bat at node_modules/@react-native/gradle-plugin/gradlew.bat",
+      "node_modules/@react-native/gradle-plugin/gradlew.bat"
+    ],
+    [
+      "Ignoring unknown maven repo '$rootDir/../node_modules/react-native/android' at node_modules/react-native-safe-area-context/android/build.gradle",
+      "node_modules/react-native-safe-area-context/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle",
+      "node_modules/expo-modules-core/android/ExpoModulesCorePlugin.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-modules-core/android/build.gradle",
+      "node_modules/expo-modules-core/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo '$projectDir/../node_modules/react-native/android' at node_modules/react-native-screens/android/build.gradle",
+      "node_modules/react-native-screens/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo/android/build.gradle",
+      "node_modules/expo/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-file-system/android/build.gradle",
+      "node_modules/expo-file-system/android/build.gradle"
+    ],
+    [
+      "Ignoring binary at node_modules/react-native/sdks/hermesc/linux64-bin/hermesc",
+      "node_modules/react-native/sdks/hermesc/linux64-bin/hermesc"
+    ],
+    [
+      "Ignoring unknown maven repo 'androidOutputUrl' at node_modules/react-native/ReactAndroid/publish.gradle",
+      "node_modules/react-native/ReactAndroid/publish.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenTempLocalUrl' at node_modules/react-native/ReactAndroid/publish.gradle",
+      "node_modules/react-native/ReactAndroid/publish.gradle"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/it.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/it.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/fi.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/fi.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/zh-Hant.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/zh-Hant.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/he.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/he.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/pl.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/pl.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/ru.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/ru.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/es-ES.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/es-ES.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/ar.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/ar.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/cs.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/cs.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/es.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/es.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/en-GB.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/en-GB.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/zh-Hant-HK.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/zh-Hant-HK.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/ko.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/ko.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/fr.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/fr.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/nb.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/nb.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/ro.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/ro.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/el.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/el.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/hi.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/hi.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/tr.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/tr.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/nl.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/nl.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/zh-Hans.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/zh-Hans.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/hu.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/hu.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/pt.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/pt.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/vi.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/vi.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/de.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/de.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/zu.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/zu.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/pt-PT.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/pt-PT.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/da.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/da.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/ja.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/ja.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/ms.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/ms.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/th.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/th.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/hr.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/hr.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/sv.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/sv.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/id.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/id.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/sk.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/sk.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing binary at node_modules/react-native/React/I18n/strings/uk.lproj/fbt_language_pack.bin",
+      "node_modules/react-native/React/I18n/strings/uk.lproj/fbt_language_pack.bin"
+    ],
+    [
+      "Removing gradlew at node_modules/react-native/template/android/gradlew",
+      "node_modules/react-native/template/android/gradlew"
+    ],
+    [
+      "Removing gradlew.bat at node_modules/react-native/template/android/gradlew.bat",
+      "node_modules/react-native/template/android/gradlew.bat"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-keep-awake/android/build.gradle",
+      "node_modules/expo-keep-awake/android/build.gradle"
+    ],
+    [
+      "Removing WebAssembly binary file at node_modules/source-map/lib/mappings.wasm",
+      "node_modules/source-map/lib/mappings.wasm"
+    ],
+    [
+      "Removing shared library at node_modules/@img/sharp-libvips-linux-x64/lib/libvips-cpp.so.8.18.7",
+      "node_modules/@img/sharp-libvips-linux-x64/lib/libvips-cpp.so.8.18.7"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-font/android/build.gradle",
+      "node_modules/expo-font/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenRepo.url' at node_modules/expo-modules-autolinking/scripts/android/autolinking_implementation.gradle",
+      "node_modules/expo-modules-autolinking/scripts/android/autolinking_implementation.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-constants/android/build.gradle",
+      "node_modules/expo-constants/android/build.gradle"
+    ],
+    [
+      "Ignoring unknown maven repo 'mavenLocal().url' at node_modules/expo-system-ui/android/build.gradle",
+      "node_modules/expo-system-ui/android/build.gradle"
+    ],
+    [
+      "Removing gzip file archive at node_modules/@zxing/text-encoding/umd/encoding.min.js.gz",
+      "node_modules/@zxing/text-encoding/umd/encoding.min.js.gz"
+    ],
+    [
+      "Removing gzip file archive at node_modules/@zxing/text-encoding/umd/encoding-indexes.min.js.gz",
+      "node_modules/@zxing/text-encoding/umd/encoding-indexes.min.js.gz"
+    ]
+  ]
+}

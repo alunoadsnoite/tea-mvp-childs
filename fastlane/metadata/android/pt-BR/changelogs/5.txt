@@ -1,0 +1,1 @@
+Permissões de armazenamento e sobreposição removidas. Release com otimização e preparação para compilação e assinatura pelo F-Droid.

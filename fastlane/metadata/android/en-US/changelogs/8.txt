@@ -1,0 +1,1 @@
+Preserve Home button backgrounds and layout through Link asChild. Regression tests exercise the real Slot merge in both themes. Tablet retest pending.

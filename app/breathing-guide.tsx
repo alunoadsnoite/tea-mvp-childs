@@ -80,6 +80,7 @@ export default function BreathingGuideScreen() {
       if (intervalRef.current) {
         clearTimeout(intervalRef.current);
       }
+      scaleAnim.stopAnimation();
     };
   }, [isActive, currentPhase, selectedExercise, cycleCount]);
 
@@ -93,6 +94,7 @@ export default function BreathingGuideScreen() {
     setIsActive(false);
     setCurrentPhase(0);
     setCycleCount(0);
+    scaleAnim.stopAnimation();
     scaleAnim.setValue(1);
   };
 

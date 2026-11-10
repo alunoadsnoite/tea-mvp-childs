@@ -1,0 +1,1 @@
+Corrige abertura do widget, posição dos cartões de ajuda, retomada de rotina salva e leitura com fonte ampliada. O SOS deixa de cobrir os controles.

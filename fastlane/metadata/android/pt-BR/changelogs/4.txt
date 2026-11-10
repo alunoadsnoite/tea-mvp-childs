@@ -1,0 +1,1 @@
+Correções no tempo e na pausa das rotinas, atualização do tema entre telas, acessibilidade, histórico e favoritos. A conclusão da rotina permanece até você escolher voltar.

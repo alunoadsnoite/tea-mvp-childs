@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect } from "react";
+import { create } from "zustand";
 import { useColorScheme } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -6,34 +7,40 @@ export type ThemeMode = "light" | "dark" | "auto";
 
 const THEME_STORAGE_KEY = "@tea-kids-theme-mode";
 
+interface ThemeState {
+  mode: ThemeMode;
+  isLoaded: boolean;
+  changeMode: (mode: ThemeMode) => void;
+}
+
+const useThemeStore = create<ThemeState>((set) => ({
+  mode: "light",
+  isLoaded: false,
+  changeMode: (mode) => {
+    set({ mode, isLoaded: true });
+    void AsyncStorage.setItem(THEME_STORAGE_KEY, mode).catch(() => {});
+  },
+}));
+
+let hydration: Promise<void> | null = null;
+function loadTheme() {
+  if (!hydration) {
+    hydration = AsyncStorage.getItem(THEME_STORAGE_KEY)
+      .then((saved) => {
+        if (!useThemeStore.getState().isLoaded && (saved === "light" || saved === "dark" || saved === "auto")) {
+          useThemeStore.setState({ mode: saved });
+        }
+      })
+      .catch(() => {})
+      .finally(() => useThemeStore.setState({ isLoaded: true }));
+  }
+  return hydration;
+}
+
 export function useThemeMode() {
   const systemColorScheme = useColorScheme();
-  const [mode, setMode] = useState<ThemeMode>("light");
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-    
-    AsyncStorage.getItem(THEME_STORAGE_KEY).then((saved) => {
-      if (isMounted) {
-        if (saved === "light" || saved === "dark" || saved === "auto") {
-          setMode(saved);
-        }
-        setIsLoaded(true);
-      }
-    });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const changeMode = useCallback((newMode: ThemeMode) => {
-    setMode(newMode);
-    AsyncStorage.setItem(THEME_STORAGE_KEY, newMode).catch(() => {
-      // Silenciosamente falha se não conseguir salvar
-    });
-  }, []);
+  const { mode, isLoaded, changeMode } = useThemeStore();
+  useEffect(() => { void loadTheme(); }, []);
 
   // Quando systemColorScheme é null (indisponível), usa light como padrão
   const isDark = mode === "dark" || (mode === "auto" && systemColorScheme === "dark");

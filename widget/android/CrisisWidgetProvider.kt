@@ -48,13 +48,14 @@ class CrisisWidgetProvider : AppWidgetProvider() {
 
     /**
      * Deep link `tea-kids://crisis-card`, resolvido pelo Expo Router para a
-     * rota `/crisis-card`. `setPackage` mantém o PendingIntent dentro do próprio
+     * rota `/crisis-card`. `setClassName` mantém o PendingIntent dentro do próprio
      * app, sem depender de outra activity responder pelo scheme.
      */
     private fun openHelpCardIntent(context: Context, appWidgetId: Int): PendingIntent {
+        // Recreate the task so a dead process cannot restore its old launcher intent.
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DEEP_LINK)).apply {
-            setPackage(context.packageName)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            setClassName(context.packageName, "${context.packageName}.MainActivity")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
 
         // FLAG_IMMUTABLE é obrigatório a partir do Android 12 (API 31).

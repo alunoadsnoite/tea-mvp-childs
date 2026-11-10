@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import { View, StyleSheet, Animated, Easing, AppState } from "react-native";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 interface VisualTimerBarProps {
@@ -7,6 +7,7 @@ interface VisualTimerBarProps {
   endTime: number;
   isPaused: boolean;
   color?: string;
+  pausedAt?: number | null;
 }
 
 export function VisualTimerBar({
@@ -14,6 +15,7 @@ export function VisualTimerBar({
   endTime,
   isPaused,
   color,
+  pausedAt,
 }: VisualTimerBarProps) {
   const { colors } = useThemeMode();
   const fillColor = color || colors.accent;
@@ -21,29 +23,30 @@ export function VisualTimerBar({
   const animationRef = useRef<Animated.CompositeAnimation | null>(null);
 
   useEffect(() => {
-    const totalDuration = endTime - startTime;
-    const remaining = Math.max(0, endTime - Date.now());
-    const progressValue = totalDuration > 0 ? remaining / totalDuration : 0;
-
-    progress.setValue(1);
-
-    if (isPaused) {
+    const updateProgress = () => {
       animationRef.current?.stop();
-      return;
-    }
-
-    animationRef.current = Animated.timing(progress, {
-      toValue: progressValue,
-      duration: remaining,
-      useNativeDriver: false,
+      const totalDuration = endTime - startTime;
+      const now = isPaused ? pausedAt ?? Date.now() : Date.now();
+      const remaining = Math.max(0, endTime - now);
+      progress.setValue(totalDuration > 0 ? Math.min(1, remaining / totalDuration) : 0);
+      if (isPaused) return;
+      animationRef.current = Animated.timing(progress, {
+        toValue: 0,
+        duration: remaining,
+        easing: Easing.linear,
+        useNativeDriver: false,
+      });
+      animationRef.current.start();
+    };
+    updateProgress();
+    const subscription = AppState.addEventListener("change", (state) => {
+      if (state === "active") updateProgress();
     });
-
-    animationRef.current.start();
-
     return () => {
       animationRef.current?.stop();
+      subscription.remove();
     };
-  }, [startTime, endTime, isPaused]);
+  }, [startTime, endTime, isPaused, pausedAt, progress]);
 
   return (
     <View style={styles.container}>

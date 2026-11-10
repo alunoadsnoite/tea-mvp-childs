@@ -9,20 +9,20 @@ export function EmergencyFab() {
 
   return (
     <Pressable
+      accessibilityRole="button"
       style={[styles.fab, { backgroundColor: colors.accent }]}
       onPress={() => router.push("/crisis-card")}
       accessibilityLabel="Preciso de ajuda"
       accessibilityHint="Toque para abrir o cartão de ajuda"
     >
-      <Text style={styles.fabText}>🆘</Text>
+      {/* Decorative icon: keep its glyph inside the fixed 64 dp touch target. */}
+      <Text style={styles.fabText} allowFontScaling={false} accessible={false}>🆘</Text>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   fab: {
-    position: "absolute",
-    bottom: 32,
     alignSelf: "center",
     width: 64,
     height: 64,

@@ -1,0 +1,1 @@
+Fix widget startup, help-card position, saved routine recovery and enlarged text. Keep SOS separate from routine controls.

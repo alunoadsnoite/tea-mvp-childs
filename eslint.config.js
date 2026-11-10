@@ -12,6 +12,7 @@ export default [
       "ios/",
       ".expo/",
       "build/",
+      ".fdroid-work/",
       "plugins/",
     ],
   },

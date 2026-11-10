@@ -1,0 +1,1 @@
+Routine timers now preserve paused time and drain smoothly. Shared theme updates, accessible routine controls, persistent history and favorite updates, and explicit return after completion.
