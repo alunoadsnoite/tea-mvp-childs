@@ -12,7 +12,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.content}>
-        <Text style={[styles.welcomeText, { color: colors.text }]}>Olá! 👋</Text>
+        <Text style={[styles.welcomeText, { color: colors.text }]}>Olá! <Text importantForAccessibility="no">👋</Text></Text>
         
         {/* Ação principal — Cartão de Ajuda */}
         <Link href="/crisis-card" asChild>
@@ -21,7 +21,9 @@ export default function HomeScreen() {
             accessibilityLabel="Preciso de ajuda"
             accessibilityHint="Toque para abrir o cartão de ajuda"
           >
-            <Text style={styles.crisisButtonEmoji}>🆘</Text>
+            <Text style={styles.crisisButtonEmoji} importantForAccessibility="no">
+              🆘
+            </Text>
             <Text style={[styles.crisisButtonText, { fontSize: fontSize(20), color: colors.background }]}>
               Preciso de ajuda
             </Text>
@@ -35,7 +37,9 @@ export default function HomeScreen() {
         <View style={styles.secondaryActions}>
           <Link href="/interception" asChild>
             <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-              <Text style={styles.secondaryButtonEmoji}>💭</Text>
+              <Text style={styles.secondaryButtonEmoji} importantForAccessibility="no">
+                💭
+              </Text>
               <Text style={[styles.secondaryButtonText, { fontSize: fontSize(15), color: colors.text }]}>
                 Como estou me sentindo
               </Text>
@@ -44,7 +48,9 @@ export default function HomeScreen() {
 
           <Link href="/routines" asChild>
             <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-              <Text style={styles.secondaryButtonEmoji}>📋</Text>
+              <Text style={styles.secondaryButtonEmoji} importantForAccessibility="no">
+                📋
+              </Text>
               <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Minhas rotinas
               </Text>
@@ -53,7 +59,9 @@ export default function HomeScreen() {
 
           <Link href="/regulation" asChild>
             <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-              <Text style={styles.secondaryButtonEmoji}>🧘</Text>
+              <Text style={styles.secondaryButtonEmoji} importantForAccessibility="no">
+                🧘
+              </Text>
               <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Hora de acalmar
               </Text>
@@ -62,7 +70,9 @@ export default function HomeScreen() {
 
           <Link href="/settings" asChild>
             <Pressable style={[styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-              <Text style={styles.secondaryButtonEmoji}>⚙️</Text>
+              <Text style={styles.secondaryButtonEmoji} importantForAccessibility="no">
+                ⚙️
+              </Text>
               <Text style={[styles.secondaryButtonText, { color: colors.text }]}>
                 Configurar
               </Text>

@@ -2,9 +2,14 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.3
+## Versão Atual: 1.1.10
 
 ### Changelog
+
+#### v1.1.10 (2026-10-27)
+- Tela Sobre exibe a versão correta do app, lida da configuração incluída no aplicativo.
+- Emojis decorativos marcados como `importantForAccessibility="no"` para o TalkBack não lê-los duas vezes.
+- Controles de respiração guiada com `accessibilityRole`, `accessibilityLabel`, `accessibilityHint` e `accessibilityState`.
 
 #### v1.1.3 (2026-10-02)
 - **Widget "Preciso de ajuda" no Android** — novo widget de tela inicial (2x1) que abre o app direto em `/crisis-card` pelo deep link `tea-kids://crisis-card`, sem passar pela Home. Emoji 🆘 e a mesma cor de destaque do botão flutuante, para que o widget e o botão dentro do app sejam reconhecidos como a mesma ação. Conteúdo estático, sem lista e sem rolagem: em momento de sobrecarga o alvo precisa ser previsível

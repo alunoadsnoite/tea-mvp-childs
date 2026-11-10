@@ -1,0 +1,1 @@
+Tela Sobre exibe a versão correta do app. Emojis decorativos marcados para o TalkBack não lê-los duas vezes. Controles de respiração guiada com rótulos e dicas de acessibilidade.
