@@ -2,9 +2,12 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.9
+## Versão Atual: 1.1.11
 
 ### Changelog
+
+#### v1.1.11 (2026-11-10)
+- Melhora os rótulos acessíveis dos controles de respiração e evita a leitura duplicada de emojis decorativos. Preserva rolagem, contraste e correções anteriores.
 
 #### v1.1.9 (2026-10-24)
 - Mantém o ícone decorativo do SOS dentro do botão com fonte do sistema ampliada.

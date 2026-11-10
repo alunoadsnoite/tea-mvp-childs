@@ -129,8 +129,14 @@ export default function BreathingGuideScreen() {
                 handleStop();
                 setSelectedExercise(exercise);
               }}
+              accessibilityRole="radio"
+              accessibilityLabel={exercise.name}
+              accessibilityHint={exercise.description}
+              accessibilityState={{ selected: selectedExercise.id === exercise.id }}
             >
-              <Text style={styles.exerciseEmoji}>{exercise.emoji}</Text>
+              <Text style={styles.exerciseEmoji} importantForAccessibility="no">
+                {exercise.emoji}
+              </Text>
               <View style={styles.exerciseInfo}>
                 <Text
                   style={[
@@ -158,7 +164,9 @@ export default function BreathingGuideScreen() {
               },
             ]}
           >
-            <Text style={styles.circleEmoji}>{selectedExercise.emoji}</Text>
+            <Text style={styles.circleEmoji} importantForAccessibility="no">
+              {selectedExercise.emoji}
+            </Text>
             <Text style={styles.phaseLabel}>
               {isActive ? currentPhaseLabel : "Pronto?"}
             </Text>
@@ -221,9 +229,16 @@ export default function BreathingGuideScreen() {
         <Pressable
           style={[styles.controlButton, isActive && styles.controlButtonStop]}
           onPress={isActive ? handleStop : handleStart}
+          accessibilityRole="button"
+          accessibilityLabel={isActive ? "Parar exercício" : "Começar exercício"}
+          accessibilityHint={
+            isActive
+              ? "Interrompe o ciclo de respiração"
+              : `Inicia ${selectedExercise.cycles} ciclos de respiração ${selectedExercise.name}`
+          }
         >
           <Text style={styles.controlButtonText}>
-            {isActive ? "Parar ⏹️" : "Começar ▶️"}
+            {isActive ? "Parar" : "Começar"}
           </Text>
         </Pressable>
       </View>

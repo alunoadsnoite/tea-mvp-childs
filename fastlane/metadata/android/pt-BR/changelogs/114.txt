@@ -1,0 +1,1 @@
+Melhora os rótulos acessíveis dos controles de respiração e evita a leitura duplicada de emojis decorativos. Preserva rolagem, contraste e correções anteriores.
