@@ -53,6 +53,7 @@ Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado
 - Interface colorida e acolhedora
 
 ## Principais Funcionalidades
+Em **Configurações → Idioma**, escolha **Português (Brasil)**, **English** ou **Español**. A preferência fica salva no aparelho e funciona offline. Os textos personalizados são preservados. O endereço em **Desenvolvedor** abre o aplicativo de e-mail.
 
 ### 1. Cartão de Comunicação de Ajuda
 - Acesso instantâneo em 1 toque na Home ou pelo botão flutuante

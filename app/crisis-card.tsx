@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/useTranslation";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,6 +7,7 @@ import { CrisisCardModal } from "@/components/CrisisCardModal";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function CrisisCardScreen() {
+  const { t } = useTranslation();
   const { colors } = useThemeMode();
 
   return (
@@ -13,10 +15,10 @@ export default function CrisisCardScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Preciso de Ajuda",
+          headerTitle: t("Preciso de Ajuda"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
-          headerBackTitle: "Voltar",
+          headerBackTitle: t("Voltar"),
         }}
       />
       <CrisisCardModal />

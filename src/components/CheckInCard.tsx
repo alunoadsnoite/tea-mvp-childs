@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/useTranslation";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useCheckInStore } from "@/stores/checkInStore";
@@ -11,21 +12,20 @@ const getEmoji = (level: number) => {
 };
 
 export function CheckInCard() {
+  const { t, language } = useTranslation();
   const lastEntry = useCheckInStore((state) => state.getLastEntry());
   const { colors } = useThemeMode();
 
   if (!lastEntry) {
     return (
       <View style={[styles.container, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-        <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
-          Como você está se sentindo hoje? 🤔
-        </Text>
+        <Text style={[styles.emptyText, { color: colors.textSecondary }]}>{t("Como você está se sentindo hoje? 🤔")}</Text>
       </View>
     );
   }
 
   const formatTime = (timestamp: number) => {
-    return new Date(timestamp).toLocaleTimeString("pt-BR", {
+    return new Date(timestamp).toLocaleTimeString(language, {
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -33,28 +33,26 @@ export function CheckInCard() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-      <Text style={[styles.title, { color: colors.text }]}>Como você está?</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t("Como você está?")}</Text>
       
       <View style={styles.metrics}>
         <View style={styles.metric}>
           <Text style={styles.metricEmoji}>{getEmoji(lastEntry.happiness)}</Text>
-          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>Felicidade</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>{t("Felicidade")}</Text>
         </View>
         
         <View style={styles.metric}>
           <Text style={styles.metricEmoji}>{getEmoji(lastEntry.energy)}</Text>
-          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>Energia</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>{t("Energia")}</Text>
         </View>
         
         <View style={styles.metric}>
           <Text style={styles.metricEmoji}>{getEmoji(lastEntry.calm)}</Text>
-          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>Calma</Text>
+          <Text style={[styles.metricLabel, { color: colors.textSecondary }]}>{t("Calma")}</Text>
         </View>
       </View>
 
-      <Text style={[styles.timestamp, { color: colors.textSecondary }]}>
-        às {formatTime(lastEntry.timestamp)}
-      </Text>
+      <Text style={[styles.timestamp, { color: colors.textSecondary }]}>{t("às {0}", formatTime(lastEntry.timestamp))}</Text>
     </View>
   );
 }

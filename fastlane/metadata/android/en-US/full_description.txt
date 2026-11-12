@@ -8,4 +8,4 @@ Features:
 • Light, dark and system themes.
 • An Android home-screen widget that opens the help card.
 
-User entries and preferences are stored locally. Core activities work offline; calling or sending SMS uses the phone's services. The interface is currently in Brazilian Portuguese.
+User entries and preferences are stored locally. Core activities work offline; calling or sending SMS uses the phone's services. Choose Brazilian Portuguese, English or Spanish in Settings.

@@ -1,6 +1,11 @@
+import { LANGUAGES } from "@/lib/i18n";
+import { useLanguageStore } from "@/stores/languageStore";
+import { useTranslation } from "@/hooks/useTranslation";
 import React from "react";
 import appConfig from "../app.json";
 import {
+  Alert,
+  Linking,
   View,
   Text,
   Pressable,
@@ -12,22 +17,34 @@ import { Stack, Link } from "expo-router";
 import { useThemeMode } from "@/hooks/useThemeMode";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 
+const DEVELOPER_EMAIL = "valdenorsa@proton.me";
+
 export default function SettingsScreen() {
+  const { t, language } = useTranslation();
+  const setLanguage = useLanguageStore((state) => state.setLanguage);
   const { mode, changeMode, colors } = useThemeMode();
   const { trigger } = useHapticFeedback();
 
   const themeOptions: { key: typeof mode; label: string; description: string; emoji: string }[] = [
-    { key: "light", label: "Claro", description: "Para ambientes bem iluminados", emoji: "☀️" },
-    { key: "dark", label: "Escuro", description: "Reduz fadiga visual", emoji: "🌙" },
-    { key: "auto", label: "Automático", description: "Segue o tema do sistema", emoji: "🔄" },
+    { key: "light", label: t("Claro"), description: t("Para ambientes bem iluminados"), emoji: "☀️" },
+    { key: "dark", label: t("Escuro"), description: t("Reduz fadiga visual"), emoji: "🌙" },
+    { key: "auto", label: t("Automático"), description: t("Segue o tema do sistema"), emoji: "🔄" },
   ];
+
+  const contactDeveloper = async () => {
+    try {
+      await Linking.openURL(`mailto:${DEVELOPER_EMAIL}`);
+    } catch {
+      Alert.alert(t("Não foi possível abrir o e-mail"), t("Envie um e-mail para {0}.", DEVELOPER_EMAIL));
+    }
+  };
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Configurações",
+          headerTitle: t("Configurações"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
         }}
@@ -35,19 +52,46 @@ export default function SettingsScreen() {
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <Link href="/crisis-settings" asChild>
-          <Pressable accessibilityRole="button" accessibilityLabel="Configurar cartões de ajuda"
+          <Pressable accessibilityRole="button" accessibilityLabel={t("Configurar cartões de ajuda")}
             style={StyleSheet.flatten([styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }])}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>💬 Cartões de ajuda</Text>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>{t("💬 Cartões de ajuda")}</Text>
           </Pressable>
         </Link>
+        <View accessibilityRole="radiogroup"
+          style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
+          <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>
+            {t("🌐 Idioma")}
+          </Text>
+          {LANGUAGES.map(({ code, label }) => {
+            const checked = language === code;
+            return (
+              <Pressable
+                key={code}
+                accessibilityRole="radio"
+                accessibilityLabel={label}
+                accessibilityLanguage={code}
+                accessibilityState={{ checked }}
+                onPress={() => {
+                  trigger("light");
+                  setLanguage(code);
+                }}
+                style={[
+                  styles.optionButton,
+                  { borderColor: colors.textSecondary },
+                  checked && { borderColor: colors.accent, backgroundColor: colors.accent + "20" },
+                ]}
+              >
+                <Text style={[styles.optionLabel, styles.optionText, { color: colors.text }]}>{label}</Text>
+                {checked && <Text style={[styles.checkmark, { color: colors.accent }]}>✓</Text>}
+              </Pressable>
+            );
+          })}
+        </View>
+
         {/* Tema */}
         <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>
-            🎨 Tema
-          </Text>
-          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>
-            Escolha como o app aparece
-          </Text>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>{t("🎨 Tema")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Escolha como o app aparece")}</Text>
 
           {themeOptions.map((option) => (
             <Pressable
@@ -68,7 +112,7 @@ export default function SettingsScreen() {
             >
               <View style={styles.optionContent}>
                 <Text style={styles.optionEmoji}>{option.emoji}</Text>
-                <View>
+                <View style={styles.optionText}>
                   <Text style={[styles.optionLabel, { color: colors.text }]}>
                     {option.label}
                   </Text>
@@ -86,26 +130,26 @@ export default function SettingsScreen() {
 
         {/* Sobre */}
         <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>
-            ℹ️ Sobre
-          </Text>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>{t("ℹ️ Sobre")}</Text>
           <Text style={[styles.aboutText, { color: colors.textSecondary }]}>
             TEA Kids v{appConfig.expo.version}{'\n'}
-            App para crianças e adolescentes no Espectro Autista.
+            {t("App para crianças e adolescentes no Espectro Autista.")}
           </Text>
         </View>
 
         {/* Desenvolvedor */}
         <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>
-            👨‍💻 Desenvolvedor
-          </Text>
-          <Text style={[styles.developerName, { color: colors.text }]}>
-            Valdenor Tavares
-          </Text>
-          <Text style={[styles.developerEmail, { color: colors.textSecondary }]}>
-            valdenorsa@proton.me
-          </Text>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>{t("👨‍💻 Desenvolvedor")}</Text>
+          <Text style={[styles.developerName, { color: colors.text }]}>Valdenor Tavares</Text>
+          <Pressable
+            onPress={contactDeveloper}
+            accessibilityRole="link"
+            accessibilityLabel={t("Enviar e-mail ao desenvolvedor")}
+            accessibilityHint={t("Abre seu aplicativo de e-mail")}
+            style={styles.emailLink}
+          >
+            <Text style={[styles.developerEmail, { color: colors.text }]}>{DEVELOPER_EMAIL}</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -175,7 +219,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
+  optionText: { flex: 1 },
+  emailLink: { minHeight: 48, justifyContent: "center" },
   developerEmail: {
+    textDecorationLine: "underline",
     fontSize: 14,
   },
 });

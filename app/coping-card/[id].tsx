@@ -1,3 +1,5 @@
+import { localizeCopingCard } from "@/lib/localizedContent";
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useState } from "react";
 import {
   View,
@@ -12,9 +14,11 @@ import { useCopingCardsStore } from "@/stores/copingCardsStore";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function CopingCardDetailScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const card = useCopingCardsStore((state) => state.cards.find((item) => item.id === id));
+  const savedCard = useCopingCardsStore((state) => state.cards.find((item) => item.id === id));
+  const card = savedCard && localizeCopingCard(savedCard, t);
   const toggleFavorite = useCopingCardsStore((state) => state.toggleFavorite);
   const { colors } = useThemeMode();
   
@@ -26,12 +30,12 @@ export default function CopingCardDetailScreen() {
     return (
       <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.emptyContainer}>
-          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>Cartão não encontrado</Text>
+          <Text style={[styles.emptyText, { color: colors.textSecondary }]}>{t("Cartão não encontrado")}</Text>
           <Pressable
             style={[styles.backButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}
             onPress={() => router.back()}
           >
-            <Text style={[styles.backButtonText, { color: colors.text }]}>Voltar</Text>
+            <Text style={[styles.backButtonText, { color: colors.text }]}>{t("Voltar")}</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -83,9 +87,7 @@ export default function CopingCardDetailScreen() {
 
         {/* Progresso */}
         <View style={styles.progressContainer}>
-          <Text style={styles.progressText}>
-            Passo {Math.min(currentStep + 1, card.steps.length)} de {card.steps.length}
-          </Text>
+          <Text style={styles.progressText}>{t("Passo {0} de {1}", Math.min(currentStep + 1, card.steps.length), card.steps.length)}</Text>
           <View style={styles.progressBar}>
             <View
               style={[
@@ -101,15 +103,13 @@ export default function CopingCardDetailScreen() {
         {/* Passo atual */}
         {!isComplete ? (
           <View style={styles.stepCard}>
-            <Text style={styles.stepNumber}>Passo {currentStep + 1}</Text>
+            <Text style={styles.stepNumber}>{t("Passo {0}", currentStep + 1)}</Text>
             <Text style={styles.stepText}>{card.steps[currentStep]}</Text>
           </View>
         ) : (
           <View style={styles.completedCard}>
             <Text style={styles.completedEmoji}>🎉</Text>
-            <Text style={styles.completedText}>
-              Muito bem! Você conseguiu!
-            </Text>
+            <Text style={styles.completedText}>{t("Muito bem! Você conseguiu!")}</Text>
           </View>
         )}
 
@@ -121,7 +121,7 @@ export default function CopingCardDetailScreen() {
                 style={styles.secondaryButton}
                 onPress={() => setCurrentStep(currentStep - 1)}
               >
-                <Text style={styles.secondaryButtonText}>⬅️ Voltar</Text>
+                <Text style={styles.secondaryButtonText}>{t("⬅️ Voltar")}</Text>
               </Pressable>
             )}
 
@@ -130,7 +130,7 @@ export default function CopingCardDetailScreen() {
               onPress={handleNextStep}
             >
               <Text style={styles.primaryButtonText}>
-                {isLastStep ? "Terminar 🏁" : "Próximo ➡️"}
+                {isLastStep ? t("Terminar 🏁") : t("Próximo ➡️")}
               </Text>
             </Pressable>
           </View>
@@ -142,13 +142,13 @@ export default function CopingCardDetailScreen() {
               style={styles.secondaryButton}
               onPress={handleRestart}
             >
-              <Text style={styles.secondaryButtonText}>🔄 Recomeçar</Text>
+              <Text style={styles.secondaryButtonText}>{t("🔄 Recomeçar")}</Text>
             </Pressable>
             <Pressable
               style={styles.primaryButton}
               onPress={() => router.back()}
             >
-              <Text style={styles.primaryButtonText}>Voltar</Text>
+              <Text style={styles.primaryButtonText}>{t("Voltar")}</Text>
             </Pressable>
           </View>
         )}

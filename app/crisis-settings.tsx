@@ -1,3 +1,5 @@
+import { localizeCrisisMessage } from "@/lib/localizedContent";
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useState } from "react";
 import {
   View,
@@ -14,6 +16,7 @@ import { useCrisisStore } from "@/stores/crisisStore";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function CrisisSettingsScreen() {
+  const { t } = useTranslation();
   const {
     messages,
     contacts,
@@ -34,7 +37,7 @@ export default function CrisisSettingsScreen() {
   const actionColor = { color: isDark ? "#A8C5D1" : "#2B6CB0" };
   const dangerColor = isDark ? "#FC8181" : "#9B2C2C";
 
-  const [editingMessage, setEditingMessage] = useState<string | null>(null);
+  const [editingMessage, setEditingMessage] = useState<{ id: string; title: string; content: string } | null>(null);
   const [messageTitle, setMessageTitle] = useState("");
   const [messageContent, setMessageContent] = useState("");
   const [messageEmoji, setMessageEmoji] = useState("💬");
@@ -49,9 +52,9 @@ export default function CrisisSettingsScreen() {
     if (!messageTitle.trim() || !messageContent.trim()) return;
 
     if (editingMessage) {
-      updateMessage(editingMessage, {
-        title: messageTitle,
-        content: messageContent,
+      updateMessage(editingMessage.id, {
+        ...(messageTitle !== editingMessage.title ? { title: messageTitle } : {}),
+        ...(messageContent !== editingMessage.content ? { content: messageContent } : {}),
         emoji: messageEmoji,
       });
     } else {
@@ -72,9 +75,10 @@ export default function CrisisSettingsScreen() {
     const message = messages.find((m) => m.id === id);
     if (!message) return;
 
-    setEditingMessage(id);
-    setMessageTitle(message.title);
-    setMessageContent(message.content);
+    const localized = localizeCrisisMessage(message, t);
+    setEditingMessage(localized);
+    setMessageTitle(localized.title);
+    setMessageContent(localized.content);
     setMessageEmoji(message.emoji);
   };
 
@@ -117,11 +121,11 @@ export default function CrisisSettingsScreen() {
 
   const handleReset = () => {
     Alert.alert(
-      "Restaurar padrões",
-      "Isso irá restaurar as mensagens padrão e remover todas as personalizações. Deseja continuar?",
+      t("Restaurar padrões"),
+      t("Isso irá restaurar as mensagens padrão e remover todas as personalizações. Deseja continuar?"),
       [
-        { text: "Cancelar", style: "cancel" },
-        { text: "Restaurar", style: "destructive", onPress: resetToDefaults },
+        { text: t("Cancelar"), style: "cancel" },
+        { text: t("Restaurar"), style: "destructive", onPress: resetToDefaults },
       ]
     );
   };
@@ -131,7 +135,7 @@ export default function CrisisSettingsScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Configurar Cartão",
+          headerTitle: t("Configurar Cartão"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
         }}
@@ -140,9 +144,9 @@ export default function CrisisSettingsScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {/* Mensagens */}
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, textColor]}>💬 Mensagens</Text>
+          <Text style={[styles.sectionTitle, textColor]}>{t("💬 Mensagens")}</Text>
           
-          {messages.map((message) => (
+          {messages.map((message) => localizeCrisisMessage(message, t)).map((message) => (
             <View key={message.id} style={[styles.itemCard, surfaceStyle]}>
               <View style={styles.itemHeader}>
                 <Text style={styles.itemEmoji}>{message.emoji}</Text>
@@ -155,14 +159,14 @@ export default function CrisisSettingsScreen() {
                     onPress={() => handleEditMessage(message.id)}
                     style={styles.actionButton}
                   >
-                    <Text style={[styles.actionButtonText, actionColor]}>Editar</Text>
+                    <Text style={[styles.actionButtonText, actionColor]}>{t("Editar")}</Text>
                   </Pressable>
                   {!message.isDefault && (
                     <Pressable
                       onPress={() => deleteMessage(message.id)}
                       style={styles.actionButton}
                     >
-                      <Text style={[styles.actionButtonTextDelete, { color: dangerColor }]}>Excluir</Text>
+                      <Text style={[styles.actionButtonTextDelete, { color: dangerColor }]}>{t("Excluir")}</Text>
                     </Pressable>
                   )}
                 </View>
@@ -173,13 +177,13 @@ export default function CrisisSettingsScreen() {
           {/* Formulário de mensagem */}
           <View style={[styles.form, surfaceStyle]}>
             <Text style={[styles.formTitle, textColor]}>
-              {editingMessage ? "Editar mensagem" : "Nova mensagem"}
+              {editingMessage ? t("Editar mensagem") : t("Nova mensagem")}
             </Text>
             
             <TextInput
               style={[styles.input, inputStyle]}
-              placeholder="Título"
-              accessibilityLabel="Título da mensagem"
+              placeholder={t("Título")}
+              accessibilityLabel={t("Título da mensagem")}
               placeholderTextColor={colors.text}
               value={messageTitle}
               onChangeText={setMessageTitle}
@@ -187,8 +191,8 @@ export default function CrisisSettingsScreen() {
             
             <TextInput
               style={[styles.input, styles.textArea, inputStyle]}
-              placeholder="Conteúdo da mensagem"
-              accessibilityLabel="Conteúdo da mensagem"
+              placeholder={t("Conteúdo da mensagem")}
+              accessibilityLabel={t("Conteúdo da mensagem")}
               placeholderTextColor={colors.text}
               value={messageContent}
               onChangeText={setMessageContent}
@@ -222,14 +226,14 @@ export default function CrisisSettingsScreen() {
                     setMessageEmoji("💬");
                   }}
                 >
-                  <Text style={[styles.cancelButtonText, textColor]}>Cancelar</Text>
+                  <Text style={[styles.cancelButtonText, textColor]}>{t("Cancelar")}</Text>
                 </Pressable>
               )}
               <Pressable
                 style={[styles.saveButton, { backgroundColor: colors.accent }]}
                 onPress={handleSaveMessage}
               >
-                <Text style={[styles.saveButtonText, { color: "#1A1D23" }]}>Salvar</Text>
+                <Text style={[styles.saveButtonText, { color: "#1A1D23" }]}>{t("Salvar")}</Text>
               </Pressable>
             </View>
           </View>
@@ -237,10 +241,10 @@ export default function CrisisSettingsScreen() {
 
         {/* Contatos */}
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, textColor]}>👥 Contatos de Emergência</Text>
+          <Text style={[styles.sectionTitle, textColor]}>{t("👥 Contatos de Emergência")}</Text>
 
           {contacts.length === 0 ? (
-            <Text style={[styles.emptyText, textColor]}>Nenhum contato cadastrado</Text>
+            <Text style={[styles.emptyText, textColor]}>{t("Nenhum contato cadastrado")}</Text>
           ) : (
             contacts.map((contact) => (
               <View key={contact.id} style={[styles.itemCard, surfaceStyle]}>
@@ -258,20 +262,20 @@ export default function CrisisSettingsScreen() {
                       style={styles.actionButton}
                     >
                       <Text style={[styles.actionButtonText, primaryContactId === contact.id ? { color: dangerColor } : actionColor]}>
-                        {primaryContactId === contact.id ? "Desmarcar" : "Primário"}
+                        {primaryContactId === contact.id ? t("Desmarcar") : t("Primário")}
                       </Text>
                     </Pressable>
                     <Pressable
                       onPress={() => handleEditContact(contact.id)}
                       style={styles.actionButton}
                     >
-                      <Text style={[styles.actionButtonText, actionColor]}>Editar</Text>
+                      <Text style={[styles.actionButtonText, actionColor]}>{t("Editar")}</Text>
                     </Pressable>
                     <Pressable
                       onPress={() => deleteContact(contact.id)}
                       style={styles.actionButton}
                     >
-                      <Text style={[styles.actionButtonTextDelete, { color: dangerColor }]}>Excluir</Text>
+                      <Text style={[styles.actionButtonTextDelete, { color: dangerColor }]}>{t("Excluir")}</Text>
                     </Pressable>
                   </View>
                 </View>
@@ -282,13 +286,13 @@ export default function CrisisSettingsScreen() {
           {/* Formulário de contato */}
           <View style={[styles.form, surfaceStyle]}>
             <Text style={[styles.formTitle, textColor]}>
-              {editingContact ? "Editar contato" : "Novo contato"}
+              {editingContact ? t("Editar contato") : t("Novo contato")}
             </Text>
             
             <TextInput
               style={[styles.input, inputStyle]}
-              placeholder="Nome"
-              accessibilityLabel="Nome do contato"
+              placeholder={t("Nome")}
+              accessibilityLabel={t("Nome do contato")}
               placeholderTextColor={colors.text}
               value={contactName}
               onChangeText={setContactName}
@@ -296,8 +300,8 @@ export default function CrisisSettingsScreen() {
             
             <TextInput
               style={[styles.input, inputStyle]}
-              placeholder="Telefone"
-              accessibilityLabel="Telefone do contato"
+              placeholder={t("Telefone")}
+              accessibilityLabel={t("Telefone do contato")}
               placeholderTextColor={colors.text}
               value={contactPhone}
               onChangeText={setContactPhone}
@@ -306,8 +310,8 @@ export default function CrisisSettingsScreen() {
             
             <TextInput
               style={[styles.input, inputStyle]}
-              placeholder="Parentesco (opcional)"
-              accessibilityLabel="Parentesco do contato (opcional)"
+              placeholder={t("Parentesco (opcional)")}
+              accessibilityLabel={t("Parentesco do contato (opcional)")}
               placeholderTextColor={colors.text}
               value={contactRelationship}
               onChangeText={setContactRelationship}
@@ -340,14 +344,14 @@ export default function CrisisSettingsScreen() {
                     setContactEmoji("👤");
                   }}
                 >
-                  <Text style={[styles.cancelButtonText, textColor]}>Cancelar</Text>
+                  <Text style={[styles.cancelButtonText, textColor]}>{t("Cancelar")}</Text>
                 </Pressable>
               )}
               <Pressable
                 style={[styles.saveButton, { backgroundColor: colors.accent }]}
                 onPress={handleSaveContact}
               >
-                <Text style={[styles.saveButtonText, { color: "#1A1D23" }]}>Salvar</Text>
+                <Text style={[styles.saveButtonText, { color: "#1A1D23" }]}>{t("Salvar")}</Text>
               </Pressable>
             </View>
           </View>
@@ -355,7 +359,7 @@ export default function CrisisSettingsScreen() {
 
         {/* Reset */}
         <Pressable style={[styles.resetButton, { borderColor: dangerColor }]} onPress={handleReset}>
-          <Text style={[styles.resetButtonText, { color: dangerColor }]}>Restaurar padrões</Text>
+          <Text style={[styles.resetButtonText, { color: dangerColor }]}>{t("Restaurar padrões")}</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>
