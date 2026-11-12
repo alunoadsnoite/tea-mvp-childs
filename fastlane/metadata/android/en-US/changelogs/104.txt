@@ -1,1 +1,1 @@
-About screen shows the correct app version. Decorative emojis marked for TalkBack not to read them twice. Breathing guide controls with labels and accessibility hints.
+Fix the About screen version so it follows the configuration bundled with the app.

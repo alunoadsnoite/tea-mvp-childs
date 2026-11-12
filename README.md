@@ -2,14 +2,55 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão Atual: 1.1.10
+## Versão 1.1.12
 
 ### Changelog
 
-#### v1.1.10 (2026-10-27)
-- Tela Sobre exibe a versão correta do app, lida da configuração incluída no aplicativo.
-- Emojis decorativos marcados como `importantForAccessibility="no"` para o TalkBack não lê-los duas vezes.
-- Controles de respiração guiada com `accessibilityRole`, `accessibilityLabel`, `accessibilityHint` e `accessibilityState`.
+#### v1.1.12
+- Seletor offline de português do Brasil, inglês e espanhol em Configurações.
+- Interface, rótulos acessíveis e conteúdo padrão traduzidos. Registros e textos personalizados são preservados.
+- O endereço em Desenvolvedor abre o aplicativo de e-mail.
+
+#### v1.1.11 (2026-11-10)
+- Melhora os rótulos acessíveis dos controles de respiração e evita a leitura duplicada de emojis decorativos. Preserva rolagem, contraste e correções anteriores.
+
+#### v1.1.9 (2026-10-24)
+- Mantém o ícone decorativo do SOS dentro do botão com fonte do sistema ampliada.
+- Aplica cores dos temas ao editor de cartões, incluindo títulos, mensagens, contatos e campos de texto.
+- Preserva a escala dos textos informativos e o rótulo acessível do SOS.
+
+#### v1.1.8 (2026-10-23)
+- Preserva o fundo e o layout dos botões da tela inicial ao passar pelo `Link asChild`.
+- Corrige o teste de contraste para exercitar o Slot real e alternar efetivamente os dois temas.
+- O reteste da nova versão no tablet continua pendente com Jyri.
+
+#### v1.1.7 (2026-10-23)
+- Tela inicial com rolagem vertical e rótulos secundários que quebram linha.
+- Melhor contraste no texto do botão principal de ajuda nos temas claro e escuro.
+- Guia de reteste do tablet em `TABLET_RETEST.md`; validação no aparelho permanece pendente.
+
+#### v1.1.6 (2026-10-21)
+- Corrige abertura pelo widget, seleção de cartões, recuperação de rotinas pausadas e textos ampliados.
+- Mantém o SOS separado dos controles de rotina.
+
+#### v1.1.5 (2026-10-14)
+- Remove permissões Android de armazenamento e sobreposição que o app não utiliza.
+- Ativa R8 e remoção de recursos sem uso nos builds release.
+- Adiciona variante sem assinatura para o F-Droid e receita de empacotamento com detecção automática de versões.
+- Documenta origem dos recursos gráficos e inventário de licenças das dependências.
+
+
+#### v1.1.4 (2026-10-11)
+- Timer visual esvazia suavemente e atualiza ao voltar do segundo plano.
+- Pausar uma rotina preserva o tempo restante, inclusive após reabrir o app; +5 min funciona também após o prazo terminar.
+- Conclusão permanece na tela até tocar em “Voltar às rotinas”, sem saída automática.
+- Histórico e cartões de calma reagem à leitura dos dados salvos e às alterações de favoritos.
+- Texto e cartões da execução de rotina respeitam o tema escuro.
+- Tema compartilhado entre telas, com leitura tolerante a falhas do armazenamento.
+- Controles de rotina e tema com semântica de acessibilidade; ações cabem em telas estreitas.
+- Versão exibida em Configurações acompanha a configuração do app.
+- Falhas de vibração são tratadas; exclusão de mensagem seleciona apenas mensagens restantes.
+
 
 #### v1.1.3 (2026-10-02)
 - **Widget "Preciso de ajuda" no Android** — novo widget de tela inicial (2x1) que abre o app direto em `/crisis-card` pelo deep link `tea-kids://crisis-card`, sem passar pela Home. Emoji 🆘 e a mesma cor de destaque do botão flutuante, para que o widget e o botão dentro do app sejam reconhecidos como a mesma ação. Conteúdo estático, sem lista e sem rolagem: em momento de sobrecarga o alvo precisa ser previsível
@@ -53,6 +94,7 @@ Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado
 - Interface colorida e acolhedora
 
 ## Principais Funcionalidades
+
 Em **Configurações → Idioma**, escolha **Português (Brasil)**, **English** ou **Español**. A preferência fica salva no aparelho e funciona offline. Os textos personalizados são preservados. O endereço em **Desenvolvedor** abre o aplicativo de e-mail.
 
 ### 1. Cartão de Comunicação de Ajuda
@@ -170,6 +212,10 @@ src/
 | Cartões | Ancoragem 5-4-3-2-1 | Jogo dos 5 Sentidos |
 | Cores | Pastel suave | Vibrantes mas suaves |
 
+## F-Droid
+
+Preparação e instruções de compilação: [FDROID.md](FDROID.md). Acompanhe a atualização no [catálogo do F-Droid](https://f-droid.org/packages/com.teakids.app/).
+
 ## Licença
 
-MIT
+[MIT](LICENSE)

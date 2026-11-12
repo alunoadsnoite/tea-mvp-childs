@@ -9,14 +9,14 @@ import { useThemeMode } from "@/hooks/useThemeMode";
 export default function HomeScreen() {
   const { t } = useTranslation();
   const { fontSize } = useFontScale();
-  const { colors, isDark } = useThemeMode();
+  const { colors } = useThemeMode();
   const secondaryButtonStyle = StyleSheet.flatten([
     styles.secondaryButton, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" },
   ]);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <Text style={[styles.welcomeText, { color: colors.text }]}>{t("Olá!")} <Text importantForAccessibility="no">👋</Text></Text>
         
         {/* Ação principal — Cartão de Ajuda */}
@@ -30,7 +30,7 @@ export default function HomeScreen() {
             <Text style={styles.crisisButtonEmoji} importantForAccessibility="no">
               🆘
             </Text>
-            <Text style={[styles.crisisButtonText, { fontSize: fontSize(20), color: isDark ? colors.background : colors.text }]}>{t("Preciso de ajuda")}</Text>
+            <Text style={[styles.crisisButtonText, { fontSize: fontSize(20), color: "#1A1D23" }]}>{t("Preciso de ajuda")}</Text>
           </Pressable>
         </Link>
 
@@ -84,13 +84,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scrollView: { flex: 1 },
   content: {
     flexGrow: 1,
     paddingTop: 24,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 24,
-    paddingBottom: 80,
+    paddingBottom: 24,
     gap: 20,
   },
   welcomeText: {
