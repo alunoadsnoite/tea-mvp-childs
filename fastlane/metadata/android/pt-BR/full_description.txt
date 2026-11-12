@@ -8,4 +8,4 @@ Recursos:
 • Temas claro, escuro e automático.
 • Widget Android que abre o cartão de ajuda.
 
-Os registros e preferências ficam armazenados no aparelho. As atividades principais funcionam sem internet; ligações e SMS usam os serviços do telefone. A interface está em português do Brasil.
+Os registros e preferências ficam armazenados no aparelho. As atividades principais funcionam sem internet; ligações e SMS usam os serviços do telefone. Escolha português do Brasil, inglês ou espanhol em Configurações.

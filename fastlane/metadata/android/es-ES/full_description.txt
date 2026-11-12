@@ -1,0 +1,10 @@
+TEA Kids ayuda a niños, niñas y adolescentes autistas a organizar su día y regular sus emociones, con palabras sencillas y emojis.
+
+• Rutinas visuales con un paso a la vez, temporizador, pausa y tiempo extra.
+• Registro de emociones y diario de los últimos días.
+• Tarjetas de ayuda para mostrar mensajes y, si quieres, llamar o enviar un SMS.
+• Actividades para calmarte, tarjetas favoritas y respiración guiada.
+• Temas claro, oscuro y del sistema.
+• Widget de Android para abrir la tarjeta de ayuda.
+
+Los registros y las preferencias se guardan en el dispositivo. Las actividades principales funcionan sin conexión. Las llamadas y los SMS usan los servicios del teléfono. Elige portugués de Brasil, inglés o español en Configuración.

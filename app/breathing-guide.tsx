@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useState, useEffect, useRef } from "react";
 import {
   View,
@@ -12,6 +13,7 @@ import { BREATHING_EXERCISES, BreathingExerciseConfig } from "@/types/coping";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function BreathingGuideScreen() {
+  const { t } = useTranslation();
   const { colors } = useThemeMode();
 
   const [selectedExercise, setSelectedExercise] = useState<BreathingExerciseConfig>(
@@ -24,7 +26,7 @@ export default function BreathingGuideScreen() {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const phaseLabels = ["Inspire", "Segure", "Solte", "Segure"];
+  const phaseLabels = [t("Inspire"), t("Segure"), t("Solte"), t("Segure")];
   const pattern = selectedExercise.pattern;
 
   useEffect(() => {
@@ -109,7 +111,7 @@ export default function BreathingGuideScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Respiração Guiada",
+          headerTitle: t("Respiração Guiada"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
         }}
@@ -130,8 +132,8 @@ export default function BreathingGuideScreen() {
                 setSelectedExercise(exercise);
               }}
               accessibilityRole="radio"
-              accessibilityLabel={exercise.name}
-              accessibilityHint={exercise.description}
+              accessibilityLabel={t(exercise.name)}
+              accessibilityHint={t(exercise.description)}
               accessibilityState={{ selected: selectedExercise.id === exercise.id }}
             >
               <Text style={styles.exerciseEmoji} importantForAccessibility="no">
@@ -144,10 +146,10 @@ export default function BreathingGuideScreen() {
                     selectedExercise.id === exercise.id && styles.exerciseButtonTextActive,
                   ]}
                 >
-                  {exercise.name}
+                  {t(exercise.name)}
                 </Text>
                 <Text style={styles.exerciseDescription}>
-                  {exercise.description}
+                  {t(exercise.description)}
                 </Text>
               </View>
             </Pressable>
@@ -168,7 +170,7 @@ export default function BreathingGuideScreen() {
               {selectedExercise.emoji}
             </Text>
             <Text style={styles.phaseLabel}>
-              {isActive ? currentPhaseLabel : "Pronto?"}
+              {isActive ? currentPhaseLabel : t("Pronto?")}
             </Text>
             {isActive && (
               <Text style={styles.cycleLabel}>
@@ -194,7 +196,7 @@ export default function BreathingGuideScreen() {
 
         {/* Padrão de respiração */}
         <View style={styles.patternContainer}>
-          <Text style={styles.patternLabel}>Como fazer:</Text>
+          <Text style={styles.patternLabel}>{t("Como fazer:")}</Text>
           <View style={styles.patternSteps}>
             {pattern.map((seconds, index) => (
               <View
@@ -230,15 +232,15 @@ export default function BreathingGuideScreen() {
           style={[styles.controlButton, isActive && styles.controlButtonStop]}
           onPress={isActive ? handleStop : handleStart}
           accessibilityRole="button"
-          accessibilityLabel={isActive ? "Parar exercício" : "Começar exercício"}
+          accessibilityLabel={isActive ? t("Parar exercício") : t("Começar exercício")}
           accessibilityHint={
             isActive
-              ? "Interrompe o ciclo de respiração"
-              : `Inicia ${selectedExercise.cycles} ciclos de respiração ${selectedExercise.name}`
+              ? t("Interrompe o ciclo de respiração")
+              : t("Inicia {0} ciclos de respiração {1}", selectedExercise.cycles, t(selectedExercise.name))
           }
         >
           <Text style={styles.controlButtonText}>
-            {isActive ? "Parar" : "Começar"}
+            {isActive ? t("Parar") : t("Começar")}
           </Text>
         </Pressable>
       </View>

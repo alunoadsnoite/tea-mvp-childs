@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/useTranslation";
 import React from "react";
 import {
   View,
@@ -19,6 +20,7 @@ const getEmoji = (level: number) => {
 };
 
 export default function CheckInHistoryScreen() {
+  const { t, language } = useTranslation();
   const storedEntries = useCheckInStore((state) => state.entries);
   const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
   const entries = storedEntries.filter((entry) => entry.timestamp >= cutoff)
@@ -26,7 +28,7 @@ export default function CheckInHistoryScreen() {
   const { colors } = useThemeMode();
 
   const groupedByDay = entries.reduce((acc, entry) => {
-    const date = new Date(entry.timestamp).toLocaleDateString("pt-BR", {
+    const date = new Date(entry.timestamp).toLocaleDateString(language, {
       weekday: "short",
       day: "numeric",
       month: "short",
@@ -39,7 +41,7 @@ export default function CheckInHistoryScreen() {
   }, {} as Record<string, typeof entries>);
 
   const formatTime = (timestamp: number) => {
-    return new Date(timestamp).toLocaleTimeString("pt-BR", {
+    return new Date(timestamp).toLocaleTimeString(language, {
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -50,7 +52,7 @@ export default function CheckInHistoryScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Meu Diário",
+          headerTitle: t("Meu Diário"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
         }}
@@ -58,9 +60,7 @@ export default function CheckInHistoryScreen() {
       
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {Object.keys(groupedByDay).length === 0 ? (
-          <Text style={styles.emptyText}>
-            Nenhum registro nos últimos 7 dias
-          </Text>
+          <Text style={styles.emptyText}>{t("Nenhum registro nos últimos 7 dias")}</Text>
         ) : (
           Object.entries(groupedByDay).map(([date, dayEntries]) => (
             <View key={date} style={styles.daySection}>
@@ -73,17 +73,17 @@ export default function CheckInHistoryScreen() {
                   <View style={styles.metrics}>
                     <View style={styles.metric}>
                       <Text style={styles.metricEmoji}>{getEmoji(entry.happiness)}</Text>
-                      <Text style={styles.metricLabel}>Felicidade</Text>
+                      <Text style={styles.metricLabel}>{t("Felicidade")}</Text>
                     </View>
                     
                     <View style={styles.metric}>
                       <Text style={styles.metricEmoji}>{getEmoji(entry.energy)}</Text>
-                      <Text style={styles.metricLabel}>Energia</Text>
+                      <Text style={styles.metricLabel}>{t("Energia")}</Text>
                     </View>
                     
                     <View style={styles.metric}>
                       <Text style={styles.metricEmoji}>{getEmoji(entry.calm)}</Text>
-                      <Text style={styles.metricLabel}>Calma</Text>
+                      <Text style={styles.metricLabel}>{t("Calma")}</Text>
                     </View>
                   </View>
 
@@ -91,7 +91,7 @@ export default function CheckInHistoryScreen() {
                     <View style={styles.triggers}>
                       {entry.triggers.map((trigger) => {
                         const triggerDef = COMMON_TRIGGERS.find((t) => t.id === trigger);
-                        const label = triggerDef?.label ?? trigger;
+                        const label = triggerDef ? t(triggerDef.label) : trigger;
                         const emoji = triggerDef?.emoji ?? "";
                         return (
                           <View key={trigger} style={styles.triggerChip}>

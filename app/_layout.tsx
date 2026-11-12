@@ -1,3 +1,4 @@
+import { useLanguageHydrated } from "@/stores/languageStore";
 import { Stack, useRootNavigationState, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -43,9 +44,10 @@ function ThemedStack() {
 }
 
 export default function RootLayout() {
+  const languageHydrated = useLanguageHydrated();
   useEffect(() => {
-    void SplashScreen.hideAsync();
-  }, []);
+    if (languageHydrated) void SplashScreen.hideAsync();
+  }, [languageHydrated]);
 
   return (
     <SafeAreaProvider>

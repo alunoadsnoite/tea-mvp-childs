@@ -1,3 +1,5 @@
+import { localizeCrisisMessage } from "@/lib/localizedContent";
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useState, useRef, useEffect } from "react";
 import {
   View,
@@ -21,8 +23,10 @@ interface ScrollViewEvent {
 }
 
 export function CrisisCardModal() {
-  const { messages, contacts, activeMessageId, setActiveMessage, primaryContactId } =
+  const { t } = useTranslation();
+  const { messages: savedMessages, contacts, activeMessageId, setActiveMessage, primaryContactId } =
     useCrisisStore();
+  const messages = savedMessages.map((message) => localizeCrisisMessage(message, t));
   const { colors } = useThemeMode();
   // The persisted active ID is the single source of truth, including after deletion.
   const selectedIndex = messages.findIndex((message) => message.id === activeMessageId);
@@ -78,9 +82,7 @@ export function CrisisCardModal() {
       )}
 
       {messages.length > 1 && (
-        <Text style={[styles.swipeHint, { color: colors.textSecondary }]}>
-          👈 Deslize para ver mais 👉
-        </Text>
+        <Text style={[styles.swipeHint, { color: colors.textSecondary }]}>{t("👈 Deslize para ver mais 👉")}</Text>
       )}
 
       <ScrollView
@@ -98,7 +100,7 @@ export function CrisisCardModal() {
         {messages.map((message) => (
           <ScrollView key={message.id} style={{ width: viewportWidth }}
             contentContainerStyle={styles.messageContainer} nestedScrollEnabled
-            showsVerticalScrollIndicator accessibilityLabel={`Cartão ${message.title}`}>
+            showsVerticalScrollIndicator accessibilityLabel={t("Cartão {0}", message.title)}>
             <View style={[styles.messageContentWrapper, { 
               backgroundColor: colors.surface,
               borderColor: colors.accent,
@@ -117,21 +119,17 @@ export function CrisisCardModal() {
           <Pressable
             style={[styles.emergencyButton, { backgroundColor: colors.accent }]}
             onPress={handleEmergencyCall}
-            accessibilityLabel={`Ligar para ${primaryContact.name}`}
+            accessibilityLabel={t("Ligar para {0}", primaryContact.name)}
           >
-            <Text style={[styles.emergencyButtonText, { color: colors.background }]}>
-              📞 Ligar para {primaryContact.name}
-            </Text>
+            <Text style={[styles.emergencyButtonText, { color: colors.background }]}>{t("📞 Ligar para {0}", primaryContact.name)}</Text>
           </Pressable>
 
           <Pressable
             style={[styles.emergencyButtonSecondary, { borderColor: colors.accent }]}
             onPress={handleEmergencyMessage}
-            accessibilityLabel={`Enviar mensagem para ${primaryContact.name}`}
+            accessibilityLabel={t("Enviar mensagem para {0}", primaryContact.name)}
           >
-            <Text style={[styles.emergencyButtonSecondaryText, { color: colors.accent }]}>
-              💬 Enviar mensagem
-            </Text>
+            <Text style={[styles.emergencyButtonSecondaryText, { color: colors.accent }]}>{t("💬 Enviar mensagem")}</Text>
           </Pressable>
         </View>
       )}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crisis_widget_title">I need help</string>
+    <string name="crisis_widget_subtitle">Tap here 💙</string>
+    <string name="crisis_widget_description">I need help. Tap to open the help card.</string>
+</resources>

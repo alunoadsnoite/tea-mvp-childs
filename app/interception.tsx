@@ -1,3 +1,4 @@
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useState } from "react";
 import {
   View,
@@ -15,6 +16,7 @@ import { useThemeMode } from "@/hooks/useThemeMode";
 const EMOJI_LEVELS = ["😞", "😕", "😐", "🙂", "😄"];
 
 export default function EmotionCheckInScreen() {
+  const { t } = useTranslation();
   const addEntry = useCheckInStore((state) => state.addEntry);
   const { colors } = useThemeMode();
   
@@ -57,7 +59,7 @@ export default function EmotionCheckInScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Como estou me sentindo",
+          headerTitle: t("Como estou me sentindo"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
         }}
@@ -66,10 +68,8 @@ export default function EmotionCheckInScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {/* Felicidade */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>😊 Felicidade</Text>
-          <Text style={styles.sectionDescription}>
-            Como está seu coração?
-          </Text>
+          <Text style={styles.sectionTitle}>{t("😊 Felicidade")}</Text>
+          <Text style={styles.sectionDescription}>{t("Como está seu coração?")}</Text>
           
           <View style={styles.emojiSelector}>
             {EMOJI_LEVELS.map((emoji, index) => (
@@ -89,10 +89,8 @@ export default function EmotionCheckInScreen() {
 
         {/* Energia */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>⚡ Energia</Text>
-          <Text style={styles.sectionDescription}>
-            Como está seu corpo?
-          </Text>
+          <Text style={styles.sectionTitle}>{t("⚡ Energia")}</Text>
+          <Text style={styles.sectionDescription}>{t("Como está seu corpo?")}</Text>
           
           <View style={styles.emojiSelector}>
             {EMOJI_LEVELS.map((emoji, index) => (
@@ -112,10 +110,8 @@ export default function EmotionCheckInScreen() {
 
         {/* Calma */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🧘 Calma</Text>
-          <Text style={styles.sectionDescription}>
-            Você está tranquilo(a)?
-          </Text>
+          <Text style={styles.sectionTitle}>{t("🧘 Calma")}</Text>
+          <Text style={styles.sectionDescription}>{t("Você está tranquilo(a)?")}</Text>
           
           <View style={styles.emojiSelector}>
             {EMOJI_LEVELS.map((emoji, index) => (
@@ -135,10 +131,8 @@ export default function EmotionCheckInScreen() {
 
         {/* Gatilhos */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🤔 O que aconteceu?</Text>
-          <Text style={styles.sectionDescription}>
-            Toque no que você está sentindo (opcional)
-          </Text>
+          <Text style={styles.sectionTitle}>{t("🤔 O que aconteceu?")}</Text>
+          <Text style={styles.sectionDescription}>{t("Toque no que você está sentindo (opcional)")}</Text>
           
           <View style={styles.chipsContainer}>
             {COMMON_TRIGGERS.map((trigger) => (
@@ -149,6 +143,9 @@ export default function EmotionCheckInScreen() {
                   selectedTriggers.includes(trigger.id) && styles.chipSelected,
                 ]}
                 onPress={() => toggleTrigger(trigger.id)}
+                accessibilityRole="checkbox"
+                accessibilityLabel={t(trigger.label)}
+                accessibilityState={{ checked: selectedTriggers.includes(trigger.id) }}
               >
                 <Text style={styles.chipEmoji}>{trigger.emoji}</Text>
                 <Text
@@ -157,7 +154,7 @@ export default function EmotionCheckInScreen() {
                     selectedTriggers.includes(trigger.id) && styles.chipTextSelected,
                   ]}
                 >
-                  {trigger.label}
+                  {t(trigger.label)}
                 </Text>
               </Pressable>
             ))}
@@ -167,11 +164,11 @@ export default function EmotionCheckInScreen() {
         {/* Sugestões */}
         {suggestions.length > 0 && (
           <View style={styles.suggestionsContainer}>
-            <Text style={styles.suggestionsTitle}>💡 Ideias para você</Text>
+            <Text style={styles.suggestionsTitle}>{t("💡 Ideias para você")}</Text>
             {suggestions.map((suggestion, index) => (
               <View key={index} style={styles.suggestionCard}>
                 <Text style={styles.suggestionEmoji}>{suggestion.emoji}</Text>
-                <Text style={styles.suggestionText}>{suggestion.message}</Text>
+                <Text style={styles.suggestionText}>{t(suggestion.message)}</Text>
               </View>
             ))}
           </View>
@@ -180,15 +177,13 @@ export default function EmotionCheckInScreen() {
         {/* Feedback */}
         {showFeedback && (
           <View style={styles.feedbackContainer}>
-            <Text style={styles.feedbackText}>
-              ✅ Pronto! Você foi muito bem!
-            </Text>
+            <Text style={styles.feedbackText}>{t("✅ Pronto! Você foi muito bem!")}</Text>
           </View>
         )}
 
         {/* Botão Salvar */}
         <Pressable style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>Salvar 💾</Text>
+          <Text style={styles.saveButtonText}>{t("Salvar 💾")}</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

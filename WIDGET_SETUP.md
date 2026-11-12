@@ -10,6 +10,8 @@
 > Sem o widget, o Cartão de Ajuda continua acessível pelo botão flutuante 🆘
 > (`EmergencyFab`) e pelo card da Home. O widget é acessória, nunca obrigatório.
 
+O texto do widget acompanha o idioma do Android. Ao abrir o cartão, vale a escolha em **Configurações → Idioma** no app.
+
 ## Como o widget é entregue
 
 O projeto usa managed workflow e `android/` está no `.gitignore`, então nada
@@ -35,6 +37,8 @@ Arquivos-fonte:
 | `widget/android/crisis_widget_background.xml` | `android/app/src/main/res/drawable/crisis_widget_background.xml` |
 | `widget/android/crisis_widget_info.xml` | `android/app/src/main/res/xml/crisis_widget_info.xml` |
 | `widget/android/crisis_widget_values.xml` | `android/app/src/main/res/values/crisis_widget.xml` |
+| `widget/android/crisis_widget_values_en.xml` | `android/app/src/main/res/values-en/crisis_widget.xml` |
+| `widget/android/crisis_widget_values_es.xml` | `android/app/src/main/res/values-es/crisis_widget.xml` |
 
 ## Como testar
 

@@ -1,3 +1,5 @@
+import { localizeCopingCard } from "@/lib/localizedContent";
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useState } from "react";
 import {
   View,
@@ -13,6 +15,7 @@ import { CopingCardCategory } from "@/types/coping";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function CopingCardsScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const cards = useCopingCardsStore((state) => state.cards);
   const toggleFavorite = useCopingCardsStore((state) => state.toggleFavorite);
@@ -22,11 +25,11 @@ export default function CopingCardsScreen() {
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   const categories: { key: CopingCardCategory | "all"; label: string; emoji: string }[] = [
-    { key: "all", label: "Todos", emoji: "📋" },
-    { key: "breathing", label: "Respiração", emoji: "🌬️" },
-    { key: "grounding", label: "Acalmar", emoji: "🧘" },
-    { key: "movement", label: "Movimento", emoji: "🏃" },
-    { key: "creative", label: "Criativo", emoji: "🎨" },
+    { key: "all", label: t("Todos"), emoji: "📋" },
+    { key: "breathing", label: t("Respiração"), emoji: "🌬️" },
+    { key: "grounding", label: t("Acalmar"), emoji: "🧘" },
+    { key: "movement", label: t("Movimento"), emoji: "🏃" },
+    { key: "creative", label: t("Criativo"), emoji: "🎨" },
   ];
 
   const filteredCards = cards.filter((card) => {
@@ -50,7 +53,7 @@ export default function CopingCardsScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Hora de Acalmar",
+          headerTitle: t("Hora de Acalmar"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
         }}
@@ -95,18 +98,16 @@ export default function CopingCardsScreen() {
               showFavoritesOnly && styles.favoriteFilterTextActive,
             ]}
           >
-            {showFavoritesOnly ? "⭐ Favoritos" : "☆ Favoritos"}
+            {showFavoritesOnly ? t("⭐ Favoritos") : t("☆ Favoritos")}
           </Text>
         </Pressable>
       </View>
 
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {sortedCards.length === 0 ? (
-          <Text style={styles.emptyText}>
-            Nenhum cartão encontrado
-          </Text>
+          <Text style={styles.emptyText}>{t("Nenhum cartão encontrado")}</Text>
         ) : (
-          sortedCards.map((card) => (
+          sortedCards.map((card) => localizeCopingCard(card, t)).map((card) => (
             <View key={card.id} style={styles.cardContainer}>
               <Pressable
                 style={styles.card}
@@ -121,7 +122,7 @@ export default function CopingCardsScreen() {
                   <Pressable
                     style={styles.favoriteButton}
                     onPress={() => toggleFavorite(card.id)}
-                    accessibilityLabel={card.isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                    accessibilityLabel={card.isFavorite ? t("Remover dos favoritos") : t("Adicionar aos favoritos")}
                   >
                     <Text style={styles.favoriteIcon}>
                       {card.isFavorite ? "⭐" : "☆"}
@@ -139,12 +140,8 @@ export default function CopingCardsScreen() {
           onPress={() => router.push("/breathing-guide")}
         >
           <Text style={styles.breathingShortcutEmoji}>🌬️</Text>
-          <Text style={styles.breathingShortcutTitle}>
-            Respiração Guiada
-          </Text>
-          <Text style={styles.breathingShortcutDescription}>
-            Exercícios divertidos para acalmar
-          </Text>
+          <Text style={styles.breathingShortcutTitle}>{t("Respiração Guiada")}</Text>
+          <Text style={styles.breathingShortcutDescription}>{t("Exercícios divertidos para acalmar")}</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

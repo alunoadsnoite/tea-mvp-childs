@@ -1,3 +1,5 @@
+import { localizeRoutine } from "@/lib/localizedContent";
+import { useTranslation } from "@/hooks/useTranslation";
 import React from "react";
 import {
   View,
@@ -12,6 +14,7 @@ import { useRoutineStore } from "@/stores/routineStore";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 export default function RoutinesListScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const routines = useRoutineStore((state) => state.routines);
   const execution = useRoutineStore((state) => state.execution);
@@ -29,14 +32,14 @@ export default function RoutinesListScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: "Minhas Rotinas",
+          headerTitle: t("Minhas Rotinas"),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
         }}
       />
       
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
-        {routines.map((routine) => (
+        {routines.map((routine) => localizeRoutine(routine, t)).map((routine) => (
           <View key={routine.id} style={styles.routineCard}>
             <View style={styles.routineHeader}>
               <Text style={styles.routineEmoji}>{routine.emoji}</Text>
@@ -56,9 +59,7 @@ export default function RoutinesListScreen() {
                 </View>
               ))}
               {routine.steps.length > 3 && (
-                <Text style={styles.moreSteps}>
-                  +{routine.steps.length - 3} passos
-                </Text>
+                <Text style={styles.moreSteps}>{t("+{0} passos", routine.steps.length - 3)}</Text>
               )}
             </View>
 
@@ -66,11 +67,11 @@ export default function RoutinesListScreen() {
               style={styles.startButton}
               onPress={() => handleStartRoutine(routine.id)}
               accessibilityRole="button"
-              accessibilityLabel={execution?.routineId === routine.id ? `Voltar à rotina ${routine.name}` : `Começar ${routine.name}`}
-              accessibilityHint="Abre os passos e os controles da rotina"
+              accessibilityLabel={execution?.routineId === routine.id ? t("Voltar à rotina {0}", routine.name) : t("Começar {0}", routine.name)}
+              accessibilityHint={t("Abre os passos e os controles da rotina")}
             >
               <Text style={styles.startButtonText}>
-                {execution?.routineId === routine.id ? "Voltar à rotina ▶️" : "Começar 🚀"}
+                {execution?.routineId === routine.id ? t("Voltar à rotina ▶️") : t("Começar 🚀")}
               </Text>
             </Pressable>
           </View>

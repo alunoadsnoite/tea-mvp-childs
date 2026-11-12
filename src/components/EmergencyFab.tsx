@@ -1,9 +1,11 @@
+import { useTranslation } from "@/hooks/useTranslation";
 import React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 export function EmergencyFab() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { colors } = useThemeMode();
 
@@ -12,8 +14,8 @@ export function EmergencyFab() {
       accessibilityRole="button"
       style={[styles.fab, { backgroundColor: colors.accent }]}
       onPress={() => router.push("/crisis-card")}
-      accessibilityLabel="Preciso de ajuda"
-      accessibilityHint="Toque para abrir o cartão de ajuda"
+      accessibilityLabel={t("Preciso de ajuda")}
+      accessibilityHint={t("Toque para abrir o cartão de ajuda")}
     >
       {/* Decorative icon: keep its glyph inside the fixed 64 dp touch target. */}
       <Text style={styles.fabText} allowFontScaling={false} accessible={false}>🆘</Text>
