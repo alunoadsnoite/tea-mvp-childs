@@ -247,5 +247,17 @@
   "🔄 Recomeçar": "🔄 Reiniciar",
   "😊 Felicidade": "😊 Felicidad",
   "🤔 O que aconteceu?": "🤔 ¿Qué pasó?",
-  "🧘 Calma": "🧘 Calma"
+  "🧘 Calma": "🧘 Calma",
+  "Privacidade": "Privacidad",
+  "Seu diário, suas rotinas, seus cartões e seus contatos ficam no aparelho. O desenvolvedor não recebe esses dados pelo app. O app pede ao Android para deixar esses dados fora das cópias de segurança e das transferências para outro aparelho.": "Tu diario, tus rutinas, tus tarjetas y tus contactos se guardan en el dispositivo. El desarrollador no recibe estos datos a través de la aplicación. La aplicación pide a Android que los excluya de las copias de seguridad y de las transferencias a otro dispositivo.",
+  "Você pode apagar os registros em Meu Diário e remover contatos nas configurações do Cartão de Ajuda. Para apagar todos os dados locais, limpe o armazenamento do app nos ajustes do Android. Se precisar, peça ajuda a um adulto de confiança.": "Puedes borrar los registros en Mi Diario y quitar contactos en los ajustes de la Tarjeta de ayuda. Para borrar todos los datos locales, borra el almacenamiento de la aplicación en los ajustes de Android. Si necesitas ayuda, pídesela a alguien adulto de confianza.",
+  "Ao preparar um SMS, o app de mensagens recebe o número do contato e o texto do cartão. Você escolhe se quer enviar. Dúvidas sobre privacidade: {0}.": "Al preparar un SMS, la aplicación de mensajes recibe el número del contacto y el texto de la tarjeta. Tú decides si quieres enviarlo. Consultas sobre privacidad: {0}.",
+  "Apagar meu diário": "Borrar mi diario",
+  "Isso apaga todos os registros do diário deste aparelho, inclusive os mais antigos.": "Esto borra todos los registros del diario de este dispositivo, incluidos los más antiguos.",
+  "Apagar": "Borrar",
+  "Abrir telefone para {0}": "Abrir teléfono para {0}",
+  "Preparar SMS para {0}": "Preparar SMS para {0}",
+  "Preparar SMS": "Preparar SMS",
+  "Você pode ler o texto antes de enviar.": "Puedes leer el texto antes de enviarlo.",
+  "Não foi possível abrir o telefone ou as mensagens.": "No se pudo abrir el teléfono o la aplicación de mensajes."
 }

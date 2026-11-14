@@ -2,9 +2,14 @@
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
-## Versão 1.1.12
+## Versão 1.1.14
 
 ### Changelog
+
+#### v1.1.14
+
+- Aviso de privacidade em Configurações, exclusão do diário e ações mais claras no Cartão de Ajuda.
+- Backup automático desativado no Android, com regras de exclusão para cópia na nuvem e transferência entre aparelhos.
 
 #### v1.1.12
 - Seletor offline de português do Brasil, inglês e espanhol em Configurações.
@@ -219,3 +224,10 @@ Preparação e instruções de compilação: [FDROID.md](FDROID.md). Acompanhe a
 ## Licença
 
 [MIT](LICENSE)
+
+
+## Privacidade
+
+O diário, as rotinas, os cartões, os contatos de apoio e as preferências são guardados no aparelho. O desenvolvedor não recebe esses registros pelo app. Para apagar os registros de emoções, abra **Meu Diário**. Os contatos podem ser removidos nas configurações do Cartão de Ajuda. Para apagar todos os dados locais, limpe o armazenamento do app nos ajustes do Android.
+
+Ao preparar um SMS, o app de mensagens recebe o número do contato e o texto do cartão. A pessoa escolhe se quer enviar. Crianças e adolescentes podem pedir ajuda a um adulto de confiança. Contato para dúvidas sobre privacidade: valdenorsa@proton.me.

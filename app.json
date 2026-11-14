@@ -2,7 +2,7 @@
   "expo": {
     "name": "TEA Kids",
     "slug": "tea-mvp-childs",
-    "version": "1.1.13",
+    "version": "1.1.14",
     "orientation": "default",
     "scheme": "tea-kids",
     "userInterfaceStyle": "automatic",
@@ -22,13 +22,14 @@
       "icon": "./assets/icon.png"
     },
     "android": {
+      "allowBackup": false,
       "adaptiveIcon": {
         "backgroundColor": "#F0F4F8",
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundImage": "./assets/adaptive-icon.png"
       },
       "package": "com.teakids.app",
-      "versionCode": 13,
+      "versionCode": 14,
       "blockedPermissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
@@ -38,6 +39,7 @@
     "plugins": [
       "expo-router",
       "./plugins/withCrisisWidget",
+      "./plugins/withAndroidPrivacy",
       "./plugins/withReleaseOptimization",
       "./plugins/withFdroidBuild"
     ],

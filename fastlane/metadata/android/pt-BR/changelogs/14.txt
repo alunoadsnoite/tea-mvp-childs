@@ -1,0 +1,1 @@
+Novo aviso de privacidade, opção de apagar o diário e ações mais claras no Cartão de Ajuda. O Android exclui os dados do app de backups e transferências pelas regras do sistema.

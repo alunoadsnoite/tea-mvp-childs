@@ -247,5 +247,17 @@
   "🔄 Recomeçar": "🔄 Restart",
   "😊 Felicidade": "😊 Happiness",
   "🤔 O que aconteceu?": "🤔 What happened?",
-  "🧘 Calma": "🧘 Calm"
+  "🧘 Calma": "🧘 Calm",
+  "Privacidade": "Privacy",
+  "Seu diário, suas rotinas, seus cartões e seus contatos ficam no aparelho. O desenvolvedor não recebe esses dados pelo app. O app pede ao Android para deixar esses dados fora das cópias de segurança e das transferências para outro aparelho.": "Your diary, routines, cards, and contacts stay on your device. The developer does not receive them through the app. The app asks Android to leave them out of backups and device transfers.",
+  "Você pode apagar os registros em Meu Diário e remover contatos nas configurações do Cartão de Ajuda. Para apagar todos os dados locais, limpe o armazenamento do app nos ajustes do Android. Se precisar, peça ajuda a um adulto de confiança.": "You can erase entries in My Diary and remove contacts in the Help Card settings. To erase all local data, clear the app storage in Android settings. Ask an adult you trust if you need help.",
+  "Ao preparar um SMS, o app de mensagens recebe o número do contato e o texto do cartão. Você escolhe se quer enviar. Dúvidas sobre privacidade: {0}.": "When you compose an SMS, the messaging app receives the contact number and the card text. You choose whether to send it. Privacy questions: {0}.",
+  "Apagar meu diário": "Erase my diary",
+  "Isso apaga todos os registros do diário deste aparelho, inclusive os mais antigos.": "This erases all diary entries on this device, including older entries.",
+  "Apagar": "Erase",
+  "Abrir telefone para {0}": "Open dialer for {0}",
+  "Preparar SMS para {0}": "Compose SMS to {0}",
+  "Preparar SMS": "Compose SMS",
+  "Você pode ler o texto antes de enviar.": "You can read the text before sending.",
+  "Não foi possível abrir o telefone ou as mensagens.": "Could not open the dialer or messaging app."
 }

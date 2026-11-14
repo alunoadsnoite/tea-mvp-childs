@@ -128,6 +128,13 @@ export default function SettingsScreen() {
           ))}
         </View>
 
+        <View style={styles.section}>
+          <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>{t("Privacidade")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Seu diário, suas rotinas, seus cartões e seus contatos ficam no aparelho. O desenvolvedor não recebe esses dados pelo app. O app pede ao Android para deixar esses dados fora das cópias de segurança e das transferências para outro aparelho.")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Você pode apagar os registros em Meu Diário e remover contatos nas configurações do Cartão de Ajuda. Para apagar todos os dados locais, limpe o armazenamento do app nos ajustes do Android. Se precisar, peça ajuda a um adulto de confiança.")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Ao preparar um SMS, o app de mensagens recebe o número do contato e o texto do cartão. Você escolhe se quer enviar. Dúvidas sobre privacidade: {0}.", DEVELOPER_EMAIL)}</Text>
+        </View>
+
         {/* Sobre */}
         <View style={[styles.section, { backgroundColor: colors.surface, borderColor: colors.textSecondary + "40" }]}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>{t("ℹ️ Sobre")}</Text>

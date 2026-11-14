@@ -9,6 +9,7 @@ import {
   ScrollView,
   useWindowDimensions,
   Linking,
+  Alert,
 } from "react-native";
 import { useCrisisStore } from "@/stores/crisisStore";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
@@ -54,10 +55,18 @@ export function CrisisCardModal() {
     }
   };
 
+  const openContactApp = async (url: string) => {
+    try {
+      await Linking.openURL(url);
+    } catch {
+      Alert.alert(t("Não foi possível abrir o telefone ou as mensagens."));
+    }
+  };
+
   const handleEmergencyCall = () => {
     trigger("success");
     if (primaryContact?.phone) {
-      Linking.openURL(`tel:${primaryContact.phone}`);
+      void openContactApp(`tel:${primaryContact.phone}`);
     }
   };
 
@@ -65,7 +74,7 @@ export function CrisisCardModal() {
     trigger("light");
     if (primaryContact?.phone) {
       const message = encodeURIComponent(currentMessage?.content || "");
-      Linking.openURL(`sms:${primaryContact.phone}?body=${message}`);
+      void openContactApp(`sms:${primaryContact.phone}?body=${message}`);
     }
   };
 
@@ -119,17 +128,20 @@ export function CrisisCardModal() {
           <Pressable
             style={[styles.emergencyButton, { backgroundColor: colors.accent }]}
             onPress={handleEmergencyCall}
-            accessibilityLabel={t("Ligar para {0}", primaryContact.name)}
+            accessibilityRole="button"
+            accessibilityLabel={t("Abrir telefone para {0}", primaryContact.name)}
           >
-            <Text style={[styles.emergencyButtonText, { color: colors.background }]}>{t("📞 Ligar para {0}", primaryContact.name)}</Text>
+            <Text style={[styles.emergencyButtonText, { color: colors.background }]}>{t("Abrir telefone para {0}", primaryContact.name)}</Text>
           </Pressable>
 
           <Pressable
             style={[styles.emergencyButtonSecondary, { borderColor: colors.accent }]}
             onPress={handleEmergencyMessage}
-            accessibilityLabel={t("Enviar mensagem para {0}", primaryContact.name)}
+            accessibilityRole="button"
+            accessibilityHint={t("Você pode ler o texto antes de enviar.")}
+            accessibilityLabel={t("Preparar SMS para {0}", primaryContact.name)}
           >
-            <Text style={[styles.emergencyButtonSecondaryText, { color: colors.accent }]}>{t("💬 Enviar mensagem")}</Text>
+            <Text style={[styles.emergencyButtonSecondaryText, { color: colors.accent }]}>{t("Preparar SMS")}</Text>
           </Pressable>
         </View>
       )}

@@ -1,6 +1,8 @@
 import { useTranslation } from "@/hooks/useTranslation";
 import React from "react";
 import {
+  Alert,
+  Pressable,
   View,
   Text,
   StyleSheet,
@@ -22,10 +24,18 @@ const getEmoji = (level: number) => {
 export default function CheckInHistoryScreen() {
   const { t, language } = useTranslation();
   const storedEntries = useCheckInStore((state) => state.entries);
+  const clearHistory = useCheckInStore((state) => state.clearHistory);
   const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
   const entries = storedEntries.filter((entry) => entry.timestamp >= cutoff)
     .sort((a, b) => b.timestamp - a.timestamp);
   const { colors } = useThemeMode();
+
+  const confirmErase = () => {
+    Alert.alert(t("Apagar meu diário"), t("Isso apaga todos os registros do diário deste aparelho, inclusive os mais antigos."), [
+      { text: t("Cancelar"), style: "cancel" },
+      { text: t("Apagar"), style: "destructive", onPress: clearHistory },
+    ]);
+  };
 
   const groupedByDay = entries.reduce((acc, entry) => {
     const date = new Date(entry.timestamp).toLocaleDateString(language, {
@@ -59,6 +69,12 @@ export default function CheckInHistoryScreen() {
       />
       
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
+        {storedEntries.length > 0 && (
+          <Pressable accessibilityRole="button" onPress={confirmErase}
+            style={[styles.eraseButton, { borderColor: colors.accent }]}>
+            <Text style={{ color: colors.text }}>{t("Apagar meu diário")}</Text>
+          </Pressable>
+        )}
         {Object.keys(groupedByDay).length === 0 ? (
           <Text style={styles.emptyText}>{t("Nenhum registro nos últimos 7 dias")}</Text>
         ) : (
@@ -114,6 +130,15 @@ export default function CheckInHistoryScreen() {
 }
 
 const styles = StyleSheet.create({
+  eraseButton: {
+    alignSelf: "flex-start",
+    minHeight: 48,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
   },

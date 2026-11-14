@@ -1,0 +1,1 @@
+Added a privacy notice and a diary erase option, clarified Help Card actions, and requested Android to exclude app data from backups and transfers.
