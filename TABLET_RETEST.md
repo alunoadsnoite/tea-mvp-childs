@@ -1,3 +1,7 @@
+# Reteste do tablet — estado atual (15/11/2026)
+
+O GitHub `main` está na versão 1.1.14. Os registros históricos abaixo cobrem versões anteriores; falta repetir no Samsung SM-X210, com dados fictícios, os fluxos de layout e acessibilidade na versão atual. A versão F-Droid 1.1.12 está em compilação; isso não substitui o reteste físico.
+
 # Reteste da tela inicial (TAB01 / TAB02)
 
 A rolagem da 1.1.7 passou no reteste do Jyri nas oito combinações. O texto

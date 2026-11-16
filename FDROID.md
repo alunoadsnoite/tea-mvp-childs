@@ -2,7 +2,9 @@
 
 Aplicativo: TEA Kids (`com.teakids.app`). Licença do projeto: MIT; dependências mantêm suas próprias licenças.
 
-O TEA Kids já está no [catálogo oficial do F-Droid](https://f-droid.org/packages/com.teakids.app/). A receita detecta tags `vX.Y.Z`. Para a versão 1.1.12, os códigos de atualização são 121–124. Os arquivos em `fastlane/metadata/android/` fornecem as descrições e o ícone, em português do Brasil, inglês e espanhol. As cinco capturas reais fornecidas pelo mantenedor ficam em `images/phoneScreenshots/`, na ordem: início, ajuda, rotinas, atividades para acalmar e contagem calma. A interface capturada está em português, inclusive nos metadados de fallback em inglês.
+O TEA Kids já está no [catálogo oficial do F-Droid](https://f-droid.org/packages/com.teakids.app/). Em 15/11/2026, o catálogo oferece a **1.1.10** (códigos 101–104), enquanto o ciclo de builds da **1.1.12** (códigos 121–124) está em andamento; na consulta, os códigos 121 e 122 apareciam ativos e havia log para 124. A fonte é o commit `b45c733`. O GitHub `main` está na **1.1.14**. O espelho local `fdroid/metadata/com.teakids.app.yml` foi alinhado à 1.1.12 em compilação; aguarde o resultado antes de preparar outra atualização. Nenhuma submissão nova foi enviada.
+
+A receita detecta tags `vX.Y.Z`. Os arquivos em `fastlane/metadata/android/` fornecem descrições e ícones em português do Brasil, inglês e espanhol. As cinco capturas ficam em `images/phoneScreenshots/`, na ordem: início, ajuda, rotinas, atividades para acalmar e contagem calma. A interface capturada está em português.
 
 ## Compilação a partir do código
 
