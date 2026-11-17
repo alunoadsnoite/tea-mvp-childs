@@ -130,9 +130,28 @@ export default function SettingsScreen() {
 
         <View style={styles.section}>
           <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>{t("Privacidade")}</Text>
-          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Seu diário, suas rotinas, seus cartões e seus contatos ficam no aparelho. O desenvolvedor não recebe esses dados pelo app. O app pede ao Android para deixar esses dados fora das cópias de segurança e das transferências para outro aparelho.")}</Text>
-          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Você pode apagar os registros em Meu Diário e remover contatos nas configurações do Cartão de Ajuda. Para apagar todos os dados locais, limpe o armazenamento do app nos ajustes do Android. Se precisar, peça ajuda a um adulto de confiança.")}</Text>
-          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Ao preparar um SMS, o app de mensagens recebe o número do contato e o texto do cartão. Você escolhe se quer enviar. Dúvidas sobre privacidade: {0}.", DEVELOPER_EMAIL)}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Seu diário fica neste aparelho. Ele guarda como você se sentiu e o que você anotou.")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Em Meu Diário, toque em Apagar meu diário. Suas rotinas, seus cartões e seus contatos ficam aqui.")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Ao preparar um SMS, o app de mensagens recebe o número e o texto. Você decide se quer enviar.")}</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>{t("Para responsáveis")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("O desenvolvedor não recebe os registros pelo app. O Android recebe instruções para excluir os dados de backups e transferências.")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Para apagar todos os dados do TEA Kids, abra os ajustes do Android, toque em Armazenamento e limpe os dados do app. Mensagens enviadas ou salvas no app de mensagens ficam lá.")}</Text>
+          <Pressable
+            accessibilityRole="button"
+            style={[styles.optionButton, { borderColor: colors.textSecondary }]}
+            onPress={() => void Linking.openSettings().catch(() => {
+              Alert.alert(t("Abra Ajustes do Android, toque em Apps e selecione TEA Kids."));
+            })}
+          >
+            <Text style={[styles.optionLabel, { color: colors.text }]}>{t("Abrir ajustes do TEA Kids no Android")}</Text>
+          </Pressable>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Dúvidas sobre privacidade: {0}.", DEVELOPER_EMAIL)}</Text>
+          <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>{t("Acompanhar e limitar o tempo de uso")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Acompanhar e limitar o tempo de uso")}</Text>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Se o aparelho estiver sob supervisão no Family Link, abra o Family Link no aparelho do responsável. Selecione a criança e vá a Tempo de tela → Limites de tempo → Limites de apps → TEA Kids. Ali você pode acompanhar o uso e definir um limite.")}</Text>
         </View>
 
         {/* Sobre */}

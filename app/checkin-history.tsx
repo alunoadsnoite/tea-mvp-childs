@@ -25,15 +25,28 @@ export default function CheckInHistoryScreen() {
   const { t, language } = useTranslation();
   const storedEntries = useCheckInStore((state) => state.entries);
   const clearHistory = useCheckInStore((state) => state.clearHistory);
+  const [erasing, setErasing] = React.useState(false);
   const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
   const entries = storedEntries.filter((entry) => entry.timestamp >= cutoff)
     .sort((a, b) => b.timestamp - a.timestamp);
   const { colors } = useThemeMode();
 
+  const eraseDiary = async () => {
+    setErasing(true);
+    try {
+      await clearHistory();
+      Alert.alert(t("Seu diário foi apagado."));
+    } catch {
+      Alert.alert(t("Não foi possível apagar o diário."), t("Tente novamente."));
+    } finally {
+      setErasing(false);
+    }
+  };
+
   const confirmErase = () => {
-    Alert.alert(t("Apagar meu diário"), t("Isso apaga todos os registros do diário deste aparelho, inclusive os mais antigos."), [
+    Alert.alert(t("Apagar meu diário"), t("Todos os registros do diário serão apagados deste aparelho. Suas rotinas, seus cartões e seus contatos de ajuda continuarão aqui."), [
       { text: t("Cancelar"), style: "cancel" },
-      { text: t("Apagar"), style: "destructive", onPress: clearHistory },
+      { text: t("Apagar"), style: "destructive", onPress: () => void eraseDiary() },
     ]);
   };
 
@@ -69,10 +82,11 @@ export default function CheckInHistoryScreen() {
       />
       
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
-        {storedEntries.length > 0 && (
-          <Pressable accessibilityRole="button" onPress={confirmErase}
+        {(erasing || storedEntries.length > 0) && (
+          <Pressable accessibilityRole="button" onPress={confirmErase} disabled={erasing}
+            accessibilityState={{ disabled: erasing, busy: erasing }}
             style={[styles.eraseButton, { borderColor: colors.accent }]}>
-            <Text style={{ color: colors.text }}>{t("Apagar meu diário")}</Text>
+            <Text style={{ color: colors.text }}>{t(erasing ? "Apagando o diário…" : "Apagar meu diário")}</Text>
           </Pressable>
         )}
         {Object.keys(groupedByDay).length === 0 ? (

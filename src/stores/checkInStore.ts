@@ -9,8 +9,22 @@ interface CheckInStore {
   getTodayEntries: () => CheckInEntry[];
   getRecentEntries: (days: number) => CheckInEntry[];
   getLastEntry: () => CheckInEntry | null;
-  clearHistory: () => void;
+  clearHistory: () => Promise<void>;
 }
+
+// Keep asynchronous writes in order so a pending check-in cannot restore a cleared diary.
+let pendingWrite: Promise<void> = Promise.resolve();
+const diaryStorage = createJSONStorage<CheckInStore>(() => ({
+  getItem: (key) => AsyncStorage.getItem(key),
+  setItem: (key, value) => {
+    const write = pendingWrite.catch(() => {}).then(() => AsyncStorage.setItem(key, value));
+    pendingWrite = write;
+    // Zustand does not await ordinary writes. The erase action observes its own result.
+    void write.catch(() => {});
+    return write;
+  },
+  removeItem: (key) => AsyncStorage.removeItem(key),
+}));
 
 export const useCheckInStore = create<CheckInStore>()(
   persist(
@@ -50,13 +64,20 @@ export const useCheckInStore = create<CheckInStore>()(
         return entries.length > 0 ? entries[entries.length - 1] : null;
       },
 
-      clearHistory: () => {
+      clearHistory: async () => {
+        const previous = get().entries;
         set({ entries: [] });
+        try {
+          await pendingWrite;
+        } catch (error) {
+          set((state) => ({ entries: [...previous, ...state.entries] }));
+          throw error;
+        }
       },
     }),
     {
       name: "checkin-storage-kids",
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: diaryStorage,
     }
   )
 );

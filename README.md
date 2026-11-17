@@ -228,6 +228,8 @@ Preparação e instruções de compilação: [FDROID.md](FDROID.md). Acompanhe a
 
 ## Privacidade
 
-O diário, as rotinas, os cartões, os contatos de apoio e as preferências são guardados no aparelho. O desenvolvedor não recebe esses registros pelo app. Para apagar os registros de emoções, abra **Meu Diário**. Os contatos podem ser removidos nas configurações do Cartão de Ajuda. Para apagar todos os dados locais, limpe o armazenamento do app nos ajustes do Android.
+O diário, as rotinas, os cartões, os contatos de apoio e as preferências são guardados no aparelho. O desenvolvedor não recebe esses registros pelo app. Em **Meu Diário → Apagar meu diário**, é possível excluir todos os registros de emoções, inclusive os mais antigos. Rotinas, cartões, contatos e preferências permanecem no aparelho. Os contatos podem ser removidos nas configurações do Cartão de Ajuda. Para apagar todos os dados locais, limpe o armazenamento do app nos ajustes do Android.
 
-Ao preparar um SMS, o app de mensagens recebe o número do contato e o texto do cartão. A pessoa escolhe se quer enviar. Crianças e adolescentes podem pedir ajuda a um adulto de confiança. Contato para dúvidas sobre privacidade: valdenorsa@proton.me.
+Ao preparar um SMS, o app de mensagens recebe o número do contato e o texto do cartão. A pessoa escolhe se quer enviar. SMS e rascunhos mantidos pelo app de mensagens são gerenciados lá. Crianças e adolescentes podem pedir ajuda a um adulto de confiança. Contato para dúvidas sobre privacidade: valdenorsa@proton.me.
+
+Em **Configurações → Para responsáveis**, há um atalho para os ajustes do TEA Kids no Android e orientações para acompanhar e limitar o tempo de uso com o Family Link em aparelhos supervisionados. Um limite aplicado pelo Android pode afetar o acesso ao Cartão de Ajuda.

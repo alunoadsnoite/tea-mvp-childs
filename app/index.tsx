@@ -19,6 +19,8 @@ export default function HomeScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <Text style={[styles.welcomeText, { color: colors.text }]}>{t("Olá!")} <Text importantForAccessibility="no">👋</Text></Text>
         
+        <Text style={{ color: colors.textSecondary, marginBottom: 12 }}>{t("Para crianças e adolescentes autistas")}</Text>
+
         {/* Ação principal — Cartão de Ajuda */}
         <Link href="/crisis-card" asChild>
           <Pressable
