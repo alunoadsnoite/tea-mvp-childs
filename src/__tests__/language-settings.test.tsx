@@ -1,6 +1,6 @@
 import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Alert, Linking, Pressable } from "react-native";
+import { Alert, Clipboard, Linking, Pressable } from "react-native";
 import renderer, { act } from "react-test-renderer";
 import Settings from "../../app/settings";
 import english from "@/lib/en-US.json";
@@ -65,6 +65,24 @@ test("opens the developer address and explains what to do when email cannot open
   expect(alert).toHaveBeenCalledWith(
     "No se pudo abrir el correo", "Envía un correo a valdenorsa@proton.me."
   );
+  act(() => screen.unmount());
+});
+
+test("offers Pix and GitHub Sponsors in the localized settings", async () => {
+  useLanguageStore.getState().setLanguage("es-ES");
+  const copy = jest.spyOn(Clipboard, "setString").mockImplementation(() => {});
+  const open = jest.spyOn(Linking, "openURL").mockRejectedValue(new Error("No browser"));
+  let screen!: renderer.ReactTestRenderer;
+  await act(async () => { screen = renderer.create(<Settings />); });
+  const button = (label: string) => screen.root.findAllByType(Pressable).find(
+    (control) => control.props.accessibilityLabel === label
+  )!;
+  act(() => button("📋 Copiar clave Pix").props.onPress());
+  expect(copy).toHaveBeenCalledWith(expect.stringMatching(/^[0-9a-f-]{36}$/));
+  expect(JSON.stringify(screen.toJSON())).toContain("Clave Pix copiada.");
+  await act(async () => { await button("GitHub Sponsors").props.onPress(); });
+  expect(open).toHaveBeenCalledWith("https://github.com/sponsors/alunoadsnoite");
+  expect(JSON.stringify(screen.toJSON())).toContain("No se pudo abrir GitHub Sponsors.");
   act(() => screen.unmount());
 });
 
