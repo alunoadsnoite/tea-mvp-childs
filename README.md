@@ -6,7 +6,12 @@
 
 [Reportar problema](https://github.com/alunoadsnoite/tea-mvp-childs/issues) · [Licença](LICENSE)
 
-<img src="fastlane/metadata/android/pt-BR/images/icon.png" alt="Ícone do TEA Kids" width="104">
+
+## Veja o aplicativo
+
+<img src="fastlane/metadata/android/pt-BR/images/phoneScreenshots/1.jpeg" alt="Tela 1 do TEA Kids" width="240">
+<img src="fastlane/metadata/android/pt-BR/images/phoneScreenshots/2.jpeg" alt="Tela 2 do TEA Kids" width="240">
+
 
 Aplicativo móvel para crianças e adolescentes no Espectro Autista (TEA) focado em **autonomia, previsibilidade e regulação emocional**.
 
