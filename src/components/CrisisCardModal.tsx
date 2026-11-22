@@ -117,7 +117,7 @@ export function CrisisCardModal() {
               <Text style={styles.messageEmoji}>{message.emoji}</Text>
               <Text style={[styles.messageTitle, { color: colors.text }]}>{message.title}</Text>
               <View style={[styles.divider, { backgroundColor: colors.accent }]} />
-              <Text style={[styles.messageContent, { color: colors.textSecondary }]}>{message.content}</Text>
+              <Text style={[styles.messageContent, { color: colors.text }]}>{message.content}</Text>
             </View>
           </ScrollView>
         ))}
@@ -131,7 +131,7 @@ export function CrisisCardModal() {
             accessibilityRole="button"
             accessibilityLabel={t("Abrir telefone para {0}", primaryContact.name)}
           >
-            <Text style={[styles.emergencyButtonText, { color: colors.background }]}>{t("Abrir telefone para {0}", primaryContact.name)}</Text>
+            <Text style={[styles.emergencyButtonText, { color: "#1A1D23" }]}>{t("Abrir telefone para {0}", primaryContact.name)}</Text>
           </Pressable>
 
           <Pressable

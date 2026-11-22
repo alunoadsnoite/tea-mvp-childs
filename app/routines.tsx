@@ -40,13 +40,13 @@ export default function RoutinesListScreen() {
       
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {routines.map((routine) => localizeRoutine(routine, t)).map((routine) => (
-          <View key={routine.id} style={styles.routineCard}>
+          <View key={routine.id} style={[styles.routineCard, { backgroundColor: colors.surface, borderColor: colors.textSecondary }]}>
             <View style={styles.routineHeader}>
               <Text style={styles.routineEmoji}>{routine.emoji}</Text>
               <View style={styles.routineInfo}>
-                <Text style={styles.routineName}>{routine.name}</Text>
+                <Text style={[styles.routineName, { color: colors.text }]}>{routine.name}</Text>
                 {routine.description && (
-                  <Text style={styles.routineDescription}>{routine.description}</Text>
+                  <Text style={[styles.routineDescription, { color: colors.text }]}>{routine.description}</Text>
                 )}
               </View>
             </View>
@@ -55,16 +55,16 @@ export default function RoutinesListScreen() {
               {routine.steps.slice(0, 3).map((step) => (
                 <View key={step.id} style={styles.stepRow}>
                   <Text style={styles.stepEmoji}>{step.emoji}</Text>
-                  <Text style={styles.stepText}>{step.title}</Text>
+                  <Text style={[styles.stepText, { color: colors.text }]}>{step.title}</Text>
                 </View>
               ))}
               {routine.steps.length > 3 && (
-                <Text style={styles.moreSteps}>{t("+{0} passos", routine.steps.length - 3)}</Text>
+                <Text style={[styles.moreSteps, { color: colors.text }]}>{t("+{0} passos", routine.steps.length - 3)}</Text>
               )}
             </View>
 
             <Pressable
-              style={styles.startButton}
+              style={[styles.startButton, { backgroundColor: colors.accent }]}
               onPress={() => handleStartRoutine(routine.id)}
               accessibilityRole="button"
               accessibilityLabel={execution?.routineId === routine.id ? t("Voltar à rotina {0}", routine.name) : t("Começar {0}", routine.name)}
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   stepText: {
+    flex: 1,
     fontSize: 14,
   },
   moreSteps: {
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   startButtonText: {
-    color: "#FFFFFF",
+    color: "#1A1D23",
     fontSize: 16,
     fontWeight: "700",
   },
