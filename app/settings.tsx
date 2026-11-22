@@ -1,10 +1,11 @@
 import { LANGUAGES } from "@/lib/i18n";
 import { useLanguageStore } from "@/stores/languageStore";
 import { useTranslation } from "@/hooks/useTranslation";
-import React from "react";
+import React, { useState } from "react";
 import appConfig from "../app.json";
 import {
   Alert,
+  Clipboard,
   Linking,
   View,
   Text,
@@ -17,6 +18,9 @@ import { Stack, Link } from "expo-router";
 import { useThemeMode } from "@/hooks/useThemeMode";
 import { useHapticFeedback } from "@/hooks/useHapticFeedback";
 
+const PIX_KEY = "81063e93-0c1b-4ddb-8a16-b9be68a75d4e";
+const SPONSORS_URL = "https://github.com/sponsors/alunoadsnoite";
+
 const DEVELOPER_EMAIL = "valdenorsa@proton.me";
 
 export default function SettingsScreen() {
@@ -24,6 +28,7 @@ export default function SettingsScreen() {
   const setLanguage = useLanguageStore((state) => state.setLanguage);
   const { mode, changeMode, colors } = useThemeMode();
   const { trigger } = useHapticFeedback();
+  const [supportMessage, setSupportMessage] = useState("");
 
   const themeOptions: { key: typeof mode; label: string; description: string; emoji: string }[] = [
     { key: "light", label: t("Claro"), description: t("Para ambientes bem iluminados"), emoji: "☀️" },
@@ -152,6 +157,48 @@ export default function SettingsScreen() {
           <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>{t("Acompanhar e limitar o tempo de uso")}</Text>
           <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Acompanhar e limitar o tempo de uso")}</Text>
           <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Se o aparelho estiver sob supervisão no Family Link, abra o Family Link no aparelho do responsável. Selecione a criança e vá a Tempo de tela → Limites de tempo → Limites de apps → TEA Kids. Ali você pode acompanhar o uso e definir um limite.")}</Text>
+          <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>
+            {t("💛 Apoie o desenvolvedor")}
+          </Text>
+          <Pressable
+            style={[styles.optionButton, { borderColor: colors.textSecondary }]}
+            onPress={() => {
+              try {
+                Clipboard.setString(PIX_KEY);
+                setSupportMessage("Chave Pix copiada.");
+              } catch {
+                setSupportMessage("Não foi possível copiar a chave Pix.");
+              }
+            }}
+            accessibilityRole="button"
+            accessibilityLabel={t("📋 Copiar chave Pix")}
+            accessibilityHint={t("Use a chave no aplicativo do seu banco.")}
+          >
+            <Text style={[styles.optionText, styles.optionLabel, { color: colors.text }]}>
+              {t("📋 Copiar chave Pix")}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={[styles.optionButton, { borderColor: colors.textSecondary }]}
+            onPress={async () => {
+              setSupportMessage("");
+              try {
+                await Linking.openURL(SPONSORS_URL);
+              } catch {
+                setSupportMessage("Não foi possível abrir o GitHub Sponsors.");
+              }
+            }}
+            accessibilityRole="link"
+            accessibilityLabel="GitHub Sponsors"
+            accessibilityHint={t("Abre a página de patrocínio no navegador.")}
+          >
+            <Text style={[styles.optionText, styles.optionLabel, { color: colors.text }]}>
+              ↗ GitHub Sponsors
+            </Text>
+          </Pressable>
+          <Text accessibilityLiveRegion="polite" style={[styles.optionDescription, { color: colors.textSecondary }]}>
+            {supportMessage && t(supportMessage)}
+          </Text>
         </View>
 
         {/* Sobre */}
