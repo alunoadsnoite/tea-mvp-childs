@@ -3,15 +3,18 @@ import renderer, { act } from "react-test-renderer";
 import { Pressable, StyleSheet, Text } from "react-native";
 import RoutinesListScreen from "../../app/routines";
 import { ThemeMode, useThemeMode } from "../hooks/useThemeMode";
+import { CrisisCardModal } from "../components/CrisisCardModal";
+import { useCrisisStore } from "../stores/crisisStore";
 import { useRoutineStore } from "../stores/routineStore";
 
+jest.mock("../hooks/useHapticFeedback", () => ({ useHapticFeedback: () => ({ trigger: jest.fn() }) }));
 jest.mock("expo-router", () => ({ Stack: { Screen: () => null }, useRouter: () => ({ push: jest.fn() }) }));
 jest.mock("react-native-safe-area-context", () => ({ SafeAreaView: "SafeAreaView" }));
 
 function Screen({ mode }: { mode: ThemeMode }) {
   const { changeMode } = useThemeMode();
   useEffect(() => { changeMode(mode); }, [changeMode, mode]);
-  return <RoutinesListScreen />;
+  return <><RoutinesListScreen /><CrisisCardModal /></>;
 }
 
 function luminance(hex: string) {
@@ -36,6 +39,9 @@ test.each(["light", "dark"])("routine labels and primary actions remain readable
     expect(label).toBeDefined();
     expect(contrast(StyleSheet.flatten(label.props.style).color, surface)).toBeGreaterThanOrEqual(4.5);
   }
+  const message = useCrisisStore.getState().messages[0];
+  const help = tree.root.findAllByType(Text).find(node => node.props.children === message.content)!;
+  expect(contrast(StyleSheet.flatten(help.props.style).color, surface)).toBeGreaterThanOrEqual(4.5);
   const button = tree.root.findAllByType(Pressable)[0];
   const label = button.findByType(Text);
   expect(contrast(StyleSheet.flatten(label.props.style).color, StyleSheet.flatten(button.props.style).backgroundColor)).toBeGreaterThanOrEqual(4.5);
