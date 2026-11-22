@@ -1,4 +1,5 @@
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import renderer, { act } from "react-test-renderer";
 import { ScrollView, Pressable } from "react-native";
 import { CrisisCardModal } from "../components/CrisisCardModal";
@@ -68,4 +69,38 @@ test("opening a persisted paused routine preserves all execution timestamps", ()
   expect(useRoutineStore.getState().execution).toEqual(saved);
   expect(mockPush).toHaveBeenCalledWith("/routine-execution");
   act(() => tree.unmount());
+});
+
+
+test("rehydrating a paused routine keeps its remaining time when reopened and resumed", async () => {
+  const clock = jest.spyOn(Date, "now");
+  let tree: renderer.ReactTestRenderer | undefined;
+  try {
+    clock.mockReturnValue(1000000);
+    const routine = useRoutineStore.getState().routines[0];
+    useRoutineStore.getState().startExecution(routine.id);
+    clock.mockReturnValue(1030000);
+    useRoutineStore.getState().pauseExecution();
+    const paused = { ...useRoutineStore.getState().execution! };
+    const saved = await AsyncStorage.getItem("routine-storage-kids");
+    expect(saved).not.toBeNull();
+    // Simulate the in-memory state being lost, then load the saved bytes again.
+    useRoutineStore.setState({ execution: null });
+    await AsyncStorage.setItem("routine-storage-kids", saved!);
+    clock.mockReturnValue(1630000);
+    await act(async () => { await useRoutineStore.persist.rehydrate(); });
+    expect(useRoutineStore.getState().execution).toEqual(paused);
+    act(() => { tree = renderer.create(<RoutinesListScreen />); });
+    const button = tree!.root.findAllByType(Pressable).find(p => p.props.accessibilityLabel === `Voltar à rotina ${routine.name}`)!;
+    act(() => button.props.onPress());
+    expect(useRoutineStore.getState().execution).toEqual(paused);
+    act(() => useRoutineStore.getState().resumeExecution());
+    const resumed = useRoutineStore.getState().execution!;
+    expect(resumed.isPaused).toBe(false);
+    expect(resumed.stepEndsAt! - Date.now()).toBe(paused.stepEndsAt! - paused.pausedAt!);
+    expect(resumed.currentStepIndex).toBe(paused.currentStepIndex);
+  } finally {
+    if (tree) act(() => tree!.unmount());
+    clock.mockRestore();
+  }
 });
