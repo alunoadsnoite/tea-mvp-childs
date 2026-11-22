@@ -391,6 +391,7 @@ const styles = StyleSheet.create({
   },
   itemHeader: {
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "flex-start",
     gap: 12,
   },
@@ -399,6 +400,7 @@ const styles = StyleSheet.create({
   },
   itemInfo: {
     flex: 1,
+    minWidth: "60%",
   },
   itemTitle: {
     fontSize: 16,
@@ -410,11 +412,15 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   itemActions: {
+    width: "100%",
+    flexWrap: "wrap",
     flexDirection: "row",
     gap: 8,
   },
   actionButton: {
-    padding: 4,
+    minHeight: 48,
+    justifyContent: "center",
+    padding: 8,
   },
   actionButtonText: {
     color: "#63B3ED",

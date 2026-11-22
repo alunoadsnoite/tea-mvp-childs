@@ -64,3 +64,14 @@ test.each(["light", "dark"])("editor uses explicit readable text and field color
   expect(useCrisisStore.getState().messages.slice(-1)[0]).toMatchObject({ title: "Cartão fictício", content: "Preciso de uma pausa tranquila." });
   act(() => tree.unmount());
 });
+
+
+test("message actions have their own wrapping row and usable touch targets", () => {
+  let tree!: renderer.ReactTestRenderer;
+  act(() => { tree = renderer.create(<CrisisSettingsScreen />); });
+  const edit = tree.root.findAllByType(Pressable).find(button => button.findAllByType(Text).some(text => text.props.children === "Editar"))!;
+  expect(StyleSheet.flatten(edit.props.style).minHeight).toBeGreaterThanOrEqual(48);
+  const row = StyleSheet.flatten(edit.parent!.props.style);
+  expect(row).toMatchObject({ width: "100%", flexWrap: "wrap" });
+  act(() => tree.unmount());
+});
