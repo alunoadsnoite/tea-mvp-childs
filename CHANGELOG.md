@@ -1,4 +1,4 @@
-# Unreleased
+# 1.1.16
 
 - Adicionado francês (Français) com 287 traduções, seleção persistente de idioma e widget Android traduzido.
 - Textos personalizados continuam preservados.

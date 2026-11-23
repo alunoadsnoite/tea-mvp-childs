@@ -1,0 +1,1 @@
+Adds French (Français) to the interface, built-in routines and cards, and the Android widget. The language choice is saved and custom text is preserved.
