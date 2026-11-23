@@ -143,3 +143,7 @@ Em **Configurações → Para responsáveis**, há um atalho para os ajustes do 
 ## Como contribuir
 
 Sugestões, traduções e relatos de problemas são bem-vindos. Abra uma issue com o contexto e o comportamento esperado. Para alterações de código, explique a mudança e os testes realizados no pull request. Use dados fictícios nos exemplos e nas capturas.
+
+### Idiomas
+
+Em **Configurações → Idioma**, escolha Português (Brasil), English, Español ou Français. A escolha fica salva no aparelho. Os conteúdos padrão são traduzidos; os textos personalizados são preservados. O widget acompanha o idioma do Android.

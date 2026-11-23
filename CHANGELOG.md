@@ -1,3 +1,8 @@
+# Unreleased
+
+- Adicionado francês (Français) com 287 traduções, seleção persistente de idioma e widget Android traduzido.
+- Textos personalizados continuam preservados.
+
 # Histórico de versões
 
 #### v1.1.14
