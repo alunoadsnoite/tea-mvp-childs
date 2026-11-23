@@ -39,6 +39,7 @@ Arquivos-fonte:
 | `widget/android/crisis_widget_values.xml` | `android/app/src/main/res/values/crisis_widget.xml` |
 | `widget/android/crisis_widget_values_en.xml` | `android/app/src/main/res/values-en/crisis_widget.xml` |
 | `widget/android/crisis_widget_values_es.xml` | `android/app/src/main/res/values-es/crisis_widget.xml` |
+| `widget/android/crisis_widget_values_fr.xml` | `android/app/src/main/res/values-fr/crisis_widget.xml` |
 
 ## Como testar
 

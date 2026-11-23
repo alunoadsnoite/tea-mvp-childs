@@ -1,0 +1,1 @@
+Adiciona francês (Français) à interface, às rotinas e aos cartões padrão. Inclui tradução do widget Android. A escolha de idioma fica salva e os textos personalizados são preservados.

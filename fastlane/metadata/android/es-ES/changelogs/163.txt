@@ -1,0 +1,1 @@
+Añade francés (Français) a la interfaz, las rutinas y tarjetas predeterminadas y el widget de Android. Se guarda el idioma elegido y se conservan los textos personalizados.

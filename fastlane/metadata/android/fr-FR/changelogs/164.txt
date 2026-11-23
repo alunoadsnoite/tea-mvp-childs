@@ -1,0 +1,1 @@
+Ajoute le français à l’interface, aux routines et cartes par défaut et au widget Android. La langue choisie est enregistrée et les textes personnalisés sont conservés.

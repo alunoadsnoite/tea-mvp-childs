@@ -4,6 +4,7 @@ import { Alert, Clipboard, Linking, Pressable } from "react-native";
 import renderer, { act } from "react-test-renderer";
 import Settings from "../../app/settings";
 import english from "@/lib/en-US.json";
+import french from "@/lib/fr-FR.json";
 import spanish from "@/lib/es-ES.json";
 import { translate } from "@/lib/i18n";
 import { localizeCrisisMessage, localizeRoutine } from "@/lib/localizedContent";
@@ -27,6 +28,7 @@ beforeEach(async () => {
 afterEach(() => jest.restoreAllMocks());
 
 test.each([
+  ["Français", "Choisis l’apparence de l’application"],
   ["English", "Choose how the app looks"],
   ["Español", "Elige la apariencia de la aplicación"],
 ])("updates the interface and restores %s from storage", async (label, text) => {
@@ -86,23 +88,26 @@ test("offers Pix and GitHub Sponsors in the localized settings", async () => {
   act(() => screen.unmount());
 });
 
-test("translates built-in content while keeping saved edits and identifiers", () => {
-  const t = translate["en-US"];
+test.each([
+  ["en-US", "I need help", "Wake up"],
+  ["fr-FR", "J’ai besoin d’aide", "Se réveiller"],
+] as const)("translates %s built-in content while keeping saved edits and identifiers", (language, title, stepTitle) => {
+  const t = translate[language];
   const message = { ...DEFAULT_MESSAGES[0], content: "Meu texto personalizado {0}" };
   expect(localizeCrisisMessage(message, t)).toMatchObject({
-    id: message.id, content: message.content, title: "I need help",
+    id: message.id, content: message.content, title,
   });
   const routine = DEFAULT_ROUTINES[0];
   expect(localizeRoutine(routine, t).steps[0]).toMatchObject({
-    id: routine.steps[0].id, title: "Wake up", estimatedMinutes: routine.steps[0].estimatedMinutes,
+    id: routine.steps[0].id, title: stepTitle, estimatedMinutes: routine.steps[0].estimatedMinutes,
   });
 });
 
-test("both catalogs preserve the same interpolation tokens", () => {
+test.each([[spanish], [french]])("catalog preserves all keys and interpolation tokens", (catalog) => {
   const tokens = (value: string) => (value.match(/\{\d+\}/g) ?? []).sort();
-  expect(Object.keys(spanish).sort()).toEqual(Object.keys(english).sort());
+  expect(Object.keys(catalog).sort()).toEqual(Object.keys(english).sort());
   for (const [key, value] of Object.entries(english)) {
     expect(tokens(value)).toEqual(tokens(key));
-    expect(tokens(spanish[key as keyof typeof spanish])).toEqual(tokens(key));
+    expect(tokens(catalog[key as keyof typeof catalog])).toEqual(tokens(key));
   }
 });
