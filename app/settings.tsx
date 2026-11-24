@@ -154,8 +154,15 @@ export default function SettingsScreen() {
             <Text style={[styles.optionLabel, { color: colors.text }]}>{t("Abrir ajustes do TEA Kids no Android")}</Text>
           </Pressable>
           <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Dúvidas sobre privacidade: {0}.", DEVELOPER_EMAIL)}</Text>
+          <Pressable
+            accessibilityRole="button"
+            style={[styles.optionButton, { borderColor: colors.textSecondary }]}
+            onPress={() => void contactDeveloper()}
+          >
+            <Text style={[styles.optionLabel, { color: colors.text }]}>{t("Relatar problema de privacidade ou segurança")}</Text>
+          </Pressable>
+          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Descreva o problema sem incluir nomes, diagnósticos ou registros de crianças.")}</Text>
           <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>{t("Acompanhar e limitar o tempo de uso")}</Text>
-          <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Acompanhar e limitar o tempo de uso")}</Text>
           <Text style={[styles.sectionDescription, { color: colors.textSecondary }]}>{t("Se o aparelho estiver sob supervisão no Family Link, abra o Family Link no aparelho do responsável. Selecione a criança e vá a Tempo de tela → Limites de tempo → Limites de apps → TEA Kids. Ali você pode acompanhar o uso e definir um limite.")}</Text>
           <Text accessibilityRole="header" style={[styles.sectionTitle, { color: colors.text }]}>
             {t("💛 Apoie o desenvolvedor")}

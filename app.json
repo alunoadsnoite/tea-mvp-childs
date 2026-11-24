@@ -2,7 +2,7 @@
   "expo": {
     "name": "TEA Kids",
     "slug": "tea-mvp-childs",
-    "version": "1.1.16",
+    "version": "1.1.17",
     "orientation": "default",
     "scheme": "tea-kids",
     "userInterfaceStyle": "automatic",
@@ -26,11 +26,18 @@
         "foregroundImage": "./assets/adaptive-icon.png"
       },
       "package": "com.teakids.app",
-      "versionCode": 16,
+      "versionCode": 17,
       "blockedPermissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.SYSTEM_ALERT_WINDOW"
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.INTERNET",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED"
       ]
     },
     "plugins": [
